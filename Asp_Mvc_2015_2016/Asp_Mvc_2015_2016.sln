@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asp_Mvc_2015_2016", "Asp_Mvc_2015_2016\Asp_Mvc_2015_2016.csproj", "{B58A65E8-58B2-4074-A340-276404DDD851}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B58A65E8-58B2-4074-A340-276404DDD851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B58A65E8-58B2-4074-A340-276404DDD851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B58A65E8-58B2-4074-A340-276404DDD851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B58A65E8-58B2-4074-A340-276404DDD851}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
