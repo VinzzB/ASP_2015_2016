@@ -188,8 +188,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Adres.cs" />
+    <Compile Include="Models\Departement.cs" />
+    <Compile Include="Models\Factuur.cs" />
+    <Compile Include="Models\FactuurDetails.cs" />
+    <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Klant.cs" />
+    <Compile Include="Models\KlantFacturatie.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Rol.cs" />
+    <Compile Include="Models\TypeWerk.cs" />
+    <Compile Include="Models\UurRegistratie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
