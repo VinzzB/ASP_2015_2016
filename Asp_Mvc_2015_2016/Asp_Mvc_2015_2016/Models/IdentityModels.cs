@@ -21,7 +21,7 @@ namespace Asp_Mvc_2015_2016.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("FacturatieDBContext", throwIfV1Schema: false)
         {
         }
 

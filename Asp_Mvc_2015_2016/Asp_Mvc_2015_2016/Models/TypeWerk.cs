@@ -9,5 +9,7 @@ namespace Asp_Mvc_2015_2016.Models
     {
         public int Id { get; set; }
         public string WerkType { get; set; }
+        public DateTime GeldigVanaf { get; set; }
+        public Decimal TariefPerUur { get; set; }
     }
 }

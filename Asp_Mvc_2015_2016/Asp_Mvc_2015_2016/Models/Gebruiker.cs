@@ -15,12 +15,12 @@ namespace Asp_Mvc_2015_2016.Models
         public string Tel { get; set; }
         public string Gsm { get; set; }
         // gebruiker en departement is many to many relatie -> apart model voor link tussen gebruiker en departement?
-        //public List<Departement> Departement { get; set; }
-        public int DepartementId { get; set; }
-        //public List<Klant> Klant { get; set; }
-        public int KlantId { get; set; }
-        //public Rol Rol { get; set; }
-        public int RolId { get; set; }
+        public virtual ICollection<Departement> Departementen { get; set; }
+
+        public virtual ICollection<Klant> Klanten { get; set; }
+     //   public int KlantId { get; set; }
+        public virtual Rol Rol { get; set; }
+
 
     }
 }
