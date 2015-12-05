@@ -190,6 +190,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Adres.cs" />
     <Compile Include="Models\Departement.cs" />
+    <Compile Include="Models\FacturatieDBContext.cs" />
     <Compile Include="Models\Factuur.cs" />
     <Compile Include="Models\FactuurDetails.cs" />
     <Compile Include="Models\Gebruiker.cs" />
