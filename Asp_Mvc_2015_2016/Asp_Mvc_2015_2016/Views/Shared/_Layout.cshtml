@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using Asp_Mvc_2015_2016.Resources
+
+@{
+    //   ViewBag.Title = "Create";
+    var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+}
+@helper selected(string choice, string culture)
+{
+    if (choice == culture || culture.Contains(choice))
+    {
+        @:checked = "checked";
+    }
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -30,6 +43,27 @@
         </div>
     </div>
     <div class="container body-content">
+        @using (Html.BeginForm("SetCulture", ViewContext.RouteData.Values["controller"].ToString(), new { returnaction = ViewContext.RouteData.Values["action"] }, FormMethod.Post))
+        {
+            <fieldset>
+                <legend>@CultureResource.AppTitle</legend>
+                <div class="control-group">
+                    <div class="controls">
+                        <label for="en">
+                            <input name="culture" id="en" value="en" type="radio" @selected("en", culture) /> English
+                        </label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <label for="nl">
+                            <input name="culture" id="nl" value="nl" type="radio" @selected("nl", culture) /> Nederlands
+                        </label>
+                    </div>
+                </div>
+
+            </fieldset>
+        }
         @RenderBody()
         <hr />
         <footer>
@@ -40,5 +74,15 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript">
+        (function ($) {
+            $("input[type = 'radio']").click(function () {
+                $(this).parents("form").submit();
+            });
+
+        })(jQuery);
+        </script>
+
 </body>
 </html>

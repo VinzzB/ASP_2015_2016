@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : CultureController // Controller
     {
         public ActionResult Index()
         {
