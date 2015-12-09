@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Asp_Mvc_2015_2016.Models
 {
+    [Table("Klanten")]
     public class Klant
     {
         public int Id { get; set; }
@@ -12,7 +14,6 @@ namespace Asp_Mvc_2015_2016.Models
         public string NaamBedrijf { get; set; }
         public Adres Adres { get; set; }
         // gebruiker en klant is many to many relatie ? -> apart model voor link tussen gebruiker en klant?
-        public int GebruikerId { get; set; }
-        public List<Gebruiker> Gebruiker { get; set; }
+        public ICollection<Gebruiker> Gebruiker { get; set; }
     }
 }
