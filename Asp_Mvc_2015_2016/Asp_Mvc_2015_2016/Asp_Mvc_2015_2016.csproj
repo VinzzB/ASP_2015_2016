@@ -182,9 +182,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdresController.cs" />
     <Compile Include="Controllers\CultureController.cs" />
+    <Compile Include="Controllers\DepartementController.cs" />
+    <Compile Include="Controllers\FactuurController.cs" />
     <Compile Include="Controllers\GebruikersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KlantController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -284,6 +288,26 @@
     <Content Include="Views\Gebruikers\Details.cshtml" />
     <Content Include="Views\Gebruikers\Edit.cshtml" />
     <Content Include="Views\Gebruikers\Index.cshtml" />
+    <Content Include="Views\Adres\Create.cshtml" />
+    <Content Include="Views\Adres\Delete.cshtml" />
+    <Content Include="Views\Adres\Details.cshtml" />
+    <Content Include="Views\Adres\Edit.cshtml" />
+    <Content Include="Views\Adres\Index.cshtml" />
+    <Content Include="Views\Departement\Create.cshtml" />
+    <Content Include="Views\Departement\Delete.cshtml" />
+    <Content Include="Views\Departement\Details.cshtml" />
+    <Content Include="Views\Departement\Edit.cshtml" />
+    <Content Include="Views\Departement\Index.cshtml" />
+    <Content Include="Views\Factuur\Create.cshtml" />
+    <Content Include="Views\Factuur\Delete.cshtml" />
+    <Content Include="Views\Factuur\Details.cshtml" />
+    <Content Include="Views\Factuur\Edit.cshtml" />
+    <Content Include="Views\Factuur\Index.cshtml" />
+    <Content Include="Views\Klant\Create.cshtml" />
+    <Content Include="Views\Klant\Delete.cshtml" />
+    <Content Include="Views\Klant\Details.cshtml" />
+    <Content Include="Views\Klant\Edit.cshtml" />
+    <Content Include="Views\Klant\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,56 @@
+﻿@model Asp_Mvc_2015_2016.Models.Factuur
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Factuur</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FactuurJaar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FactuurJaar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FactuurNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FactuurNr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FactuurDatum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FactuurDatum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Totaal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Totaal)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

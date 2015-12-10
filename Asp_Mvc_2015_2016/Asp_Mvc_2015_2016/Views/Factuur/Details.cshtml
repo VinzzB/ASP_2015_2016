@@ -1,0 +1,50 @@
+﻿@model Asp_Mvc_2015_2016.Models.Factuur
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Factuur</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FactuurJaar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FactuurJaar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FactuurNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FactuurNr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FactuurDatum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FactuurDatum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Totaal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Totaal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
