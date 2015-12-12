@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
-    public class CultureController : Controller
+    public class BaseController : Controller
     {
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {

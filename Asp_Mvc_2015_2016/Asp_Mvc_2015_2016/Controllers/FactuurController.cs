@@ -10,7 +10,7 @@ using Asp_Mvc_2015_2016.Models;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
-    public class FactuurController : CultureController
+    public class FactuurController : BaseController
     {
         private FacturatieDBContext db = new FacturatieDBContext();
 

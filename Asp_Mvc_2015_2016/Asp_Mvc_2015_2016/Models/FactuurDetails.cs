@@ -7,10 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Asp_Mvc_2015_2016.Models
 {
     [Table("FactuurDetails")]
-    public class FactuurDetails
+    public class FactuurDetails : _BaseInfo
     {
-        public int Id { get; set; }
-        public Factuur Factuur { get; set; }
+     //   public int Id { get; set; }
+        public virtual Factuur Factuur { get; set; }
 
         //hoofdgegevens
         public string Omschrijving { get; set; }        

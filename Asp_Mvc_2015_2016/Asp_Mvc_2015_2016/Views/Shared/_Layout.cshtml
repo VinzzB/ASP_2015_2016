@@ -1,16 +1,5 @@
 ﻿@using Asp_Mvc_2015_2016.Resources
 
-@{
-    //   ViewBag.Title = "Create";
-    var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
-}
-@helper selected(string choice, string culture)
-{
-    if (choice == culture || culture.Contains(choice))
-    {
-        @:checked = "checked";
-    }
-}
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +20,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                                   
+                
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -39,31 +31,12 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
+                @Html.Partial("_CulturePartial")
             </div>
+            
         </div>
     </div>
     <div class="container body-content">
-        @using (Html.BeginForm("SetCulture", ViewContext.RouteData.Values["controller"].ToString(), new { returnaction = ViewContext.RouteData.Values["action"] }, FormMethod.Post))
-        {
-            <fieldset>
-                <legend>@CultureResource.AppTitle</legend>
-                <div class="control-group">
-                    <div class="controls">
-                        <label for="en">
-                            <input name="culture" id="en" value="en" type="radio" @selected("en", culture) /> English
-                        </label>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <label for="nl">
-                            <input name="culture" id="nl" value="nl" type="radio" @selected("nl", culture) /> Nederlands
-                        </label>
-                    </div>
-                </div>
-
-            </fieldset>
-        }
         @RenderBody()
         <hr />
         <footer>
@@ -73,16 +46,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-        @Scripts.Render("~/bundles/jqueryval")
-        <script type="text/javascript">
-        (function ($) {
-            $("input[type = 'radio']").click(function () {
-                $(this).parents("form").submit();
-            });
-
-        })(jQuery);
-        </script>
-
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("Scripts", required: false)
+    @Scripts.Render("~/bundles/main") <!-- Kan niet in een partial view staan. Hoort bij _CulturePartial -->
 </body>
 </html>

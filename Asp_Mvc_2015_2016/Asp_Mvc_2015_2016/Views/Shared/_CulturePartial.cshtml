@@ -1,0 +1,36 @@
+﻿@using Asp_Mvc_2015_2016.Resources
+
+@{
+    //   ViewBag.Title = "Create";
+    var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+    var cultureName = System.Threading.Thread.CurrentThread.CurrentUICulture.EnglishName;
+}
+@helper selected(string choice, string culture)
+{
+    if (choice == culture || culture.Contains(choice))
+    {
+        @:class = "active";
+    }
+}
+
+<!-- A bootstrap dropsown in navbar. Aligned Right -->
+@using (Html.BeginForm("SetCulture",
+                        ViewContext.RouteData.Values["controller"].ToString(),
+                        new { returnaction = ViewContext.RouteData.Values["action"] },
+                        FormMethod.Post, new { id = "cultureForm" }))
+{
+    <input type="hidden" name="culture" value="@culture" id="culturevalue" />
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
+                Taal (@cultureName)
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li id="nl" @selected("nl", culture)><a href="#">Dutch</a></li>
+                <li id="en" @selected("en", culture)><a href="#">English</a></li>
+            </ul>
+        </li>
+
+    </ul>
+}

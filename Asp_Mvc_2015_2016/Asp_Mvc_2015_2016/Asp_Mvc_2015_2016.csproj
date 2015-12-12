@@ -183,7 +183,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdresController.cs" />
-    <Compile Include="Controllers\CultureController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DepartementController.cs" />
     <Compile Include="Controllers\FactuurController.cs" />
     <Compile Include="Controllers\GebruikersController.cs" />
@@ -198,9 +198,12 @@
     <Compile Include="DAL\FacturatieInitializer.cs" />
     <Compile Include="Models\Departement.cs" />
     <Compile Include="DAL\FacturatieDBContext.cs" />
+    <Compile Include="Models\DepartementGebruikers.cs" />
+    <Compile Include="Models\DepartementKlanten.cs" />
     <Compile Include="Models\Factuur.cs" />
     <Compile Include="Models\FactuurDetails.cs" />
     <Compile Include="Models\Gebruiker.cs" />
+    <Compile Include="Models\GebruikerKlanten.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Klant.cs" />
     <Compile Include="Models\KlantFacturatie.cs" />
@@ -239,6 +242,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -308,6 +312,8 @@
     <Content Include="Views\Klant\Details.cshtml" />
     <Content Include="Views\Klant\Edit.cshtml" />
     <Content Include="Views\Klant\Index.cshtml" />
+    <Content Include="Views\Shared\_CulturePartial.cshtml" />
+    <Content Include="Views\Shared\ViewPageTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

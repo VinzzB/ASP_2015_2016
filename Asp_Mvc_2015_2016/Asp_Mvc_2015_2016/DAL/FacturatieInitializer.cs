@@ -28,9 +28,10 @@ namespace Asp_Mvc_2015_2016.Models
                 Login = "admin",
                 Voornaam = "System",
                 Achternaam = "Administrator",
-                Rol = rolAdmin,
-                Departementen = new List<Departement>() { dep1 }
+                Rol = rolAdmin
+                //Departementen = new List<DepartementGebruikers>() { new DepartementGebruikers() {departement=dep1 } }
             };
+            context.Gebruikers.Add(admin);
 
             Gebruiker depAdmin = new Gebruiker()
             {
@@ -38,12 +39,17 @@ namespace Asp_Mvc_2015_2016.Models
                 Voornaam = "Department",
                 Achternaam = "Administrator",
                 Rol = rolAdmin,
-                Departementen = new List<Departement>() { dep2 }
+                CreatedBy = admin
+                //Departementen = new List<DepartementGebruikers>() { dep2 }
             };
 
-            context.Gebruikers.Add(admin);
+            
             context.Gebruikers.Add(depAdmin);
 
+            context.DepartementGebruikers.Add(new DepartementGebruiker() { Departement = dep1, Gebruiker = admin });
+            context.DepartementGebruikers.Add(new DepartementGebruiker() { Departement = dep2, Gebruiker = admin });
+            context.DepartementGebruikers.Add(new DepartementGebruiker() { Departement = dep2, Gebruiker = depAdmin });
+            
             context.SaveChanges();
 
             //base.Seed(context);

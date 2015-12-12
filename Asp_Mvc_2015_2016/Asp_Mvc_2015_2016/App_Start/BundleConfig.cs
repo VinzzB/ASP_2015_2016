@@ -8,6 +8,9 @@ namespace Asp_Mvc_2015_2016
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //Added by vinzz: main script (for language)
+            bundles.Add(new ScriptBundle("~/bundles/main").Include("~/Scripts/main.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 

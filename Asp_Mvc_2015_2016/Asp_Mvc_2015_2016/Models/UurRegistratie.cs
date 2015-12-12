@@ -9,12 +9,12 @@ namespace Asp_Mvc_2015_2016.Models
     [Table("Uurregistraties")]
     public class UurRegistratie : _BaseInfo
     {
-        public int Id { get; set; }
+   //     public int Id { get; set; }
         public FactuurDetails factuurDetails { get; set; }
         //detailgegevens
         public DateTime StartDatum { get; set; }
         public DateTime EindDatum { get; set; }
-        public TypeWerk TypeWerk { get; set; }
+        public virtual TypeWerk TypeWerk { get; set; }
         public bool TeFactureren { get; set; }
     }
 }
