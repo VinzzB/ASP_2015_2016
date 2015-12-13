@@ -2,25 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data.Entity;
-using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNet.Identity;
 namespace Asp_Mvc_2015_2016.Models
-{
-    public abstract class _BaseInfo
-    {
-        public int Id { get; set; }
-        [Column(name: "CreatedBy")]
-        public virtual Gebruiker CreatedBy { get; set; }
-        public DateTime? CreatedOn { get; set; }
+{    
+    /// <summary>Default _BaseInfo class (With an integer type as Id field</summary>
+    public abstract class _BaseInfo : _BaseInfo<int> { }
 
-        //History for last change. 
-        [Column(name: "EditedBy")]
-        public virtual Gebruiker EditedBy { get; set; }
-        public DateTime? EditedOn { get; set; }
+    /// <summary>_BaseInfo class With custom type as Id field. The type is passed as typeparam.</summary>
+    /// <typeparam name="T">The used type for the Id field.</typeparam>
+    public abstract class _BaseInfo<T>
+    {
+        public T Id { get; set; }
+
+        public string    CreatedById { get; set; }     
+        public DateTime? CreatedOn   { get; set; }
+
+        public string    EditedById { get; set; }
+        public DateTime? EditedOn   { get; set; }
+
+        /* No 'virtuals' allowed in abstract class! */
+        /* Virtuals from FK's are placed in concrete classes */
+        //public virtual Gebruiker CreatedBy { get; set; }
+        //public virtual Gebruiker EditedBy { get; set; }
 
         public _BaseInfo()
         {
-        //    CreatedBy = HttpContext.Current.User
+            /* DEFAULTS (not sure if this is the correct way) */
+            CreatedById = HttpContext.Current.User.Identity.GetUserId(); //Referenced in Microsoft.AspNet.Identity!
             CreatedOn = DateTime.Now;
         }
     }

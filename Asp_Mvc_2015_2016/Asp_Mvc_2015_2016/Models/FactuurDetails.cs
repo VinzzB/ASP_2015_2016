@@ -7,9 +7,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Asp_Mvc_2015_2016.Models
 {
     [Table("FactuurDetails")]
-    public class FactuurDetails : _BaseInfo
+    public class FactuurDetails  : _BaseInfo
     {
-     //   public int Id { get; set; }
         public virtual Factuur Factuur { get; set; }
 
         //hoofdgegevens
@@ -21,5 +20,9 @@ namespace Asp_Mvc_2015_2016.Models
         public ICollection<UurRegistratie> uurRegistratie {get;set;}
         //netto lijnwaarde?
         public int lijnwaarde { get; set; }
+
+        /* Virtuals from FK in base class */
+        public virtual Gebruiker CreatedBy { get; set; }
+        public virtual Gebruiker EditedBy { get; set; }
     }
 }

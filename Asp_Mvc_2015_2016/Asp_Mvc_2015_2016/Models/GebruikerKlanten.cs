@@ -6,10 +6,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Asp_Mvc_2015_2016.Models
 {
     [Table("GebruikersKlanten")]
-    public class GebruikerKlanten // : _BaseInfo //--> loopt fout, maakt dubbele kolom gebruiker_id aan???
+    public class GebruikerKlanten  : _BaseInfo 
     {
-        public int Id { get; set; }
         public virtual Gebruiker Gebruiker { get; set; }
         public virtual Klant Klant { get; set; }
+
+        /* Virtuals from FK in base class */
+        public virtual Gebruiker CreatedBy { get; set; }
+        public virtual Gebruiker EditedBy { get; set; }
     }
 }

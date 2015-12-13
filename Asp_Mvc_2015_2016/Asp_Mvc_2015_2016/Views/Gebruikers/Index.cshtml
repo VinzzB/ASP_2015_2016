@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Login)
+            @Html.DisplayNameFor(model => model.UserName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Voornaam)
@@ -24,16 +24,16 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tel)
+            @Html.DisplayNameFor(model => model.PhoneNumber)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Gsm)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rol)
+            @Html.DisplayNameFor(model => model.Roles)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
+          @*  @Html.DisplayNameFor(model => model.CreatedBy) *@
         </th>
         <th></th>
     </tr>
@@ -41,7 +41,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Login)
+            @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Voornaam)
@@ -53,16 +53,16 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Tel)
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Gsm)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Rol.RolBenaming)
+            @Html.DisplayFor(modelItem => item.RolesAsString)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy.Achternaam)
+  @*          @Html.DisplayFor(modelItem => item.CreatedBy.Achternaam) *@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

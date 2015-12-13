@@ -48,10 +48,11 @@ namespace Asp_Mvc_2015_2016.Models
 
     public class LoginViewModel
     {
+        //VB: Changed Login from Mail to Username (Which it actually is in the controller...)
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "UserName")]
+      //  [EmailAddress]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,10 +65,23 @@ namespace Asp_Mvc_2015_2016.Models
 
     public class RegisterViewModel
     {
+        //VB: Added username on Registrationform
         [Required]
-        [EmailAddress]
+        [MinLength(4)]
+        public string UserName { get; set; } 
+
+        [Required]
+        [EmailAddress]  
         [Display(Name = "Email")]
         public string Email { get; set; }
+        //VB: Added Voornaam, Achternaam on Registrationform
+        [Required]
+        [Display(Name = "Voornaam")]
+        public string Voornaam { get; set; }
+
+        [Required]
+        [Display(Name = "Achternaam")]
+        public string Achternaam { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

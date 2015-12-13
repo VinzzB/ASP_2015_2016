@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
-
+using Microsoft.AspNet.Identity.EntityFramework;
 namespace Asp_Mvc_2015_2016.Models
 {
-    public class FacturatieDBContext : DbContext
+    //VB: inherit van IdentityDbContext<Gebruiker>
+    // comment existing entities (Gebruikers, Rol) --> IdentityUser, IdentityRole
+    public class FacturatieDBContext :  IdentityDbContext<Gebruiker> // DbContext
     {
         //tabellen sql server
         public DbSet<Adres> Adressen { get; set; }
         public DbSet<Departement> Departementen { get; set; }
         public DbSet<Factuur> Facturen { get; set; }
         public DbSet<FactuurDetails> Factuurdetails { get; set; }
-        public DbSet<Gebruiker> Gebruikers { get; set; }
+        //     public DbSet<Gebruiker> Gebruikers { get; set; }
         public DbSet<Klant> Klanten { get; set; }
-    //    public DbSet<KlantFacturatie> KlantFacturaties { get; set; }
-        public DbSet<Rol> Rol { get; set; }
+        //    public DbSet<KlantFacturatie> KlantFacturaties { get; set; }
+   //     public DbSet<Rol> Rol { get; set; }
         public DbSet<TypeWerk> WerkTypes { get; set; }
         public DbSet<UurRegistratie> GeregistreerdeUren { get; set; }
         public DbSet<DepartementGebruiker> DepartementGebruikers { get; set; }
@@ -33,18 +35,24 @@ namespace Asp_Mvc_2015_2016.Models
          */
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //Maak een self referencing Entity (CF) voor CreatedBy
-            modelBuilder.Entity<Gebruiker>()
-                        .HasOptional(o => o.CreatedBy)      //allow null
-                        .WithMany();                         //not unique
-                        //.HasForeignKey(i => i.CreatedById); //map with FK field.
-
-            //Maak een self referencing Entity (CF) voor EditedBy
-            modelBuilder.Entity<Gebruiker>()
-                        .HasOptional(o => o.EditedBy)
-                        .WithMany();  
-            
+            base.OnModelCreating(modelBuilder);
+            //Wijzig tabelnamen van AspUser tabellen.
+            modelBuilder.Entity<Gebruiker>().ToTable("Gebruikers");           
+            modelBuilder.Entity<IdentityUserRole>().ToTable("GebruikersRollen");
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("GebruikersLogin");
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("GebruikersClaim");
+            modelBuilder.Entity<IdentityRole>().ToTable("Rollen");
         }
+        //VB: Used by OWIN to initialize the DbContext in the UserManager
+        public static FacturatieDBContext Create()
+        {
+            return new FacturatieDBContext();
+        }
+        //VB: Create DbContext (and map as SQL-Server in VS).
+        public FacturatieDBContext()
+            : base("FacturatieDBContext", throwIfV1Schema: false)
+        { }
+
     }
     
 }

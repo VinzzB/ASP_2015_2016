@@ -190,6 +190,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KlantController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Models\NewGebruiker.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,13 +203,10 @@
     <Compile Include="Models\DepartementKlanten.cs" />
     <Compile Include="Models\Factuur.cs" />
     <Compile Include="Models\FactuurDetails.cs" />
-    <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\GebruikerKlanten.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\Klant.cs" />
-    <Compile Include="Models\KlantFacturatie.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\TypeWerk.cs" />
     <Compile Include="Models\UurRegistratie.cs" />
     <Compile Include="Models\_BaseInfo.cs" />

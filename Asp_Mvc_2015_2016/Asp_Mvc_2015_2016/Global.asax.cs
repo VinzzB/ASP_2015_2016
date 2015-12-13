@@ -13,6 +13,7 @@ namespace Asp_Mvc_2015_2016
     {
         protected void Application_Start()
         {
+         //   UnityConfig.RegisterComponents(); //VinzzB: TODO: register ioc (unity)
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
