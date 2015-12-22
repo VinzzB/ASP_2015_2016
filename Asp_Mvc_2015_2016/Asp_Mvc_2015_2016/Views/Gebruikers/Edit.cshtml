@@ -1,4 +1,9 @@
-﻿@model Asp_Mvc_2015_2016.Models.Gebruiker
+﻿@*
+    Vinzz: renamed model naar 'GebruikersIndexViewModel' en changed lambdas to 'user.'
+
+*@
+
+@model Asp_Mvc_2015_2016.ViewModels.GebruikersIndexViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -14,56 +19,66 @@
     <div class="form-horizontal">
         <h4>Gebruiker</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })               
+        @Html.HiddenFor(model => model.User.Id)
         @* VB: Changed field to Username *@
         <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">                
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.User.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Voornaam, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.User.Voornaam, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Voornaam, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Voornaam, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.User.Voornaam, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.Voornaam, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Achternaam, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.User.Achternaam, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Achternaam, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Achternaam, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.User.Achternaam, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.Achternaam, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.User.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.User.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.Email, "", new { @class = "text-danger" })
             </div>
         </div>
         @* VB: Changed field to PhoneNumber *@
         <div class="form-group">
-            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.User.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.User.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.PhoneNumber, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Gsm, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.User.Gsm, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Gsm, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Gsm, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.User.Gsm, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.Gsm, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.RoleName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @*@Html.DropDownList("RoleName", Model, new { @class = "form-control" })*@
+                @Html.DropDownListFor(m => m.RoleName, Model.AllRoles, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RoleName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

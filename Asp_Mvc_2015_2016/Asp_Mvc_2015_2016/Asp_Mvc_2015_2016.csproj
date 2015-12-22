@@ -222,6 +222,7 @@
       <DependentUpon>CultureResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\GebruikersIndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -311,7 +312,6 @@
     <Content Include="Views\Klant\Edit.cshtml" />
     <Content Include="Views\Klant\Index.cshtml" />
     <Content Include="Views\Shared\_CulturePartial.cshtml" />
-    <Content Include="Views\Shared\ViewPageTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

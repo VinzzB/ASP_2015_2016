@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations.Schema;
+using Asp_Mvc_2015_2016.Controllers;
+using System.Web;
+using System.Web.Mvc;
 namespace Asp_Mvc_2015_2016.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     //VB: Merged ApplicationUser met Gebruiker. Inherts from IdentityUser!!!
+    [Bind(Include = "Id,UserName,Voornaam,Achternaam,Email,PhoneNumber,Gsm")]
     public class Gebruiker : IdentityUser
     {
      //   public string Login { get; set; }  -->  Equals 'UserName' property in IdentityUser 
@@ -36,22 +40,17 @@ namespace Asp_Mvc_2015_2016.Models
         public virtual ICollection<Adres> AdressenUpdated { get; set; }
 
         //TODO: andere entities mappen met CreatedBy, EditedBy.
-
+        
 
         //VB: Copied method from Applicationuser classe
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Gebruiker> manager)
-        {
+        {            
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
         }
 
-        //VB: Added method to use in views (TODO: only shows one role atm)
-        [NotMapped]
-        public string RolesAsString {
-            get { return Roles == null || Roles.Count == 0 ? null : Roles.ElementAt(0).RoleId; } 
-        }
     }
 
     //VB: Copied from ApplicationUser but Merged with FacturatieDbContext. code is Obsolete

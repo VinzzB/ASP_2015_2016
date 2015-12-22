@@ -11,6 +11,7 @@ namespace Asp_Mvc_2015_2016.Models
     public class NewGebruiker : RegisterViewModel
     {
         public string PhoneNumber { get; set; }
-        public string Gsm { get; set; }        
+        public string Gsm { get; set; }
+        public String RoleName { get; set; } //not the id, but the real Role name!!!
     }
 }

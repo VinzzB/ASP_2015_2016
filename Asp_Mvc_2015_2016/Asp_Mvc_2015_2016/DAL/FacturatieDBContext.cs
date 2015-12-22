@@ -25,14 +25,7 @@ namespace Asp_Mvc_2015_2016.Models
         public DbSet<DepartementKlanten> DepartementKlanten { get; set; }
         public DbSet<GebruikerKlanten> GebruikersKlanten { get; set; }
 
-        /*
-         * Lost probleem op met de abstracte classe '_baseInfo' op de 'Gebruiker' classe: 
-         * An exception of type 'System.InvalidOperationException' occurred in EntityFramework.dll but was not handled in user code
-         * Additional information: Unable to determine the principal end of an association between the types 
-         * 'Asp_Mvc_2015_2016.Models.Gebruiker' and 'Asp_Mvc_2015_2016.Models.Gebruiker'. 
-         * The principal end of this association must be explicitly configured using either the relationship fluent API or 
-         * data annotations.
-         */
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -50,7 +43,7 @@ namespace Asp_Mvc_2015_2016.Models
         }
         //VB: Create DbContext (and map as SQL-Server in VS).
         public FacturatieDBContext()
-            : base("FacturatieDBContext", throwIfV1Schema: false)
+            : base("FacturatieDBContext")
         { }
 
     }

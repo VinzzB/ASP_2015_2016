@@ -27,8 +27,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Gebruikers", "Index", "Gebruikers")</li>
-                    <li>@Html.ActionLink("Departementen", "Index", "Departement")</li>
+                    
+                    @* VB: Added if statement as POC in a VIEW *@
+                    @if (User.IsInRole("Systeem Administrator") || User.IsInRole("Departement Administrator")) { 
+                        <li>@Html.ActionLink("Gebruikers", "Index", "Gebruikers")</li>
+                        <li>@Html.ActionLink("Departementen", "Index", "Departement")</li>
+                    }                                        
                 </ul>
                 @Html.Partial("_LoginPartial")
                 @Html.Partial("_CulturePartial")

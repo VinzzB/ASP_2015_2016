@@ -1,4 +1,5 @@
 ﻿@using Asp_Mvc_2015_2016.Models
+@using Microsoft.AspNet.Identity.EntityFramework;
 @model NewGebruiker
 
 @{
@@ -80,7 +81,15 @@
                 @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @*VB: ADDED COMBOBOX FOR ROLE *@
+        <div class="form-group">
+            @Html.LabelFor(m => m.RoleName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownList("RoleName")
+                @*@Html.DropDownListFor(m => m.RoleName, Model.Roles, new { @class = "form-control" })*@
+                @Html.ValidationMessageFor(model => model.RoleName, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

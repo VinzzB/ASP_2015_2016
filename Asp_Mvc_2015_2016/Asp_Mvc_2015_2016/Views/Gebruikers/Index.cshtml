@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Asp_Mvc_2015_2016.Models.Gebruiker>
+﻿@model IEnumerable<Asp_Mvc_2015_2016.ViewModels.GebruikersIndexViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,25 +12,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
+            @Html.DisplayNameFor(model => model.User.UserName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Voornaam)
+            @Html.DisplayNameFor(model => model.User.Voornaam)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Achternaam)
+            @Html.DisplayNameFor(model => model.User.Achternaam)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.User.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            @Html.DisplayNameFor(model => model.User.PhoneNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Gsm)
+            @Html.DisplayNameFor(model => model.User.Gsm)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Roles)
+            @Html.DisplayNameFor(model => model.RoleName)
         </th>
         <th>
           @*  @Html.DisplayNameFor(model => model.CreatedBy) *@
@@ -41,33 +41,34 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.UserName)
+            @Html.DisplayFor(modelItem => item.User.UserName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Voornaam)
+            @Html.DisplayFor(modelItem => item.User.Voornaam)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Achternaam)
+            @Html.DisplayFor(modelItem => item.User.Achternaam)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
+            @Html.DisplayFor(modelItem => item.User.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
+            @Html.DisplayFor(modelItem => item.User.PhoneNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Gsm)
+            @Html.DisplayFor(modelItem => item.User.Gsm)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RolesAsString)
+            @Html.DisplayFor(modelItem => item.RoleName)
+            @*@Html.DisplayText(((Asp_Mvc_2015_2016.Controllers.GebruikersController)ViewContext.Controller).UserRole(item.UserRoleId))*@
         </td>
         <td>
   @*          @Html.DisplayFor(modelItem => item.CreatedBy.Achternaam) *@
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.User.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.User.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.User.Id })
         </td>
     </tr>
 }
