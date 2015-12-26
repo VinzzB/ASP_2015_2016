@@ -190,6 +190,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KlantController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DAL\DepartementRepository.cs" />
+    <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
+    <Compile Include="Migrations\201512101525530_InitialCreate.cs" />
+    <Compile Include="Migrations\201512101525530_InitialCreate.Designer.cs">
+      <DependentUpon>201512101525530_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512252013030_initial.cs" />
+    <Compile Include="Migrations\201512252013030_initial.Designer.cs">
+      <DependentUpon>201512252013030_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NewGebruiker.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -325,6 +337,12 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512101525530_InitialCreate.resx">
+      <DependentUpon>201512101525530_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512252013030_initial.resx">
+      <DependentUpon>201512252013030_initial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\CultureResource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CultureResource.en.Designer.cs</LastGenOutput>

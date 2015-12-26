@@ -7,17 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Asp_Mvc_2015_2016.Models;
+using Asp_Mvc_2015_2016.DAL;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
     public class DepartementController : BaseController
     {
-        private FacturatieDBContext db = new FacturatieDBContext();
+        private UnitOfWork unitOfWork = new UnitOfWork();
+        //private FacturatieDBContext db = new FacturatieDBContext();
 
         // GET: Departement
         public ActionResult Index()
         {
-            return View(db.Departementen.ToList());
+            return View(unitOfWork.DepartementRepository.GetAll());
+            //return View(db.Departementen.ToList());
         }
 
         // GET: Departement/Details/5
@@ -27,7 +30,8 @@ namespace Asp_Mvc_2015_2016.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Departement departement = db.Departementen.Find(id);
+            //Departement departement = db.Departementen.Find(id);
+            Departement departement = unitOfWork.DepartementRepository.GetById(id);
             if (departement == null)
             {
                 return HttpNotFound();
@@ -50,8 +54,10 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Departementen.Add(departement);
-                db.SaveChanges();
+                unitOfWork.DepartementRepository.Add(departement);
+                unitOfWork.Save();
+                //db.Departementen.Add(departement);
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +71,8 @@ namespace Asp_Mvc_2015_2016.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Departement departement = db.Departementen.Find(id);
+            Departement departement = unitOfWork.DepartementRepository.GetById(id);
+            //Departement departement = db.Departementen.Find(id);
             if (departement == null)
             {
                 return HttpNotFound();
@@ -82,8 +89,10 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(departement).State = EntityState.Modified;
-                db.SaveChanges();
+                unitOfWork.DepartementRepository.context.Entry(departement).State = EntityState.Modified;
+                unitOfWork.Save();
+                //db.Entry(departement).State = EntityState.Modified;
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(departement);
@@ -96,7 +105,8 @@ namespace Asp_Mvc_2015_2016.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Departement departement = db.Departementen.Find(id);
+            Departement departement = unitOfWork.DepartementRepository.GetById(id);
+            //Departement departement = db.Departementen.Find(id);
             if (departement == null)
             {
                 return HttpNotFound();
@@ -109,9 +119,12 @@ namespace Asp_Mvc_2015_2016.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Departement departement = db.Departementen.Find(id);
-            db.Departementen.Remove(departement);
-            db.SaveChanges();
+            Departement departement = unitOfWork.DepartementRepository.GetById(id);
+            //Departement departement = db.Departementen.Find(id);
+            unitOfWork.DepartementRepository.Delete(id);
+            //db.Departementen.Remove(departement);
+            unitOfWork.Save();
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +132,8 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
+                //db.Dispose();
             }
             base.Dispose(disposing);
         }

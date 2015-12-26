@@ -10,6 +10,8 @@ namespace Asp_Mvc_2015_2016.Models
 {
     public class DepartementGebruiker  : _BaseInfo
     {
+        //deze klasse moet toch niet geschreven worden? EF maakt automatisch een joint table?
+
         public virtual Departement Departement { get; set; }
         public virtual Gebruiker Gebruiker { get; set; }
 
