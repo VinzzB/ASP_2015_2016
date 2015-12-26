@@ -119,9 +119,12 @@ namespace Asp_Mvc_2015_2016.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Departement departement = db.Departementen.Find(id);
-            db.Departementen.Remove(departement);
-            db.SaveChanges();
+            Departement departement = unitOfWork.DepartementRepository.GetById(id);
+            //Departement departement = db.Departementen.Find(id);
+            unitOfWork.DepartementRepository.Delete(id);
+            //db.Departementen.Remove(departement);
+            unitOfWork.Save();
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -129,7 +132,8 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
+                //db.Dispose();
             }
             base.Dispose(disposing);
         }

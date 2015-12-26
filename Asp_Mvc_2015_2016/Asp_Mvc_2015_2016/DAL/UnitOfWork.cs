@@ -45,7 +45,7 @@ namespace Asp_Mvc_2015_2016.DAL
             context.SaveChanges();
         }
 
-        protected virtual void Dispose()
+        public void Dispose()
         {
             if (!this.disposed)
             {
