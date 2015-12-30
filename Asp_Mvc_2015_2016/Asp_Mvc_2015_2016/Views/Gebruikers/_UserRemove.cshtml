@@ -1,0 +1,66 @@
+﻿@using Asp_Mvc_2015_2016.Resources
+@using Asp_Mvc_2015_2016.Models
+@using Asp_Mvc_2015_2016.ViewModels
+@model  GenericUserFormViewModel<Gebruiker>
+@if (Model.User.UserName != "admin")
+{
+    <h3>@CultureResource.DeleteQuestion</h3>
+}
+else
+{ 
+    <h3>De standaard gebruiker 'Admin' kan niet verwijderd worden!</h3>
+}
+<div>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(m => m.User.UserName)</dt>
+        <dd>@Html.DisplayFor(m => m.User.UserName)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.User.Voornaam)</dt>
+        <dd>@Html.DisplayFor(m => m.User.Voornaam)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.User.Achternaam)</dt>
+        <dd>@Html.DisplayFor(m => m.User.Achternaam)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.User.Email)</dt>
+        <dd>@Html.DisplayFor(m => m.User.Email)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.User.PhoneNumber)</dt>
+        <dd>@Html.DisplayFor(m => m.User.PhoneNumber)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.User.Gsm)</dt>
+        <dd>@Html.DisplayFor(m => m.User.Gsm)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.RoleName)</dt>
+        <dd>@Html.DisplayFor(m => m.RoleName)</dd>
+
+    </dl>
+    <div class="col-md-12">
+        @if (Model.User.UserName != "admin")
+        {
+            using (Ajax.BeginForm("Delete",
+                                  new { id = Model.User.Id },
+                                  new AjaxOptions()
+                                  {
+                                      HttpMethod = "POST",
+                                      UpdateTargetId = "Gebruikerslijst",
+                                      OnFailure = "NewUserFailed",
+                                      OnSuccess = "NewUserSuccess"
+                                  }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="@CultureResource.Delete" class="btn btn-danger pull-right" />                    
+                </div>
+            }
+        }
+        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">@CultureResource.Close</button>
+    </div>
+    <div class="row">
+        <br />
+        <div id="UserResultMessage" class="alert alert-dismissible" hidden="hidden">
+            <button type="button" class="close" onclick="$(this).parent('div#UserResultMessage').fadeOut()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span id="message"></span>
+        </div>
+    </div>
+</div>

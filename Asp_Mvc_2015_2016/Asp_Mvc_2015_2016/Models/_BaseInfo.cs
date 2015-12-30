@@ -20,16 +20,22 @@ namespace Asp_Mvc_2015_2016.Models
         public string    EditedById { get; set; }
         public DateTime? EditedOn   { get; set; }
 
-        /* No 'virtuals' allowed in abstract class! */
-        /* Virtuals from FK's are placed in concrete classes */
+
+        /* No 'virtuals' allowed in abstract class! 
+         * Navigation properties moeten in conrete classe gezet worden */
         //public virtual Gebruiker CreatedBy { get; set; }
         //public virtual Gebruiker EditedBy { get; set; }
 
         public _BaseInfo()
         {
-            /* DEFAULTS (not sure if this is the correct way) */
-            CreatedById = HttpContext.Current.User.Identity.GetUserId(); //Referenced in Microsoft.AspNet.Identity!
-            CreatedOn = DateTime.Now;
+            try //try needed for PM> Update-Database command. (Null exception on HttpContext...)
+            {
+                /* DEFAULTS (not sure if this is the correct way) */
+                CreatedById = HttpContext.Current.User.Identity.GetUserId(); //Referenced in Microsoft.AspNet.Identity!
+                CreatedOn = DateTime.Now;
+            }
+            catch (Exception)
+            { }            
         }
     }
 

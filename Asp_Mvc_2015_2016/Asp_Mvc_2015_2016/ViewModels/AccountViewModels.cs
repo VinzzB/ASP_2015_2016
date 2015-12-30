@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+//VB: ADDED RESOURCES EN CLASS VERPLAATST NAAR VIEWMODELS FOLDER.
 namespace Asp_Mvc_2015_2016.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(Resources.CultureResource))]
         public string Email { get; set; }
     }
 
@@ -42,7 +43,7 @@ namespace Asp_Mvc_2015_2016.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(Resources.CultureResource))]
         public string Email { get; set; }
     }
 
@@ -50,16 +51,16 @@ namespace Asp_Mvc_2015_2016.Models
     {
         //VB: Changed Login from Mail to Username (Which it actually is in the controller...)
         [Required]
-        [Display(Name = "UserName")]
+        [Display(Name = "Username", ResourceType= typeof(Resources.CultureResource))]
       //  [EmailAddress]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(Resources.CultureResource))]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "RememberMe", ResourceType = typeof(Resources.CultureResource))]
         public bool RememberMe { get; set; }
     }
 
@@ -68,30 +69,31 @@ namespace Asp_Mvc_2015_2016.Models
         //VB: Added username on Registrationform
         [Required]
         [MinLength(4)]
+        [Display(Name = "Username", ResourceType = typeof(Resources.CultureResource))]
         public string UserName { get; set; } 
 
         [Required]
-        [EmailAddress]  
-        [Display(Name = "Email")]
+        [EmailAddress]
+        [Display(Name = "Email", ResourceType = typeof(Resources.CultureResource))]
         public string Email { get; set; }
         //VB: Added Voornaam, Achternaam on Registrationform
         [Required]
-        [Display(Name = "Voornaam")]
+        [Display(Name = "Firstname", ResourceType = typeof(Resources.CultureResource))]
         public string Voornaam { get; set; }
 
         [Required]
-        [Display(Name = "Achternaam")]
+        [Display(Name = "Lastname", ResourceType = typeof(Resources.CultureResource))]
         public string Achternaam { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, MinimumLength = 6, ErrorMessageResourceName="ValidationLengthError", ErrorMessageResourceType= typeof(Resources.CultureResource))]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(Resources.CultureResource))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "PasswordConfirm", ResourceType = typeof(Resources.CultureResource))]
+        [Compare("Password", ErrorMessageResourceName="PasswordMatchError", ErrorMessageResourceType=typeof(Resources.CultureResource))]
         public string ConfirmPassword { get; set; }
     }
 
@@ -99,18 +101,18 @@ namespace Asp_Mvc_2015_2016.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(Resources.CultureResource))]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, MinimumLength = 6, ErrorMessageResourceName = "ValidationLengthError", ErrorMessageResourceType = typeof(Resources.CultureResource))]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(Resources.CultureResource))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "PasswordConfirm", ResourceType = typeof(Resources.CultureResource))]
+        [Compare("Password", ErrorMessageResourceName = "PasswordMatchError", ErrorMessageResourceType = typeof(Resources.CultureResource))]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -120,7 +122,7 @@ namespace Asp_Mvc_2015_2016.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(Resources.CultureResource))]
         public string Email { get; set; }
     }
 }

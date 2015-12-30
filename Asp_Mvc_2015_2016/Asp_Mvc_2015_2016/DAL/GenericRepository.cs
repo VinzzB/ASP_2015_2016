@@ -12,20 +12,18 @@ namespace Asp_Mvc_2015_2016.DAL
         internal FacturatieDBContext context;
         internal DbSet<T> DbSet {get; set; }
 
-        public GenericRepository()
-        {
-            context = new FacturatieDBContext();
-            DbSet = context.Set<T>();
-        }
+        public GenericRepository() : this(new FacturatieDBContext())
+        { }
 
         public GenericRepository(FacturatieDBContext context)
         {
             this.context = context;
+            DbSet = context.Set<T>();
         }
 
         public T GetById(int? id)
         {
-            return DbSet.Find(id);
+            return  DbSet.Find(id);
         }
 
         public List<T> GetAll()

@@ -11,8 +11,9 @@ namespace Asp_Mvc_2015_2016
             //Added by vinzz: main script (for language)
             bundles.Add(new ScriptBundle("~/bundles/main").Include("~/Scripts/main.js"));
 
+            //vb: added ajax bij jquery bundle...
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

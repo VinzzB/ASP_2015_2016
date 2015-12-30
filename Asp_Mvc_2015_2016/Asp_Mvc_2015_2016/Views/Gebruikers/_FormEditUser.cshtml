@@ -1,0 +1,105 @@
+﻿@using Asp_Mvc_2015_2016.Resources
+@using Asp_Mvc_2015_2016.ViewModels
+@using Asp_Mvc_2015_2016.Models
+@model GenericUserFormViewModel<Gebruiker>
+
+@{
+    Object disabledCtl = new { @class = "form-control", disabled = "disabled" };
+    Object enabledCtl = new { @class = "form-control" };
+}
+
+@*@using (Html.BeginForm())*@
+@using (Ajax.BeginForm("User_Edit", new AjaxOptions() { UpdateTargetId = "Gebruikerslijst", OnFailure = "NewUserFailed", OnSuccess = "NewUserSuccess" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.User.Id) //only admins are allowed for editing users, so this is not directly a security breach.. Otherwise extra server validation is required!    
+    if (Model.User.UserName == "admin") 
+    { 
+        @Html.HiddenFor(m => m.User.UserName) //needed when editing the 'admin' user
+        @Html.HiddenFor(m => m.RoleName) //needed when editing the 'admin' user (role voor admin is beveiligd op serverniveau)
+    }
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.UserName, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.User.UserName, new { htmlAttributes = Model.User.UserName == "admin" ? disabledCtl : enabledCtl })
+            @Html.ValidationMessageFor(model => model.User.UserName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(m => m.RoleName, new { @class = "control-label" })
+            @Html.DropDownListFor(m => m.RoleName,
+                                    Model.AllRoles,
+                                    (Model.User.UserName == "admin" || !User.IsInRole("Systeem Administrator") ? disabledCtl : enabledCtl))
+            @Html.ValidationMessageFor(model => model.RoleName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="clearfix"></div> <!-- We kunnen ook de kolommen iedere keer in een row div wrappen, dit is cleaner... -->
+       
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.Voornaam, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.User.Voornaam, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.User.Voornaam, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.Achternaam, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.User.Achternaam, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.User.Achternaam, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="clearfix"></div> <!--solves overflow on next form-group!-->
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.Email, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.User.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.User.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.PhoneNumber, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.User.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.User.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>        
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.Gsm, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.User.Gsm, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.User.Gsm, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="clearfix"></div>          
+    <div class="col-md-12">
+        <div id="UserResultMessage" class="alert alert-dismissible" hidden="hidden">
+            <button type="button" class="close" onclick="$(this).parent('div#UserResultMessage').fadeOut()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span id="message"></span>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            @if(Model.User.UserName!="admin"){                          
+                @Ajax.ActionLink(CultureResource.Delete,
+                                     "Load_User_Form",
+                                     new { id = Model.User.Id, type = "del" },
+                                     new AjaxOptions
+                                     {
+                                         LoadingElementDuration = 250,
+                                         LoadingElementId = "FormAjaxLoading",
+                                         HttpMethod = "POST",
+                                         OnSuccess = "loadUserFormSuccess",
+                                     }, new { data_title = CultureResource.User + ": " + CultureResource.Delete, @class = "btn btn-danger"})
+            }
+            <input type="submit" value="@CultureResource.Save" class="btn btn-primary pull-right" />
+            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">@CultureResource.Cancel</button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+}

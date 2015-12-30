@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - @CultureResource.AppTitle</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -20,20 +20,35 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                                   
-                
-
+                @Html.ActionLink(CultureResource.AppTitle, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })                                                  
             </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="@(ViewContext.RouteData.Values["controller"].ToString()=="Home" ? "active": "")">
+                        <a href="@Url.Action("Index", "Home")">
+                            <span class="glyphicon glyphicon-home"></span>
+                            Home
+                        </a>
+                    </li>
                     
-                    @* VB: Added if statement as POC in a VIEW *@
-                    @if (User.IsInRole("Systeem Administrator") || User.IsInRole("Departement Administrator")) { 
-                        <li>@Html.ActionLink("Gebruikers", "Index", "Gebruikers")</li>
-                        <li>@Html.ActionLink("Departementen", "Index", "Departement")</li>
-                    }                                        
+                    @if (User.IsInRole("Systeem Administrator"))
+                    {
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString()=="Gebruikers" ? "active": "")">
+                            <a href="@Url.Action("Index", "Gebruikers")">
+                                <span class="glyphicon glyphicon-user"></span>
+                                @CultureResource.Users
+                            </a>
+                            @*@Html.ActionLink(CultureResource.Users, "Index", "Gebruikers")*@
+                        </li>
+                    }
+                    
+                    @if (User.IsInRole("Systeem Administrator") || User.IsInRole("Departement Administrator"))
+                    {                                          
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Departement" ? "active" : "")">
+                            @Html.ActionLink(CultureResource.Departments, "Index", "Departement")
+                        </li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
                 @Html.Partial("_CulturePartial")
@@ -52,6 +67,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery.unobstrusive-ajax.min.js")
     @RenderSection("Scripts", required: false)
     @Scripts.Render("~/bundles/main") <!-- Kan niet in een partial view staan. Hoort bij _CulturePartial -->
 </body>

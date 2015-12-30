@@ -1,0 +1,60 @@
+﻿@using Asp_Mvc_2015_2016.Models
+@using Asp_Mvc_2015_2016.ViewModels
+@model GenericUserFormViewModel<Gebruiker>
+<div>
+    <h4>Algemeen</h4>
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(m => m.User.UserName)</dt>
+        <dd>@Html.DisplayFor(m => m.User.UserName)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.User.Voornaam)</dt>
+        <dd>@Html.DisplayFor(m => m.User.Voornaam)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.User.Achternaam)</dt>
+        <dd>@Html.DisplayFor(m => m.User.Achternaam)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.User.Email)</dt>
+        <dd>@Html.DisplayFor(m => m.User.Email)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.User.PhoneNumber)</dt>
+        <dd>@Html.DisplayFor(m => m.User.PhoneNumber)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.User.Gsm)</dt>
+        <dd>@Html.DisplayFor(m => m.User.Gsm)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.RoleName)</dt>
+        <dd>@Html.DisplayFor(m => m.RoleName)</dd>
+    </dl>    
+</div>
+<div>
+    @Html.Partial("_UserDepartmentsTable", Model.User.Departementen.Select(d => d.Departement).ToList());
+</div>
+<div>
+    @Html.Partial("_UserKlantenTable", Model.User.Klanten.Select(k => k.Klant).ToList());
+</div>
+<p>
+    @Ajax.ActionLink(CultureResource.Edit,
+                                     "Load_User_Form",
+                                     new { id = Model.User.Id, type = "edit" },
+                                     new AjaxOptions
+                                     {
+                                         LoadingElementDuration = 250,
+                                         LoadingElementId = "FormAjaxLoading",
+                                         HttpMethod = "POST",
+                                         OnSuccess = "loadUserFormSuccess",
+                                     }, new { data_title = CultureResource.User + ": " + CultureResource.Edit })
+    @if(Model.User.UserName!="admin"){      
+    Write(" | ");
+    @Ajax.ActionLink(CultureResource.Delete,
+                                     "Load_User_Form",
+                                     new { id = Model.User.Id, type = "del" },
+                                     new AjaxOptions
+                                     {
+                                         LoadingElementDuration = 250,
+                                         LoadingElementId = "FormAjaxLoading",
+                                         HttpMethod = "POST",
+                                         OnSuccess = "loadUserFormSuccess",
+                                     }, new { data_title = CultureResource.User + ": " + CultureResource.Delete })
+    }
+    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">@CultureResource.Close</button>
+</p>

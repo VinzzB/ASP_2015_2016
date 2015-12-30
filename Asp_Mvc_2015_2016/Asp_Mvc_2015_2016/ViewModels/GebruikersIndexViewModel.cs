@@ -1,44 +1,37 @@
 ﻿using Asp_Mvc_2015_2016.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
 namespace Asp_Mvc_2015_2016.ViewModels
 {
-    //VB: wrapped Gebruikers classe with a Role property...
-    public class GebruikersIndexViewModel
+    /// <summary>
+    /// This class bundles data for the 'Gebruikers' index screen. (ajax-based)
+    /// </summary>
+    //// <typeparam name="T">The </typeparam>
+    public class GebruikersIndexViewModel<T> //where T : new()
     {
-        public Gebruiker User {get;set;}
-        public String RoleName{get;set;}
+        public List<GenericUserFormViewModel<Gebruiker>> Users { get; set; }
+        public GenericUserFormViewModel<NewGebruiker> User { get; set; }
+     //   public GenericUserFormViewModel<Gebruiker> EditUser { get; set; }
+        //public String FormPatialViewName { get; private set; }
 
-        public List<SelectListItem> AllRoles { get; set; } //a list for the combobox.
-
+        /// <summary>
+        /// INTERNAL CTOR: DO NOT USE!
+        /// </summary>
         public GebruikersIndexViewModel()
         {
-
+        //    /*DEFAULT CTOR */
+            Users = new List<GenericUserFormViewModel<Gebruiker>>();
+            User = new GenericUserFormViewModel<NewGebruiker>(); //(new T());
         }
 
-        public GebruikersIndexViewModel(Gebruiker User, String RoleName, List<String> allRoles) : this(User,RoleName)
+        public GebruikersIndexViewModel(List<GenericUserFormViewModel<Gebruiker>> users, List<String> allRoles, String userRoleName = "Gebruiker")
         {
-            //create a list for the Role combobox.
-            AllRoles = allRoles.ConvertAll(p => new SelectListItem() { Text = p, Value = p, Selected = (p == RoleName) });
+            Users = users;
+            User = new GenericUserFormViewModel<NewGebruiker>(new NewGebruiker(), userRoleName,allRoles);
+            //NewUser = new GenericUserFormViewModel<T>(new NewGebruiker(), userRoleName, allRoles);
         }
-
-        public GebruikersIndexViewModel(Gebruiker User, String RoleName)
-        {
-            this.User = User;
-            this.RoleName = RoleName;
-            //ViewBag.RoleName = new SelectList(db.Roles, "Name", "Name",role); 
-        }
-
-     //   public SelectList AllRoles() { 
-            //return 
-//        }
-
     }
-
-    
 }

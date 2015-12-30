@@ -120,4 +120,109 @@
   <data name="AppTitle" xml:space="preserve">
     <value>Facturatiesysteem</value>
   </data>
+  <data name="BacktoList" xml:space="preserve">
+    <value>Terug naar Lijst</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Nieuw</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijder</value>
+  </data>
+  <data name="DeleteQuestion" xml:space="preserve">
+    <value>Weet je zeker dat je dit wilt verwijderen?</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Departement</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Departementen</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bewerk</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E mail</value>
+  </data>
+  <data name="Firstname" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="HelloUser" xml:space="preserve">
+    <value>Hallo {0}!</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="Lastname" xml:space="preserve">
+    <value>Achternaam</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Aanmelden</value>
+  </data>
+  <data name="LoginHeaderText" xml:space="preserve">
+    <value>Gebruik een lokaal account om in te loggen.</value>
+  </data>
+  <data name="LoginLink" xml:space="preserve">
+    <value>Klik hier om in te loggen</value>
+  </data>
+  <data name="Logoff" xml:space="preserve">
+    <value>Afmelden</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobiel</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="PasswordConfirm" xml:space="preserve">
+    <value>Bevestig wachtwoord</value>
+  </data>
+  <data name="PasswordHasBeenReset" xml:space="preserve">
+    <value>Uw wachtwoord werd gewijzigd.</value>
+  </data>
+  <data name="PasswordMatchError" xml:space="preserve">
+    <value>De wachtwoorden komen niet overeen.</value>
+  </data>
+  <data name="PasswordResetText" xml:space="preserve">
+    <value>Wijzig uw wachtwoord.</value>
+  </data>
+  <data name="PasswordResetTitle" xml:space="preserve">
+    <value>Wachtwoord wijzigen</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefoon</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Onthoud mij?</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>Wijzigen</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Gebruiker</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Gebruikersnaam</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Gebruikers</value>
+  </data>
+  <data name="ValidationLengthError" xml:space="preserve">
+    <value>Het veld '{0}' moet minstens {2} karakters bevatten.</value>
+  </data>
 </root>

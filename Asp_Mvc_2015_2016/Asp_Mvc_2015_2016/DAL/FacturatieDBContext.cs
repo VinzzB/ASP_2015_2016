@@ -11,7 +11,7 @@ namespace Asp_Mvc_2015_2016.Models
     public class FacturatieDBContext :  IdentityDbContext<Gebruiker> // DbContext
     {
         //tabellen sql server
-        public DbSet<Adres> Adressen { get; set; }
+     //   public DbSet<Adres> Adressen { get; set; }
         public DbSet<Departement> Departementen { get; set; }
         public DbSet<Factuur> Facturen { get; set; }
         public DbSet<FactuurDetails> Factuurdetails { get; set; }
@@ -22,8 +22,8 @@ namespace Asp_Mvc_2015_2016.Models
         public DbSet<TypeWerk> WerkTypes { get; set; }
         public DbSet<UurRegistratie> GeregistreerdeUren { get; set; }
         public DbSet<DepartementGebruiker> DepartementGebruikers { get; set; }
-        public DbSet<DepartementKlanten> DepartementKlanten { get; set; }
-        public DbSet<GebruikerKlanten> GebruikersKlanten { get; set; }
+        public DbSet<DepartementKlant> DepartementKlanten { get; set; }
+        public DbSet<GebruikerKlant> GebruikersKlanten { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

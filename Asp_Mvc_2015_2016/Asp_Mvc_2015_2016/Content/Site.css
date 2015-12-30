@@ -17,8 +17,15 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+
+/*VB: DISABLED this default mvc behaviour! Using bootstrap columns to align inputs!*/
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
+
+/*VB: Added 'modal-lg' css for larger Modals. uncomment when needed... */
+/*.modal-lg {
+    width: 80%;
+}*/

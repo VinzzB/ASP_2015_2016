@@ -182,7 +182,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdresController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DepartementController.cs" />
     <Compile Include="Controllers\FactuurController.cs" />
@@ -193,32 +192,27 @@
     <Compile Include="DAL\DepartementRepository.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
-    <Compile Include="Migrations\201512101525530_InitialCreate.cs" />
-    <Compile Include="Migrations\201512101525530_InitialCreate.Designer.cs">
-      <DependentUpon>201512101525530_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512252013030_initial.cs" />
-    <Compile Include="Migrations\201512252013030_initial.Designer.cs">
-      <DependentUpon>201512252013030_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201512301352265_InitialCreate.cs" />
+    <Compile Include="Migrations\201512301352265_InitialCreate.Designer.cs">
+      <DependentUpon>201512301352265_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\NewGebruiker.cs" />
+    <Compile Include="ViewModels\NewGebruiker.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Adres.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="DAL\FacturatieInitializer.cs" />
     <Compile Include="Models\Departement.cs" />
     <Compile Include="DAL\FacturatieDBContext.cs" />
-    <Compile Include="Models\DepartementGebruikers.cs" />
-    <Compile Include="Models\DepartementKlanten.cs" />
+    <Compile Include="Models\DepartementGebruiker.cs" />
+    <Compile Include="Models\DepartementKlant.cs" />
     <Compile Include="Models\Factuur.cs" />
     <Compile Include="Models\FactuurDetails.cs" />
-    <Compile Include="Models\GebruikerKlanten.cs" />
+    <Compile Include="Models\GebruikerKlant.cs" />
     <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\Klant.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\TypeWerk.cs" />
     <Compile Include="Models\UurRegistratie.cs" />
     <Compile Include="Models\_BaseInfo.cs" />
@@ -235,6 +229,7 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\GebruikersIndexViewModel.cs" />
+    <Compile Include="ViewModels\GenericUserFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -249,6 +244,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -298,10 +295,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Gebruikers\Create.cshtml" />
-    <Content Include="Views\Gebruikers\Delete.cshtml" />
-    <Content Include="Views\Gebruikers\Details.cshtml" />
-    <Content Include="Views\Gebruikers\Edit.cshtml" />
     <Content Include="Views\Gebruikers\Index.cshtml" />
     <Content Include="Views\Adres\Create.cshtml" />
     <Content Include="Views\Adres\Delete.cshtml" />
@@ -324,9 +317,17 @@
     <Content Include="Views\Klant\Edit.cshtml" />
     <Content Include="Views\Klant\Index.cshtml" />
     <Content Include="Views\Shared\_CulturePartial.cshtml" />
+    <Content Include="Views\Gebruikers\_UsersListControl.cshtml" />
+    <Content Include="Views\Gebruikers\_FormCreateUser.cshtml" />
+    <Content Include="Views\Gebruikers\_FormEditUser.cshtml" />
+    <Content Include="Views\Gebruikers\_UserRemove.cshtml" />
+    <Content Include="Views\Gebruikers\_UserDetails.cshtml" />
+    <Content Include="Views\Gebruikers\_UserDepartmentsTable.cshtml" />
+    <Content Include="Views\Gebruikers\_UserKlantenTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helpers\" />
     <Folder Include="Views\Culture\" />
   </ItemGroup>
   <ItemGroup>
@@ -337,11 +338,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512101525530_InitialCreate.resx">
-      <DependentUpon>201512101525530_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512252013030_initial.resx">
-      <DependentUpon>201512252013030_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512301352265_InitialCreate.resx">
+      <DependentUpon>201512301352265_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CultureResource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

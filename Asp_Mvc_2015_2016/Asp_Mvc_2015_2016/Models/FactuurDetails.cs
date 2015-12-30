@@ -9,8 +9,6 @@ namespace Asp_Mvc_2015_2016.Models
     [Table("FactuurDetails")]
     public class FactuurDetails  : _BaseInfo
     {
-        public virtual Factuur Factuur { get; set; }
-
         //hoofdgegevens
         public string Omschrijving { get; set; }        
         public string Titel { get; set; }

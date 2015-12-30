@@ -1,0 +1,24 @@
+﻿@using Asp_Mvc_2015_2016.Resources
+@using Asp_Mvc_2015_2016.Models
+@using Asp_Mvc_2015_2016.ViewModels
+@using System.Collections.Generic
+@model IEnumerable<Departement>
+
+<h4>@CultureResource.Departments</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Code)</th>
+            <th>@Html.DisplayNameFor(m => m.Omschrijving)</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (Departement item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.Code)</td>
+                    <td>@Html.DisplayFor(m => item.Omschrijving)</td>
+                </tr>
+            }
+    </tbody>
+</table>
