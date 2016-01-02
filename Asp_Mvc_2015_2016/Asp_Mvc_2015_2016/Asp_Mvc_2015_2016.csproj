@@ -190,8 +190,12 @@
     <Compile Include="Controllers\KlantController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DAL\DepartementRepository.cs" />
+    <Compile Include="DAL\FactuurRepository.cs" />
+    <Compile Include="DAL\GebruikerRepository.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\KlantRepository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
+    <Compile Include="DAL\UurRegistratieRepository.cs" />
     <Compile Include="Migrations\201512301352265_InitialCreate.cs" />
     <Compile Include="Migrations\201512301352265_InitialCreate.Designer.cs">
       <DependentUpon>201512301352265_InitialCreate.cs</DependentUpon>

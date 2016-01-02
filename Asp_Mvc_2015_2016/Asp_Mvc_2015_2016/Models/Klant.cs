@@ -16,7 +16,7 @@ namespace Asp_Mvc_2015_2016.Models
         public string Postcode { get; set; }
         public string Adres { get; set; }
 
-        // gebruiker en klant is many to many relatie ? -> apart model voor link tussen gebruiker en klant?
+        // gebruiker en klant: many to many relatie
         [InverseProperty("Klant")]
         public virtual ICollection<GebruikerKlant> Gebruikers { get; set; }
         [InverseProperty("Klant")]
