@@ -29,9 +29,9 @@
 <div>
     @Html.Partial("_UserDepartmentsTable", Model.User.Departementen.Select(d => d.Departement).ToList());
 </div>
-<div>
+@*<div>
     @Html.Partial("_UserKlantenTable", Model.User.Klanten.Select(k => k.Klant).ToList());
-</div>
+</div>*@
 <p>
     @Ajax.ActionLink(CultureResource.Edit,
                                      "Load_User_Form",

@@ -56,13 +56,13 @@ namespace Asp_Mvc_2015_2016.Controllers
         }
         //VB: added for ajax calls on Edit Gebruiker -> updates user list.
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> User_Edit(GenericUserFormViewModel<Gebruiker> viewmodel)
+         public async Task<ActionResult> User_Edit(GenericUserFormViewModel<Gebruiker> viewmodel)
         {
             if (ModelState.IsValid) {               
 
                 //zoek gebruiker in Db
-                var gebr = await UserManager.FindByIdAsync(viewmodel.User.Id);
-
+                var gebr = db.Users.Find(viewmodel.User.Id); // await UserManager.FindByIdAsync(viewmodel.User.Id);
+                
                 if (gebr == null) {
                     return new HttpNotFoundResult("Gebruiker niet gevonden.");
                 }
@@ -85,14 +85,60 @@ namespace Asp_Mvc_2015_2016.Controllers
                 
                 //update model met input.
                 TryUpdateModel(gebr, "User");
+                IdentityResult r ;
+               try
+               {
+
                 //save in db. (check for errors)
-                var r = await UserManager.UpdateAsync(gebr);
-                if (!r.Succeeded)
-                {
-                    Response.StatusCode = 300;
-                    var jdata = new { error = r.Errors.ElementAt(0) };
-                    return Json(jdata, "application/json", JsonRequestBehavior.AllowGet);
-                }
+                //r= await UserManager.UpdateAsync(gebr);
+                //if (r.Succeeded)
+                //{
+                    //remove non selected departments.
+                    foreach (DepartementGebruiker item in gebr.Departementen.Reverse())
+                    {
+                        //.Exists(p => item.Departement.Id == int.Parse(p))
+                        if (!viewmodel.DepartementIds.Contains(item.DepartementId.ToString()))
+                        {
+                            gebr.Departementen.Remove(item);
+                            db.Entry(item).State = EntityState.Deleted;
+                        }
+                    }
+                        //insert new Departements.
+                        // db.Departementen
+                        foreach (String d in viewmodel.DepartementIds)
+                        {
+                            if (!gebr.Departementen.Any(p => p.DepartementId == int.Parse(d)))
+                            {
+                                Departement dep = db.Departementen.Find(int.Parse(d));
+                                DepartementGebruiker dg = new DepartementGebruiker() { Departement = dep, Gebruiker = gebr };
+                                db.DepartementGebruikers.Add(dg);
+                                db.Entry(dg).State = EntityState.Added;
+                                //db.SaveChanges();
+                                
+                                //db.DepartementGebruikers.Add(new DepartementGebruiker() { Departement = dep, Gebruiker = gebr });
+                                gebr.Departementen.Add(dg);
+                                db.Entry(gebr).State = EntityState.Modified;
+                            }
+                        }
+
+                        db.SaveChanges();  
+                //}
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                        throw;
+                    }
+                    
+                    
+             
+                //if (!r.Succeeded)
+                //{
+                //    Response.StatusCode = 300;
+                //    var jdata = new { error = r.Errors.ElementAt(0) };
+                //    return Json(jdata, "application/json", JsonRequestBehavior.AllowGet);
+                //}
+
                 //all OK. return new user list.
                 return PartialView("_UsersListControl", getUsers());
             }
@@ -117,9 +163,13 @@ namespace Asp_Mvc_2015_2016.Controllers
                     switch (type)
                     {
                         case "edit":
-                            return PartialView("_FormEditUser", new GenericUserFormViewModel<Gebruiker>(u, GetUserRole(u.Id), db.Roles.ToList().ConvertAll(p => p.Name)));
+                            return PartialView("_FormEditUser", 
+                                new GenericUserFormViewModel<Gebruiker>(u, 
+                                    GetUserRole(u.Id), 
+                                    db.Roles.ToList().ConvertAll(p => p.Name),
+                                    db.Departementen.ToList(), u.Departementen.Select(p => p.Departement).ToList()));
                         case "new":                            
-                            return PartialView("_FormCreateUser", new GenericUserFormViewModel<NewGebruiker>(new NewGebruiker(), db.Roles.ToList().ConvertAll(p => p.Name)));
+                            return PartialView("_FormCreateUser", new GenericUserFormViewModel<NewGebruiker>(new NewGebruiker(),"Gebruiker", db.Roles.Select(p=>p.Name).ToList()));
                         case "del":
                             return PartialView("_UserRemove", new GenericUserFormViewModel<Gebruiker>(u, GetUserRole(u.Id)));
                         default: ///details

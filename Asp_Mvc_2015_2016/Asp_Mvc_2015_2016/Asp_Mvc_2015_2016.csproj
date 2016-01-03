@@ -193,6 +193,7 @@
     <Compile Include="DAL\FactuurRepository.cs" />
     <Compile Include="DAL\GebruikerRepository.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\KlantRepository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\UurRegistratieRepository.cs" />

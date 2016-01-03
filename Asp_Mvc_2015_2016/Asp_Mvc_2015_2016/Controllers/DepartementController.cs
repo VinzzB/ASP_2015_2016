@@ -13,8 +13,12 @@ namespace Asp_Mvc_2015_2016.Controllers
 {
     public class DepartementController : BaseController
     {
-        private UnitOfWork unitOfWork = new UnitOfWork();
+        private IUnitOfWork unitOfWork;// = new UnitOfWork();
         //private FacturatieDBContext db = new FacturatieDBContext();
+        public DepartementController(IUnitOfWork uow)
+        {
+            unitOfWork = uow;
+        }
 
         // GET: Departement
         public ActionResult Index()

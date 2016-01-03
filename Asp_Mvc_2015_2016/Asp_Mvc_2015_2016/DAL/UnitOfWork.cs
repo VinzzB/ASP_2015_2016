@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Asp_Mvc_2015_2016.DAL
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable, IUnitOfWork
     {
         private FacturatieDBContext context = new FacturatieDBContext();
         private GenericRepository<Departement> departementRepository;
