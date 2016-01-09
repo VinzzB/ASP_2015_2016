@@ -77,8 +77,8 @@ namespace Asp_Mvc_2015_2016.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Ondernemingsnr,NaamBedrijf")] Klant klant)
+        [ValidateAntiForgeryToken] //tegen spoofing, checken dat data van onze form binnenkomt
+        public ActionResult Edit([Bind(Include = "Id,Ondernemingsnr,NaamBedrijf")] Klant klant) // de props Gebruikers, Departementen, CreatedBy en EditedBy worden zo excluded en kunnen niet geset worden zonder constructor die voorwaarden kan stelden aan bvb Gebruiker
         {
             if (ModelState.IsValid)
             {
