@@ -201,18 +201,6 @@
     <Compile Include="DAL\KlantRepository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\UurRegistratieRepository.cs" />
-    <Compile Include="Migrations\201512301352265_InitialCreate.cs" />
-    <Compile Include="Migrations\201512301352265_InitialCreate.Designer.cs">
-      <DependentUpon>201512301352265_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601091033236_changes.cs" />
-    <Compile Include="Migrations\201601091033236_changes.Designer.cs">
-      <DependentUpon>201601091033236_changes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601091423515_PropNameInKlantChanged.cs" />
-    <Compile Include="Migrations\201601091423515_PropNameInKlantChanged.Designer.cs">
-      <DependentUpon>201601091423515_PropNameInKlantChanged.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\NewGebruiker.cs" />
     <Compile Include="Global.asax.cs">
@@ -355,15 +343,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512301352265_InitialCreate.resx">
-      <DependentUpon>201512301352265_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601091033236_changes.resx">
-      <DependentUpon>201601091033236_changes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601091423515_PropNameInKlantChanged.resx">
-      <DependentUpon>201601091423515_PropNameInKlantChanged.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\CultureResource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CultureResource.en.Designer.cs</LastGenOutput>
