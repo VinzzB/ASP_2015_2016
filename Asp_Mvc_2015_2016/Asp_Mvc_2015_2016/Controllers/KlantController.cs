@@ -7,17 +7,29 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Asp_Mvc_2015_2016.Models;
+using Asp_Mvc_2015_2016.DAL;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
     public class KlantController : BaseController
     {
-        private FacturatieDBContext db = new FacturatieDBContext();
+        private IUnitOfWork unitOfWork;
+        //KlantRepository repo;
+        //private FacturatieDBContext db = new FacturatieDBContext();
+
+        public KlantController(IUnitOfWork uow)
+        {
+            //repo = new KlantRepository();
+            unitOfWork = uow;
+        }
 
         // GET: Klant
         public ActionResult Index()
         {
-            return View(db.Klanten.ToList());
+            //return View(repo.GetAll());
+            //return View(db.Klanten.ToList());
+            return View(unitOfWork.KlantRepository.GetAll());
+            
         }
 
         // GET: Klant/Details/5
@@ -27,7 +39,8 @@ namespace Asp_Mvc_2015_2016.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Klant klant = db.Klanten.Find(id);
+            //Klant klant = db.Klanten.Find(id);
+            Klant klant = repo.GetById(id);
             if (klant == null)
             {
                 return HttpNotFound();
@@ -50,8 +63,9 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Klanten.Add(klant);
-                db.SaveChanges();
+                repo.Add(klant);
+                //db.Klanten.Add(klant);
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
 

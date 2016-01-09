@@ -10,6 +10,7 @@ namespace Asp_Mvc_2015_2016.DAL
     {
         private FacturatieDBContext context = new FacturatieDBContext();
         private GenericRepository<Departement> departementRepository;
+        private GenericRepository<Klant> klantRepository;
         //private GenericRepository<Gebruiker> gebruikerRepository;
         //...
         private bool disposed = false;
@@ -23,6 +24,18 @@ namespace Asp_Mvc_2015_2016.DAL
                     this.departementRepository = new GenericRepository<Departement>(context);
                 }
                 return departementRepository;
+            }
+        }
+
+        public GenericRepository<Klant> KlantRepository
+        {
+            get
+            {
+                if (this.klantRepository == null)
+                {
+                    this.klantRepository = new GenericRepository<Klant>(context);
+                }
+                return klantRepository;
             }
         }
 
