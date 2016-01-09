@@ -12,8 +12,6 @@ namespace Asp_Mvc_2015_2016.DAL
         internal FacturatieDBContext context;
         internal DbSet<T> DbSet {get; set; }
 
-        private bool disposed = false;//gaat naar UOW 
-
         public GenericRepository() : this(new FacturatieDBContext())
         { }
 
@@ -50,19 +48,19 @@ namespace Asp_Mvc_2015_2016.DAL
         }
 
         ////Save changes en dispose gaan naar unit of work class
-        public void SaveChanges()
-        {
-            context.SaveChanges();
-        }
+        //public void SaveChanges()
+        //{
+        //    context.SaveChanges();
+        //}
 
-        public void Dispose()
-        {
-            if (!disposed)
-            {
-                context.Dispose();
-                disposed = true;
-            }
-        }
+        //public void Dispose()
+        //{
+        //    if (!disposed)
+        //    {
+        //        context.Dispose();
+        //        disposed = true;
+        //    }
+        //}
     }
      
 }
