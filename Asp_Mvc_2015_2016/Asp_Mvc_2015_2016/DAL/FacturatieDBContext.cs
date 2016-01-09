@@ -21,6 +21,7 @@ namespace Asp_Mvc_2015_2016.Models
    //     public DbSet<Rol> Rol { get; set; }
         public DbSet<TypeWerk> WerkTypes { get; set; }
         public DbSet<UurRegistratie> GeregistreerdeUren { get; set; }
+        // Deze datasets worden normaal automatisch aangemaakt door collection op te nemen bij de modelklassen
         public DbSet<DepartementGebruiker> DepartementGebruikers { get; set; }
         public DbSet<DepartementKlant> DepartementKlanten { get; set; }
         public DbSet<GebruikerKlant> GebruikersKlanten { get; set; }
