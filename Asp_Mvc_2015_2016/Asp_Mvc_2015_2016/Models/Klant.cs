@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Asp_Mvc_2015_2016.Models
 {
@@ -12,11 +13,16 @@ namespace Asp_Mvc_2015_2016.Models
         
         //[Unique(ErrorMessage = "This already exist !!")]
         //[Index("OndernNrIndex", IsUnique = true)]
+        [Display(Name="Ondernemingsnummer")]
         public string Ondernemingsnr { get; set; }
+        [Display(Name = "Naam bedrijf")]
         public string NaamBedrijf { get; set; }
         //public virtual Adres Adres { get; set; } //adres apart? = extra (partial) view
+        [Display(Name = "Straat en Nummer")]
         public string StraatNr { get; set; }
+        [Display(Name = "Postcode")]
         public string Postcode { get; set; }
+        [Display(Name = "Plaats")]
         public string Plaats { get; set; }
 
         // gebruiker en klant: many to many relatie
