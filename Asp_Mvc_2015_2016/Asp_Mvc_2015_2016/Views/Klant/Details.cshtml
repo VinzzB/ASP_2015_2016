@@ -51,6 +51,7 @@
         </dd>
     </dl>
 </div>
+@Html.Action("_GetDepartementForKlant", "Departement", new { kId = Model.Id })
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

@@ -44,10 +44,11 @@ namespace Asp_Mvc_2015_2016.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult _GetDepartementForKlant(Klant k)
+        public PartialViewResult _GetDepartementForKlant(int kId)
         {
-            ViewBag.KlantID = k.Id;
-            List<Departement> departementen = ((DepartementRepository)unitOfWork.DepartementRepository).getDepartementenByKlant(k);
+            ViewBag.KlantID = kId;
+            Klant k = unitOfWork.KlantRepository.GetById(kId);
+            List<Departement> departementen = k.Departementen.ToList().ConvertAll(p => p.Departement);//convert geeft lijst van departementen ipv departementKlant //((DepartementRepository)unitOfWork.DepartementRepository).getDepartementenByKlant(k);
             return PartialView("_GetDepartementForKlant", departementen);
         }
 

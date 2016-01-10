@@ -6,8 +6,16 @@
 @model IEnumerable<Departement>
 <h4>@CultureResource.Departments</h4>
 
-<div>
-    @foreach (var dep in Model)
-    {
-        <div>@dep.Omschrijving</div>
-}</div>
+<div id="dep">
+    <ul>
+        
+            @foreach (var dep in Model)
+            {
+               <li>
+                    @dep.Omschrijving
+               </li>
+    
+            }
+        
+    </ul>
+</div>

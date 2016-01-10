@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Asp_Mvc_2015_2016.Models
 {
     [Table("Klanten")]
+    [Bind(Include = "Id,Ondernemingsnr,NaamBedrijf, StraatNr, Postcode, Plaats")]
     public class Klant  : _BaseInfo
     {
         

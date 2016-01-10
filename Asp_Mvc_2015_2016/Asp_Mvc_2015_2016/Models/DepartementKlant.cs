@@ -10,8 +10,10 @@ namespace Asp_Mvc_2015_2016.Models
     [Table("DepartementKlanten")]
     public class DepartementKlant  : _BaseInfo
     {
+        public int DepartementId { get; set; }
         [Required]
         public virtual Departement Departement { get; set; }
+        public int KlantId { get; set; }
         [Required]
         public virtual Klant Klant { get; set; }
 
