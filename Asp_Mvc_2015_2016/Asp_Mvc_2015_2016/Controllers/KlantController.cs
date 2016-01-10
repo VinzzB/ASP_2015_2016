@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Asp_Mvc_2015_2016.Models;
 using Asp_Mvc_2015_2016.DAL;
+using Asp_Mvc_2015_2016.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
@@ -48,13 +50,6 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(klant);
         }
 
-        //[ChildActionOnly]
-        //public PartialViewResult _KlantDepartement(Klant k)
-        //{
-
-        //    List<Departement> departementen = ((DepartementRepository)unitOfWork.DepartementRepository).getDepartementenByKlant(k);
-        //    return null; //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-        //}
 
         // GET: Klant/Create
         public ActionResult Create()
@@ -89,12 +84,23 @@ namespace Asp_Mvc_2015_2016.Controllers
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             //}
             //Klant klant = db.Klanten.Find(id);
+            Gebruiker gebruiker = unitOfWork.GebruikerRepository.GetById(HttpContext.User.Identity.GetUserId());
             Klant klant = unitOfWork.KlantRepository.GetById(id);
             if (klant == null)
             {
                 return HttpNotFound();
             }
-            return View(klant);
+            return View(new EditKlantViewModels()
+            {
+                klant = klant,
+                AvailableDepartments = gebruiker.Departementen.ToList().ConvertAll(d => new SelectListItem()
+                        {
+                            Value = d.DepartementId.ToString(),
+                            Text = d.Departement.Code + " - " + d.Departement.Omschrijving
+                        }
+                        ),
+                SelectedDepartments = klant.Departementen.ToList().ConvertAll(d => d.Departement.Id.ToString())
+            });
         }
 
         // POST: Klant/Edit/5
@@ -102,17 +108,45 @@ namespace Asp_Mvc_2015_2016.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken] //tegen spoofing, checken dat data van onze form binnenkomt
-        public ActionResult Edit([Bind(Include = "Id,Ondernemingsnr,NaamBedrijf, StraatNr, Postcode, Plaats")] Klant klant) // de props Gebruikers, Departementen, CreatedBy en EditedBy worden zo excluded en kunnen niet geset worden zonder constructor die voorwaarden kan stelden aan bvb Gebruiker
+        public ActionResult Edit( EditKlantViewModels viewModel) // de props Gebruikers, Departementen, CreatedBy en EditedBy worden zo excluded en kunnen niet geset worden zonder constructor die voorwaarden kan stelden aan bvb Gebruiker
         {
             if (ModelState.IsValid)
             {
-                unitOfWork.KlantRepository.context.Entry(klant).State = EntityState.Modified;
+                //unitOfWork.KlantRepository.context.Entry(viewModel).State = EntityState.Modified;
+                unitOfWork.KlantRepository.Update(viewModel.klant);
                 //db.Entry(klant).State = EntityState.Modified;
+                SetDepartments(viewModel.klant, viewModel.SelectedDepartments);
                 unitOfWork.Save();
                 //db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(klant);
+            return View(viewModel);
+        }
+
+        public void SetDepartments(Klant klant, List<String> departmentIds)
+        {
+            if (klant.Departementen != null)
+            {
+                foreach (DepartementKlant item in klant.Departementen.Reverse())
+                {
+                    if (!departmentIds.Contains(item.DepartementId.ToString()))
+                    {
+                        unitOfWork.DepartementKlantRepository.Delete(item.Id);
+                    }
+                }
+            }
+            //insert new Departements.
+            foreach (String d in departmentIds)
+            {
+                if (klant.Departementen == null || !klant.Departementen.Any(p => p.DepartementId == int.Parse(d)))
+                {
+                    Departement dep = unitOfWork.DepartementRepository.GetById(int.Parse(d)); // db.Departementen.Find(int.Parse(d));
+                    DepartementKlant dk = new DepartementKlant() { Departement = dep, Klant = klant };
+                    dep.Klanten.Add(dk);
+                    //gebr.Departementen.Add(dg);
+                    unitOfWork.KlantRepository.Update(klant);
+                }
+            }
         }
 
         // GET: Klant/Delete/5

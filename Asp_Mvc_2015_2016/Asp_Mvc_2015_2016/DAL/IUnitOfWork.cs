@@ -9,6 +9,7 @@ namespace Asp_Mvc_2015_2016.DAL
         RolesRepository RolesRepository { get; }
         GebruikerRepository GebruikerRepository { get; }
         GenericRepository<DepartementGebruiker> GebruikerDepartementRepository { get; }
+        GenericRepository<DepartementKlant> DepartementKlantRepository { get; }
         void Save();
         void Dispose();
         
