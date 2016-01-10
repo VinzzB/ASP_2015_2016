@@ -15,6 +15,17 @@ namespace Asp_Mvc_2015_2016.DAL
         private GebruikerRepository gebruikerRepository;
         private RolesRepository rolesRepository;
         private GenericRepository<DepartementGebruiker> gebruikerDepartementRepository;
+        private GenericRepository<DepartementKlant> departementKlantRepository;
+
+        public GenericRepository<DepartementKlant> DepartementKlantRepository
+        {
+            get {
+                if (this.departementKlantRepository == null) {
+                    this.departementKlantRepository = new GenericRepository<DepartementKlant>(context);
+                }
+                return departementKlantRepository; 
+            }            
+        }
 
         public GenericRepository<DepartementGebruiker> GebruikerDepartementRepository
         {

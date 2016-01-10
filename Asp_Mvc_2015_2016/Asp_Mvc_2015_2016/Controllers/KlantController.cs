@@ -35,10 +35,10 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: Klant/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             //Klant klant = db.Klanten.Find(id);
             Klant klant = unitOfWork.KlantRepository.GetById(id);
             if (klant == null)
@@ -84,10 +84,10 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: Klant/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             //Klant klant = db.Klanten.Find(id);
             Klant klant = unitOfWork.KlantRepository.GetById(id);
             if (klant == null)
@@ -118,10 +118,10 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: Klant/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             Klant klant = unitOfWork.KlantRepository.GetById(id);
             //Klant klant = db.Klanten.Find(id);
             if (klant == null)

@@ -10,8 +10,6 @@ namespace Asp_Mvc_2015_2016.DAL
     {
         public KlantRepository(FacturatieDBContext context)
             : base(context)
-        {
-            
-        }
+        { }
     }
 }
