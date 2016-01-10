@@ -43,6 +43,14 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(departement);
         }
 
+        [ChildActionOnly]
+        public PartialViewResult _GetDepartementForKlant(Klant k)
+        {
+            ViewBag.KlantID = k.Id;
+            List<Departement> departementen = ((DepartementRepository)unitOfWork.DepartementRepository).getDepartementenByKlant(k);
+            return PartialView("_GetDepartementForKlant", departementen);
+        }
+
         // GET: Departement/Create
         public ActionResult Create()
         {

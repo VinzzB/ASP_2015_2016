@@ -48,13 +48,13 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(klant);
         }
 
-        [ChildActionOnly]
-        public PartialViewResult _KlantDepartement(Klant k)
-        {
+        //[ChildActionOnly]
+        //public PartialViewResult _KlantDepartement(Klant k)
+        //{
 
-            List<Departement> departementen = ((DepartementRepository)unitOfWork.DepartementRepository).getDepartementenByKlant(k);
-            return null; //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-        }
+        //    List<Departement> departementen = ((DepartementRepository)unitOfWork.DepartementRepository).getDepartementenByKlant(k);
+        //    return null; //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+        //}
 
         // GET: Klant/Create
         public ActionResult Create()
