@@ -8,5 +8,10 @@ namespace Asp_Mvc_2015_2016.DAL
 {
     public class KlantRepository : GenericRepository<Klant>
     {
+        public KlantRepository(FacturatieDBContext context)
+            : base(context)
+        {
+            
+        }
     }
 }

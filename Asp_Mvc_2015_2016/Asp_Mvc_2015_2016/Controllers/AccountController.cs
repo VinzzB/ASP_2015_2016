@@ -9,33 +9,28 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Asp_Mvc_2015_2016.Models;
+using Asp_Mvc_2015_2016.DAL;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
     [Authorize]
     public class AccountController : BaseController // Controller
     {
-        private ApplicationUserManager _userManager;
-
+        private IUnitOfWork uow;
         public AccountController()
         {
         }
+        /// <summary>CTOR with DI</summary>
+        /// <param name="uow">DEPENDENCY INJECTION PARAM!!!</param>
+        public AccountController(IUnitOfWork uow) {
+            this.uow = uow;
+        }    
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationUserManager UserManager
+        public UserManager<Gebruiker> UserManager
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
+                return uow.GebruikerRepository.UserManager;
             }
         }
 
@@ -46,17 +41,14 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
-        }
+        }       
 
-        private ApplicationSignInManager _signInManager;
-
-        public ApplicationSignInManager SignInManager
+        public SignInManager<Gebruiker,String> SignInManager
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return uow.GebruikerRepository.SignInManager;
             }
-            private set { _signInManager = value; }
         }
 
         //

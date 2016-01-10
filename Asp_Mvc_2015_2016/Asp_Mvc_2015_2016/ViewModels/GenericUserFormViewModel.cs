@@ -45,7 +45,7 @@ namespace Asp_Mvc_2015_2016.ViewModels
                 { 
                     Value = p.Id.ToString(),
                     Text = String.Format("{0} - {1}", p.Code, p.Omschrijving), 
-                    Selected = selectedDepartments.Contains(p) 
+                    Selected = (selectedDepartments != null && selectedDepartments.Contains(p))
                 });
         }
     }       

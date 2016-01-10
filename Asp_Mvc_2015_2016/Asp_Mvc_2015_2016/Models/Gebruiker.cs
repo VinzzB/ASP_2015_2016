@@ -92,29 +92,5 @@ namespace Asp_Mvc_2015_2016.Models
         public virtual ICollection<FactuurDetails> FactuurDetailsUpdated { get; set; }
 
 
-
-        //VB: Copied method from Applicationuser classe
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Gebruiker> manager)
-        {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
-            return userIdentity;
-        }
-
     }
-
-    //VB: Copied from ApplicationUser but Merged with FacturatieDbContext. code is Obsolete
-    //public class ApplicationDbContext : IdentityDbContext<Gebruiker>
-    //{
-    //    public ApplicationDbContext()
-    //        : base("FacturatieDBContext", throwIfV1Schema: false)
-    //    {
-    //    }
-
-    //    public static ApplicationDbContext Create()
-    //    {
-    //        return new ApplicationDbContext();
-    //    }
-    //}
 }

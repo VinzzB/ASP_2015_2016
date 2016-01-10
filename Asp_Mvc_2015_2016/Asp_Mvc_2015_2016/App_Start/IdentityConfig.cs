@@ -98,7 +98,8 @@ namespace Asp_Mvc_2015_2016
 
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(Gebruiker user)
         {
-            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
+            return UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            //REPLACED: return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }
 
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)

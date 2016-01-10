@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Asp_Mvc_2015_2016.Models;
+using Asp_Mvc_2015_2016.DAL;
+using Asp_Mvc_2015_2016.DAL.Services;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
@@ -17,22 +19,18 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
         }
 
-        public ManageController(ApplicationUserManager userManager)
+        private IUnitOfWork uow;
+        private IGebruikerService service;
+        public ManageController(IUnitOfWork uow, IGebruikerService service)
         {
-            UserManager = userManager;
+            this.uow = uow;
+            this.service = service;
         }
 
-        private ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
+        private UserManager<Gebruiker> UserManager
         {
             get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            { return service.UserManager; }
         }
 
         //
@@ -326,7 +324,8 @@ namespace Asp_Mvc_2015_2016.Controllers
         private async Task SignInAsync(Gebruiker user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie, DefaultAuthenticationTypes.TwoFactorCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));
+            //REPLACED: AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));
+            AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie));
         }
 
         private void AddErrors(IdentityResult result)

@@ -8,5 +8,10 @@ namespace Asp_Mvc_2015_2016.DAL
 {
     public class FactuurRepository : GenericRepository<Factuur>
     {
+        public FactuurRepository(FacturatieDBContext context)
+            : base(context)
+        {
+            
+        }
     }
 }

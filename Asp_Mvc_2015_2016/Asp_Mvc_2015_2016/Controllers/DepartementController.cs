@@ -28,12 +28,12 @@ namespace Asp_Mvc_2015_2016.Controllers
         }
 
         // GET: Departement/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             //Departement departement = db.Departementen.Find(id);
             Departement departement = unitOfWork.DepartementRepository.GetById(id);
             if (departement == null)
@@ -69,12 +69,12 @@ namespace Asp_Mvc_2015_2016.Controllers
         }
 
         // GET: Departement/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             Departement departement = unitOfWork.DepartementRepository.GetById(id);
             //Departement departement = db.Departementen.Find(id);
             if (departement == null)
@@ -103,12 +103,12 @@ namespace Asp_Mvc_2015_2016.Controllers
         }
 
         // GET: Departement/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             Departement departement = unitOfWork.DepartementRepository.GetById(id);
             //Departement departement = db.Departementen.Find(id);
             if (departement == null)

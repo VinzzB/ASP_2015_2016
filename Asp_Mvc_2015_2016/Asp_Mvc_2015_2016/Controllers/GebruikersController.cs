@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using Asp_Mvc_2015_2016.ViewModels;
+using Asp_Mvc_2015_2016.DAL;
+using Asp_Mvc_2015_2016.DAL.Services;
+using System.Data.Entity.Infrastructure;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
@@ -18,22 +21,24 @@ namespace Asp_Mvc_2015_2016.Controllers
     [Authorize(Roles = "Systeem Administrator")]
     public class GebruikersController : BaseController // Controller
     {
-        private FacturatieDBContext db = new FacturatieDBContext();
-        
-        //VB: Added UserManager to create users (with a given password...)
-        public ApplicationUserManager UserManager
+        private IUnitOfWork uow;
+        private IGebruikerService service;
+
+        public GebruikersController() { }
+        /// <summary>CTOR with DI !</summary>
+        /// <param name="uow">DI !!</param>
+        /// <param name="service">DI !!</param>
+        public GebruikersController(IUnitOfWork uow, IGebruikerService service)
         {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }  
+            this.uow = uow;
+            this.service = service;
         }
-        
+                
         // GET: Gebruikers
         //View is now with ajax calls. See ViewModel 'GebruikersIndexViewModel'
         public ActionResult Index()
         {
-            return View(new GebruikersIndexViewModel<NewGebruiker>(getUsers(), db.Roles.ToList().ConvertAll(p => p.Name))); //model = ajax viewmodel! 
+            return View(new GebruikersIndexViewModel<NewGebruiker>(service.getUsers(), service.getRoles())); //model = ajax viewmodel! 
         }
 
         //VB: added for ajax calls on Create gebruiker -> updates user list
@@ -42,10 +47,14 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (ModelState.IsValid) {
                 //create the user in db and check for errors
-                var r = await CreateUser(viewmodel);
+                var r = await CreateUser(viewmodel); //USER IS SAVED IMMEDIATELY BY THE USERMANAGER!
                 if (r.Result.Succeeded) {
+
+                    service.AddDepartments(r.CreatedUser, viewmodel.DepartementIds);                    
+                    uow.Save();
+
                     //all OK. return new userlist.
-                    return PartialView("_UsersListControl", getUsers());
+                    return PartialView("_UsersListControl", service.getUsers());
                 } else if (r.Result.Errors != null && r.Result.Errors.Count() > 0) {
                     //errored -> return json with error object.
                     Response.StatusCode = 300;
@@ -61,7 +70,7 @@ namespace Asp_Mvc_2015_2016.Controllers
             if (ModelState.IsValid) {               
 
                 //zoek gebruiker in Db
-                var gebr = db.Users.Find(viewmodel.User.Id); // await UserManager.FindByIdAsync(viewmodel.User.Id);
+                var gebr = service.getUserById(viewmodel.User.Id);
                 
                 if (gebr == null) {
                     return new HttpNotFoundResult("Gebruiker niet gevonden.");
@@ -71,92 +80,51 @@ namespace Asp_Mvc_2015_2016.Controllers
                 if (gebr.UserName != "admin")
                 {
                     //Haal huidige rolnaam op (via UserManager!)
-                    var userRoles = await UserManager.GetRolesAsync(gebr.Id);
+                    var userRoles = await service.UserManager.GetRolesAsync(gebr.Id);
                     //heeft nog geen rol of de rol werd gewijzigd?
                     if (userRoles.Count == 0 || userRoles.ElementAt(0) != viewmodel.RoleName)
                     {
                         if (userRoles.Count > 0)//verwijder eerst de huidige rol (als er één is)
                         {
-                            await UserManager.RemoveFromRoleAsync(gebr.Id, userRoles.ElementAt(0));
+                            await service.UserManager.RemoveFromRoleAsync(gebr.Id, userRoles.ElementAt(0));
                         }
-                        await UserManager.AddToRoleAsync(gebr.Id, viewmodel.RoleName); //add nieuwe rol
+                        await service.UserManager.AddToRoleAsync(gebr.Id, viewmodel.RoleName); //add nieuwe rol
                     }
                 }
                 
                 //update model met input.
                 TryUpdateModel(gebr, "User");
-                IdentityResult r ;
-               try
-               {
-
-                //save in db. (check for errors)
-                //r= await UserManager.UpdateAsync(gebr);
-                //if (r.Succeeded)
-                //{
-                    //remove non selected departments.
-                    foreach (DepartementGebruiker item in gebr.Departementen.Reverse())
+                //add departments
+                service.AddDepartments(gebr, viewmodel.DepartementIds);
+                   try
+                   {
+                        uow.Save(); //save all changes.
+                   }
+                    catch (DbUpdateException ex)
                     {
-                        //.Exists(p => item.Departement.Id == int.Parse(p))
-                        if (!viewmodel.DepartementIds.Contains(item.DepartementId.ToString()))
-                        {
-                            gebr.Departementen.Remove(item);
-                            db.Entry(item).State = EntityState.Deleted;
-                        }
-                    }
-                        //insert new Departements.
-                        // db.Departementen
-                        foreach (String d in viewmodel.DepartementIds)
-                        {
-                            if (!gebr.Departementen.Any(p => p.DepartementId == int.Parse(d)))
-                            {
-                                Departement dep = db.Departementen.Find(int.Parse(d));
-                                DepartementGebruiker dg = new DepartementGebruiker() { Departement = dep, Gebruiker = gebr };
-                                db.DepartementGebruikers.Add(dg);
-                                db.Entry(dg).State = EntityState.Added;
-                                //db.SaveChanges();
-                                
-                                //db.DepartementGebruikers.Add(new DepartementGebruiker() { Departement = dep, Gebruiker = gebr });
-                                gebr.Departementen.Add(dg);
-                                db.Entry(gebr).State = EntityState.Modified;
-                            }
-                        }
-
-                        db.SaveChanges();  
-                //}
-                    }
-                    catch (Exception ex)
-                    {
-                        
+                            Response.StatusCode = 300;
+                            var jdata = new { error = ex.Message };
+                            return Json(jdata, "application/json", JsonRequestBehavior.AllowGet);
                         throw;
-                    }
-                    
-                    
-             
-                //if (!r.Succeeded)
-                //{
-                //    Response.StatusCode = 300;
-                //    var jdata = new { error = r.Errors.ElementAt(0) };
-                //    return Json(jdata, "application/json", JsonRequestBehavior.AllowGet);
-                //}
-
+                    }                    
                 //all OK. return new user list.
-                return PartialView("_UsersListControl", getUsers());
+                return PartialView("_UsersListControl", service.getUsers());
             }
             //Something happend....
             return new PartialViewResult();
         }
 
-        /// <summary>
-        /// Loads a Userform with Ajax.
-        /// </summary>
+        /// <summary>Loads a Userform with Ajax.</summary>
         /// <param name="id">The UserID</param>
         /// <param name="type">Load form for 'new' or 'edit'</param>
         /// <returns></returns>
-        public async Task<ActionResult> Load_User_Form(String id, String type) { // type can be 'new' or 'edit'
+        public ActionResult Load_User_Form(String id, String type)
+        { // type can be 'new' or 'edit'
+        //public async Task<ActionResult> Load_User_Form(String id, String type) { // type can be 'new' or 'edit'
             if (ModelState.IsValid) {
                 Gebruiker u = null;
-                if (id!=null)
-                    u = await db.Users.FirstOrDefaultAsync(p => p.Id == id); //get user async.
+                if (id != null)
+                    u = service.getUserById(id); // await db.Users.FirstOrDefaultAsync(p => p.Id == id); //get user async.
                //System.Threading.Thread.Sleep(500); //--> for debugging!!! (mimics a slow server response, for debugging wait messages in the browser)                
                 if (u != null || type == "new") //has a user OR is type new. (type 'new' does not need a user)
                 {
@@ -165,49 +133,23 @@ namespace Asp_Mvc_2015_2016.Controllers
                         case "edit":
                             return PartialView("_FormEditUser", 
                                 new GenericUserFormViewModel<Gebruiker>(u, 
-                                    GetUserRole(u.Id), 
-                                    db.Roles.ToList().ConvertAll(p => p.Name),
-                                    db.Departementen.ToList(), u.Departementen.Select(p => p.Departement).ToList()));
+                                    service.GetUserRole(u.Id), 
+                                    service.getRoles(),
+                                    service.getDepartments(), u.Departementen.Select(p => p.Departement).ToList()));
                         case "new":                            
-                            return PartialView("_FormCreateUser", new GenericUserFormViewModel<NewGebruiker>(new NewGebruiker(),"Gebruiker", db.Roles.Select(p=>p.Name).ToList()));
+                            return PartialView("_FormCreateUser", 
+                                new GenericUserFormViewModel<NewGebruiker>(new NewGebruiker(),
+                                    "Gebruiker", 
+                                    service.getRoles(), service.getDepartments()));
                         case "del":
-                            return PartialView("_UserRemove", new GenericUserFormViewModel<Gebruiker>(u, GetUserRole(u.Id)));
+                            return PartialView("_UserRemove", new GenericUserFormViewModel<Gebruiker>(u, service.GetUserRole(u.Id)));
                         default: ///details
-                            return PartialView("_UserDetails", new GenericUserFormViewModel<Gebruiker>(u, GetUserRole(u.Id)));
+                            return PartialView("_UserDetails", new GenericUserFormViewModel<Gebruiker>(u, service.GetUserRole(u.Id)));
                     }
                 }
             }
             return new HttpStatusCodeResult(300, "Fout bij ophalen van gegevens...");// new PartialViewResult();
         }
-
-
-        /* DIT ZOU EEN CALL MOETEN ZIJN IN DE DB GEBRUIKER SERVICE!!! */
-        private List<GenericUserFormViewModel<Gebruiker>> getUsers() {
-            //Rol zichtbaar maken in lijstweergave...
-            //VB: from http://stackoverflow.com/questions/26078271/getting-a-list-of-users-with-their-assigned-role-in-identity-2
-            //refactored zodat ook users waar nog geen rol aan toegewezen werd ook zichtbaar zijn... normaal moet er altijd minstens één rol zijn. 
-
-            //Bij verplichte rol: 
-            //var users = from u in db.Users
-            //            from ur in u.Roles
-            //            join r in db.Roles on ur.RoleId equals r.Id 
-            //            select new GebruikersIndex() { User = u, Role = r };
-
-            return (from u in db.Users //get alle users
-                    from ur in u.Roles.DefaultIfEmpty() //get rolIDs van user (add a default on empty) (=tabel GebruikersRollen)
-                    join r in db.Roles on ur.RoleId equals r.Id into tmp_ur //join met de tabel Rollen
-                    from userrole in tmp_ur.DefaultIfEmpty() //for outerjoin on roles!
-                    select new GenericUserFormViewModel<Gebruiker>() 
-                    { 
-                        User = u, 
-                        RoleName = userrole.Name 
-                    }).ToList(); //create our model.
-        }
-
-        private string GetUserRole(string userId) {
-            var roles = UserManager.GetRoles(userId);
-            return roles != null && roles.Count > 0 ? roles.ElementAt(0) : null;
-        }    
 
         //Vb: added new (async) method om een gebruiker aan te maken. Retourneert een zelf aangemaakte (internal) classe 'CreateUserResult'!
         private async Task<CreateUserResult> CreateUser([Bind(Include = "User,RoleName")] GenericUserFormViewModel<NewGebruiker> newUser)
@@ -221,12 +163,16 @@ namespace Asp_Mvc_2015_2016.Controllers
                 Email = newUser.User.Email,
                 PhoneNumber = newUser.User.PhoneNumber,
                 Gsm = newUser.User.Gsm
-            };
+            };            
+
             //Save Gebruiker with UserManager (stores Password)
             //VB: ADDED ContinueWith() lambda to add the specified role after user creation.
-           var r = await UserManager.CreateAsync(user, newUser.User.Password);
-            if (r.Succeeded)
-                r = await UserManager.AddToRoleAsync(user.Id, newUser.RoleName);
+            var r = await service.UserManager.CreateAsync(user, newUser.User.Password);
+           if (r.Succeeded)
+           {
+               r = await service.UserManager.AddToRoleAsync(user.Id, newUser.RoleName);
+               service.AddDepartments(user, newUser.DepartementIds);
+           }
            return new CreateUserResult() { CreatedUser = user, Result = r };
         }
         //Added internal class om zowel het resultaat als de nieuw aangemaakte gebruiker terug te geven van de async method 'CreateUser'.
@@ -259,23 +205,23 @@ namespace Asp_Mvc_2015_2016.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            Gebruiker gebruiker = await UserManager.FindByIdAsync(id); // db.Users.Find(id);           
+            Gebruiker gebruiker = await service.UserManager.FindByIdAsync(id); // db.Users.Find(id);           
             if (gebruiker != null)
             {
                 //is default 'admin' user? abort delete! cannot delete 'admin' user!
                 if (gebruiker.UserName == "admin")
                     return new PartialViewResult();
-                UserManager.Delete(gebruiker);
+                service.UserManager.Delete(gebruiker);
                 //db.Users.Remove(gebruiker);
                 //db.SaveChanges();
             }
-            return PartialView("_UsersListControl", getUsers().ToList());
+            return PartialView("_UsersListControl", service.getUsers());
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            { db.Dispose(); }
+            { uow.Dispose(); }
             base.Dispose(disposing);
         }
     }

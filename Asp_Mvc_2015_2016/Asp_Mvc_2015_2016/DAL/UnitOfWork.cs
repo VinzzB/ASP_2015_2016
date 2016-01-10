@@ -8,11 +8,39 @@ namespace Asp_Mvc_2015_2016.DAL
 {
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
-        private FacturatieDBContext context = new FacturatieDBContext();
+        private FacturatieDBContext context; // = new FacturatieDBContext();
         private GenericRepository<Departement> departementRepository;
-        //private GenericRepository<Gebruiker> gebruikerRepository;
+        private GebruikerRepository gebruikerRepository;
+        private RolesRepository rolesRepository;
+        private GenericRepository<DepartementGebruiker> gebruikerDepartementRepository;
+
+        public GenericRepository<DepartementGebruiker> GebruikerDepartementRepository
+        {
+            get {
+                if (this.gebruikerDepartementRepository == null)
+                {
+                    this.gebruikerDepartementRepository = new GenericRepository<DepartementGebruiker>(context);
+                }
+                return gebruikerDepartementRepository; 
+            }
+        }
+        public RolesRepository RolesRepository
+        {
+            get {
+                if (this.rolesRepository == null){
+                    this.rolesRepository = new RolesRepository(context);
+                }
+                return rolesRepository; 
+            }
+        }
         //...
         private bool disposed = false;
+
+        public UnitOfWork() {/* EMPTY CTOR */ }
+        public UnitOfWork(FacturatieDBContext context)
+        {
+            this.context = context;
+        }
 
         public GenericRepository<Departement> DepartementRepository
         {
@@ -26,17 +54,17 @@ namespace Asp_Mvc_2015_2016.DAL
             }
         }
 
-        //public GenericRepository<Gebruiker> GebruikerRepository
-        //{
-        //    get
-        //    {
-        //        if (this.gebruikerRepository == null)
-        //        {
-        //            this.gebruikerRepository = new GenericRepository<Gebruiker>(context);
-        //        }
-        //        return gebruikerRepository;
-        //    }
-        //}
+        public GebruikerRepository GebruikerRepository
+        {
+            get
+            {
+                if (this.gebruikerRepository == null)
+                {
+                    this.gebruikerRepository = new DAL.GebruikerRepository(context); // GenericRepository<Gebruiker>(context);
+                }
+                return gebruikerRepository;
+            }
+        }
 
         //...
 

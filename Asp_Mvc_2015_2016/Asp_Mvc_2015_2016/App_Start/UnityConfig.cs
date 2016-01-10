@@ -2,6 +2,8 @@ using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Unity.Mvc5;
 using Asp_Mvc_2015_2016.DAL;
+using Asp_Mvc_2015_2016.Models;
+using Asp_Mvc_2015_2016.DAL.Services;
 
 namespace Asp_Mvc_2015_2016
 {
@@ -15,6 +17,8 @@ namespace Asp_Mvc_2015_2016
             // it is NOT necessary to register your controllers
             
             // e.g. container.RegisterType<ITestService, TestService>();
+            container.RegisterType<FacturatieDBContext, FacturatieDBContext>(new PerResolveLifetimeManager());
+            container.RegisterType<IGebruikerService, GebruikerService>();
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

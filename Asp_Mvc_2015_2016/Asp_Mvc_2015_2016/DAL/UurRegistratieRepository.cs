@@ -8,5 +8,10 @@ namespace Asp_Mvc_2015_2016.DAL
 {
     public class UurRegistratieRepository : GenericRepository<UurRegistratie>
     {
+        public UurRegistratieRepository(FacturatieDBContext context)
+            : base(context)
+        {
+            
+        }
     }
 }
