@@ -62,7 +62,12 @@ namespace Asp_Mvc_2015_2016.DAL.Services
             return res;
         }
 
-        public void AddDepartments(Gebruiker gebr,  List<String> departmentIds) {
+        public void setRoles(Gebruiker USER, List<string> rolenames) { 
+        
+
+        }
+
+        public void SetDepartments(Gebruiker gebr,  List<String> departmentIds) {
             if (gebr.Departementen != null)
             {
                 foreach (DepartementGebruiker item in gebr.Departementen.Reverse())

@@ -95,7 +95,7 @@ namespace Asp_Mvc_2015_2016.Controllers
                 //update model met input.
                 TryUpdateModel(gebr, "User");
                 //add departments
-                service.AddDepartments(gebr, viewmodel.DepartementIds);
+                service.SetDepartments(gebr, viewmodel.DepartementIds);
                    try
                    {
                         uow.Save(); //save all changes.
@@ -171,7 +171,7 @@ namespace Asp_Mvc_2015_2016.Controllers
            if (r.Succeeded)
            {
                r = await service.UserManager.AddToRoleAsync(user.Id, newUser.RoleName);
-               service.AddDepartments(user, newUser.DepartementIds);
+               service.SetDepartments(user, newUser.DepartementIds);
            }
            return new CreateUserResult() { CreatedUser = user, Result = r };
         }

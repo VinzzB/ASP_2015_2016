@@ -3,7 +3,7 @@ namespace Asp_Mvc_2015_2016.DAL.Services
 {
     public interface IGebruikerService
     {
-        void AddDepartments(Asp_Mvc_2015_2016.Models.Gebruiker gebr, System.Collections.Generic.List<string> departmentIds);
+        void SetDepartments(Asp_Mvc_2015_2016.Models.Gebruiker gebr, System.Collections.Generic.List<string> departmentIds);
         System.Collections.Generic.List<Asp_Mvc_2015_2016.Models.Departement> getDepartments();
         System.Collections.Generic.List<string> getRoles();
         Asp_Mvc_2015_2016.Models.Gebruiker getUserById(string userId);
