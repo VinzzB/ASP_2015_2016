@@ -1,0 +1,13 @@
+﻿
+@using Asp_Mvc_2015_2016.Resources
+@using Asp_Mvc_2015_2016.Models
+@using Asp_Mvc_2015_2016.ViewModels
+@using System.Collections.Generic
+@model IEnumerable<Departement>
+<h4>@CultureResource.Departments</h4>
+
+<div>
+    @foreach (var dep in Model)
+    {
+        <div>@dep.Omschrijving</div>
+}</div>

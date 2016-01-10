@@ -12,5 +12,10 @@ namespace Asp_Mvc_2015_2016.DAL
         {
             return DbSet.Where(a => a.Gebruikers.Equals(gebruiker)).ToList();
         }
+
+        public List<Departement> getDepartementenByKlant(Klant klant)
+        {
+            return DbSet.Where(a => a.Gebruikers.Equals(klant)).ToList();
+        }
     }
 }

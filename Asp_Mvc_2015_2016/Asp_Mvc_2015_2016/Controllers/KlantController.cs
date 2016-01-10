@@ -48,6 +48,8 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(klant);
         }
 
+       
+
         // GET: Klant/Create
         public ActionResult Create()
         {
