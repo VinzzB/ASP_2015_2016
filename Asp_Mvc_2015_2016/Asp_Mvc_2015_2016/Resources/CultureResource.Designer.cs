@@ -97,11 +97,38 @@ namespace Asp_Mvc_2015_2016.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bedrijfsnaam.
+        /// </summary>
+        public static string CompanyName {
+            get {
+                return ResourceManager.GetString("CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondernemingsnummer.
+        /// </summary>
+        public static string CompanyNumber {
+            get {
+                return ResourceManager.GetString("CompanyNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieuw.
         /// </summary>
         public static string CreateNew {
             get {
                 return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klant.
+        /// </summary>
+        public static string Customer {
+            get {
+                return ResourceManager.GetString("Customer", resourceCulture);
             }
         }
         
@@ -322,6 +349,15 @@ namespace Asp_Mvc_2015_2016.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Plaats.
+        /// </summary>
+        public static string Place {
+            get {
+                return ResourceManager.GetString("Place", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Onthoud mij?.
         /// </summary>
         public static string RememberMe {
@@ -358,6 +394,15 @@ namespace Asp_Mvc_2015_2016.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Straat en nummer.
+        /// </summary>
+        public static string StreetNbr {
+            get {
+                return ResourceManager.GetString("StreetNbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gebruiker.
         /// </summary>
         public static string User {
@@ -390,6 +435,15 @@ namespace Asp_Mvc_2015_2016.Resources {
         public static string ValidationLengthError {
             get {
                 return ResourceManager.GetString("ValidationLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postcode.
+        /// </summary>
+        public static string Zip {
+            get {
+                return ResourceManager.GetString("Zip", resourceCulture);
             }
         }
     }

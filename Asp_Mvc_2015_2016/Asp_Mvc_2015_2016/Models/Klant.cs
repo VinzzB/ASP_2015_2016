@@ -15,16 +15,16 @@ namespace Asp_Mvc_2015_2016.Models
         
         //[Unique(ErrorMessage = "This already exist !!")]
         //[Index("OndernNrIndex", IsUnique = true)]
-        [Display(Name="Ondernemingsnummer")]
+        [Display(Name="CompanyNumber", ResourceType = typeof(Resources.CultureResource))]
         public string Ondernemingsnr { get; set; }
-        [Display(Name = "Naam bedrijf")]
+        [Display(Name = "CompanyName", ResourceType = typeof(Resources.CultureResource))]
         public string NaamBedrijf { get; set; }
         //public virtual Adres Adres { get; set; } //adres apart? = extra (partial) view
-        [Display(Name = "Straat en Nummer")]
+        [Display(Name = "StreetNbr", ResourceType = typeof(Resources.CultureResource))]
         public string StraatNr { get; set; }
-        [Display(Name = "Postcode")]
+        [Display(Name = "Zip", ResourceType = typeof(Resources.CultureResource))]
         public string Postcode { get; set; }
-        [Display(Name = "Plaats")]
+        [Display(Name = "Place", ResourceType = typeof(Resources.CultureResource))]
         public string Plaats { get; set; }
 
         // gebruiker en klant: many to many relatie

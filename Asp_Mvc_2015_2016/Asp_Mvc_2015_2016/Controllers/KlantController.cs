@@ -93,7 +93,7 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(new EditKlantViewModels()
             {
                 klant = klant,
-                AvailableDepartments = gebruiker.Departementen.ToList().ConvertAll(d => new SelectListItem()
+                AvailableDepartments = gebruiker.Departementen.ToList().ConvertAll(d => new SelectListItem()//<GebruikerDep> moet geconverteerd wrdn naar <selectLisItem> voor listbox en dus mr er ook een waarde wrdn toegekend aan de text en value
                         {
                             Value = d.DepartementId.ToString(),
                             Text = d.Departement.Code + " - " + d.Departement.Omschrijving
