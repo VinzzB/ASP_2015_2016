@@ -39,14 +39,18 @@ namespace Asp_Mvc_2015_2016.ViewModels
             
             this.RoleName = RoleName;
             if (allRoles != null)
-                AllRoles = allRoles.ConvertAll(p => new SelectListItem() { Text = p, Value = p, Selected = (p == RoleName) });
+                AllRoles = allRoles.ConvertAll(p => new SelectListItem() { Text = p, Value = p});
             if (allDepartments != null)
                 AllDepartments =  allDepartments.ConvertAll(p => new SelectListItem() 
                 { 
                     Value = p.Id.ToString(),
                     Text = String.Format("{0} - {1}", p.Code, p.Omschrijving), 
-                    Selected = (selectedDepartments != null && selectedDepartments.Contains(p))
+                  //  Selected = (selectedDepartments != null && selectedDepartments.Contains(p))
                 });
+            if (selectedDepartments != null)
+            {
+                DepartementIds = selectedDepartments.ToList().ConvertAll(p => p.Id.ToString());
+            }
         }
     }       
 }
