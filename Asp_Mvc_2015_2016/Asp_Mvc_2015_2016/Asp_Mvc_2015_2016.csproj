@@ -204,6 +204,10 @@
     <Compile Include="DAL\Services\IGebruikerService.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\UurRegistratieRepository.cs" />
+    <Compile Include="Migrations\201601100929466_VB.cs" />
+    <Compile Include="Migrations\201601100929466_VB.Designer.cs">
+      <DependentUpon>201601100929466_VB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\NewGebruiker.cs" />
     <Compile Include="Global.asax.cs">
@@ -334,7 +338,7 @@
     <Content Include="Views\Gebruikers\_UserDetails.cshtml" />
     <Content Include="Views\Gebruikers\_UserDepartmentsTable.cshtml" />
     <Content Include="Views\Gebruikers\_UserKlantenTable.cshtml" />
-    <Content Include="Views\Klant\_KlantDepartement.cshtml" />
+    <Content Include="Views\Departement\_KlantDepartement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -349,6 +353,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201601100929466_VB.resx">
+      <DependentUpon>201601100929466_VB.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\CultureResource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CultureResource.en.Designer.cs</LastGenOutput>
