@@ -50,7 +50,7 @@ namespace Asp_Mvc_2015_2016.Controllers
                 var r = await CreateUser(viewmodel); //USER IS SAVED IMMEDIATELY BY THE USERMANAGER!
                 if (r.Result.Succeeded) {
 
-                    service.AddDepartments(r.CreatedUser, viewmodel.DepartementIds);                    
+                  //  service.AddDepartments(r.CreatedUser, viewmodel.DepartementIds);                    
                     uow.Save();
 
                     //all OK. return new userlist.

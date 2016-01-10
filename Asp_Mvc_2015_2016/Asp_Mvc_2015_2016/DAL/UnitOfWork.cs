@@ -68,17 +68,17 @@ namespace Asp_Mvc_2015_2016.DAL
             }
         }
 
-        //public GenericRepository<Gebruiker> GebruikerRepository
-        //{
-        //    get
-        //    {
-        //        if (this.gebruikerRepository == null)
-        //        {
-        //            this.gebruikerRepository = new GenericRepository<Gebruiker>(context);
-        //        }
-        //        return gebruikerRepository;
-        //    }
-        //}
+        public DAL.GebruikerRepository GebruikerRepository
+        {
+            get
+            {
+                if (this.gebruikerRepository == null)
+                {
+                    this.gebruikerRepository = new DAL.GebruikerRepository(context);
+                }
+                return gebruikerRepository;
+            }
+        }
 
         //...
 

@@ -33,7 +33,7 @@ namespace Asp_Mvc_2015_2016.Controllers
         }
 
         // GET: Klant/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
@@ -51,7 +51,9 @@ namespace Asp_Mvc_2015_2016.Controllers
         [ChildActionOnly]
         public PartialViewResult _KlantDepartement(Klant k)
         {
-            List<Departement> departementen = unitOfWork.DepartementRepository.getDepartementenByKlant(k);
+
+            List<Departement> departementen = ((DepartementRepository)unitOfWork.DepartementRepository).getDepartementenByKlant(k);
+            return null; //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
         }
 
         // GET: Klant/Create
@@ -80,7 +82,7 @@ namespace Asp_Mvc_2015_2016.Controllers
         }
 
         // GET: Klant/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -114,7 +116,7 @@ namespace Asp_Mvc_2015_2016.Controllers
         }
 
         // GET: Klant/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {

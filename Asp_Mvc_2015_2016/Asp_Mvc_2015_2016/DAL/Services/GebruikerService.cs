@@ -63,18 +63,23 @@ namespace Asp_Mvc_2015_2016.DAL.Services
         }
 
         public void AddDepartments(Gebruiker gebr,  List<String> departmentIds) {
-            foreach (DepartementGebruiker item in gebr.Departementen.Reverse())
+            if (gebr.Departementen != null)
             {
-                if (!departmentIds.Contains(item.DepartementId.ToString())) {
-                    uow.GebruikerDepartementRepository.Delete(item.Id);
+                foreach (DepartementGebruiker item in gebr.Departementen.Reverse())
+                {
+                    if (!departmentIds.Contains(item.DepartementId.ToString()))
+                    {
+                        uow.GebruikerDepartementRepository.Delete(item.Id);
+                    }
                 }
             }
             //insert new Departements.
             foreach (String d in departmentIds) {
-                if (!gebr.Departementen.Any(p => p.DepartementId == int.Parse(d))) {
+                if (gebr.Departementen == null || !gebr.Departementen.Any(p => p.DepartementId == int.Parse(d))) {
                     Departement dep = uow.DepartementRepository.GetById(int.Parse(d)); // db.Departementen.Find(int.Parse(d));
                     DepartementGebruiker dg = new DepartementGebruiker() { Departement = dep, Gebruiker = gebr };
-                    gebr.Departementen.Add(dg);
+                    dep.Gebruikers.Add(dg);
+                    //gebr.Departementen.Add(dg);
                     uow.GebruikerRepository.Update(gebr);
                 }
             }        
