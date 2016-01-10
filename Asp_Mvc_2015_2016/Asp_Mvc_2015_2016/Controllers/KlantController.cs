@@ -108,14 +108,14 @@ namespace Asp_Mvc_2015_2016.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken] //tegen spoofing, checken dat data van onze form binnenkomt
-        public ActionResult Edit( EditKlantViewModels viewModel) // de props Gebruikers, Departementen, CreatedBy en EditedBy worden zo excluded en kunnen niet geset worden zonder constructor die voorwaarden kan stelden aan bvb Gebruiker
+        public ActionResult Edit( EditKlantViewModels viewModel) 
         {
             if (ModelState.IsValid)
             {
-                //unitOfWork.KlantRepository.context.Entry(viewModel).State = EntityState.Modified;
-                unitOfWork.KlantRepository.Update(viewModel.klant);
-                //db.Entry(klant).State = EntityState.Modified;
-                SetDepartments(viewModel.klant, viewModel.SelectedDepartments);
+                Klant k = unitOfWork.KlantRepository.GetById(viewModel.klant.Id); //zie hidden field form model.klant.Id
+                TryUpdateModel(k, "klant"); //verwijzing naar 'viewModel.klant' en update het db model met de nieuwe formdata uit het viewmodel.
+               //EntityState.Modified wordt ook meegegeven via tryupdate
+                SetDepartments(k, viewModel.SelectedDepartments);
                 unitOfWork.Save();
                 //db.SaveChanges();
                 return RedirectToAction("Index");
@@ -129,6 +129,7 @@ namespace Asp_Mvc_2015_2016.Controllers
             {
                 foreach (DepartementKlant item in klant.Departementen.Reverse())
                 {
+                    //als huidige dep id van klant niet voorkomt in geselecteerde list, moet die terug gedeletet worden
                     if (!departmentIds.Contains(item.DepartementId.ToString()))
                     {
                         unitOfWork.DepartementKlantRepository.Delete(item.Id);
@@ -144,7 +145,7 @@ namespace Asp_Mvc_2015_2016.Controllers
                     DepartementKlant dk = new DepartementKlant() { Departement = dep, Klant = klant };
                     dep.Klanten.Add(dk);
                     //gebr.Departementen.Add(dg);
-                    unitOfWork.KlantRepository.Update(klant);
+                    //unitOfWork.KlantRepository.Update(klant);
                 }
             }
         }

@@ -8,8 +8,9 @@ using System.Web.Mvc;
 
 namespace Asp_Mvc_2015_2016.Models
 {
+    
+    //[Bind(Include = "Id,Ondernemingsnr,NaamBedrijf, StraatNr, Postcode, Plaats")] // de props Gebruikers, Departementen, CreatedBy en EditedBy worden zo excluded en kunnen niet geset worden zonder constructor die voorwaarden kan stelden aan bvb Gebruiker
     [Table("Klanten")]
-    [Bind(Include = "Id,Ondernemingsnr,NaamBedrijf, StraatNr, Postcode, Plaats")]
     public class Klant  : _BaseInfo
     {
         
