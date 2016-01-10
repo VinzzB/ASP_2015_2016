@@ -338,7 +338,7 @@
     <Content Include="Views\Gebruikers\_UserDetails.cshtml" />
     <Content Include="Views\Gebruikers\_UserDepartmentsTable.cshtml" />
     <Content Include="Views\Gebruikers\_UserKlantenTable.cshtml" />
-    <Content Include="Views\Departement\_KlantDepartement.cshtml" />
+    <Content Include="Views\Departement\_GetDepartementForKlant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
