@@ -58,6 +58,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.5840.25917, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.6\lib\net40\System.Linq.Dynamic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -200,10 +204,6 @@
     <Compile Include="DAL\Services\IGebruikerService.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\UurRegistratieRepository.cs" />
-    <Compile Include="Migrations\201512301352265_InitialCreate.cs" />
-    <Compile Include="Migrations\201512301352265_InitialCreate.Designer.cs">
-      <DependentUpon>201512301352265_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\NewGebruiker.cs" />
     <Compile Include="Global.asax.cs">
@@ -334,6 +334,7 @@
     <Content Include="Views\Gebruikers\_UserDetails.cshtml" />
     <Content Include="Views\Gebruikers\_UserDepartmentsTable.cshtml" />
     <Content Include="Views\Gebruikers\_UserKlantenTable.cshtml" />
+    <Content Include="Views\Klant\_KlantDepartement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -348,9 +349,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512301352265_InitialCreate.resx">
-      <DependentUpon>201512301352265_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\CultureResource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CultureResource.en.Designer.cs</LastGenOutput>

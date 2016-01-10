@@ -49,6 +49,13 @@
                             @Html.ActionLink(CultureResource.Departments, "Index", "Departement")
                         </li>
                     }
+                    
+                    @if (User.IsInRole("Systeem Administrator") || User.IsInRole("Departement Administrator"))
+                    {
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Klant" ? "active" : "")">
+                            @Html.ActionLink(CultureResource.Customers, "Index", "Klant")
+                        </li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
                 @Html.Partial("_CulturePartial")

@@ -41,7 +41,7 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
-        }       
+        }
 
         public SignInManager<Gebruiker,String> SignInManager
         {

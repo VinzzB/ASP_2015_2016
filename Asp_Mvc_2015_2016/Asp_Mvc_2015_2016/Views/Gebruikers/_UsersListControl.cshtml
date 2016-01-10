@@ -1,4 +1,5 @@
-﻿@using Asp_Mvc_2015_2016.Models
+﻿
+@using Asp_Mvc_2015_2016.Models
 @using Asp_Mvc_2015_2016.ViewModels
 @using System.Collections.Generic
 @model IEnumerable<GenericUserFormViewModel<Gebruiker>>
@@ -11,7 +12,7 @@
             <th>@Html.DisplayNameFor(model => model.User.Email)</th>
             <th>@Html.DisplayNameFor(model => model.User.PhoneNumber)</th>
             <th>@Html.DisplayNameFor(model => model.User.Gsm)</th>
-            <th>@Html.DisplayNameFor(model => model.RoleName)</th>            
+            <th>@Html.DisplayNameFor(model => model.RoleName)</th>
             <th></th>
         </tr>
 
@@ -24,7 +25,7 @@
                 <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
                 <td>@Html.DisplayFor(modelItem => item.User.PhoneNumber)</td>
                 <td>@Html.DisplayFor(modelItem => item.User.Gsm)</td>
-                <td>@Html.DisplayFor(modelItem => item.RoleName)</td>                
+                <td>@Html.DisplayFor(modelItem => item.RoleName)</td>
                 <td>
                     @Ajax.ActionLink(CultureResource.Edit,
                                      "Load_User_Form",
@@ -52,7 +53,7 @@
                                          OnBegin = "openModal"
                                      }, new { data_title = CultureResource.User + ": " + CultureResource.Details })
 
-                    @*Append delete link if not admin user *@                    
+                    @*Append delete link if not admin user *@
                     @if (item.User.UserName != "admin")
                     {
                         Write(" | ");
@@ -66,7 +67,7 @@
                                              HttpMethod = "POST",
                                              OnSuccess = "loadUserFormSuccess",
                                              OnBegin = "openModal"
-                                         }, new { data_title = CultureResource.User + ": " + CultureResource.Delete })                        
+                                         }, new { data_title = CultureResource.User + ": " + CultureResource.Delete })
                     }
                 </td>
             </tr>

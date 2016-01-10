@@ -7,17 +7,29 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Asp_Mvc_2015_2016.Models;
+using Asp_Mvc_2015_2016.DAL;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
     public class KlantController : BaseController
     {
-        private FacturatieDBContext db = new FacturatieDBContext();
+        private IUnitOfWork unitOfWork;
+        //KlantRepository repo;
+        //private FacturatieDBContext db = new FacturatieDBContext();
+
+        public KlantController(IUnitOfWork uow)
+        {
+            //repo = new KlantRepository();
+            unitOfWork = uow;
+        }
 
         // GET: Klant
         public ActionResult Index()
         {
-            return View(db.Klanten.ToList());
+            //return View(repo.GetAll());
+            //return View(db.Klanten.ToList());
+            return View(unitOfWork.KlantRepository.GetAll());
+            
         }
 
         // GET: Klant/Details/5
@@ -27,12 +39,19 @@ namespace Asp_Mvc_2015_2016.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Klant klant = db.Klanten.Find(id);
+            //Klant klant = db.Klanten.Find(id);
+            Klant klant = unitOfWork.KlantRepository.GetById(id);
             if (klant == null)
             {
                 return HttpNotFound();
             }
             return View(klant);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult _KlantDepartement(Klant k)
+        {
+            List<Departement> departementen = unitOfWork.DepartementRepository.getDepartementenByKlant(k);
         }
 
         // GET: Klant/Create
@@ -46,12 +65,14 @@ namespace Asp_Mvc_2015_2016.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Ondernemingsnr,NaamBedrijf")] Klant klant)
+        public ActionResult Create([Bind(Include = "Id,Ondernemingsnr,NaamBedrijf, StraatNr, Postcode, Plaats")] Klant klant)
         {
             if (ModelState.IsValid)
             {
-                db.Klanten.Add(klant);
-                db.SaveChanges();
+                unitOfWork.KlantRepository.Add(klant);
+                unitOfWork.Save();
+                //db.Klanten.Add(klant);
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +86,8 @@ namespace Asp_Mvc_2015_2016.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Klant klant = db.Klanten.Find(id);
+            //Klant klant = db.Klanten.Find(id);
+            Klant klant = unitOfWork.KlantRepository.GetById(id);
             if (klant == null)
             {
                 return HttpNotFound();
@@ -77,13 +99,15 @@ namespace Asp_Mvc_2015_2016.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Ondernemingsnr,NaamBedrijf")] Klant klant)
+        [ValidateAntiForgeryToken] //tegen spoofing, checken dat data van onze form binnenkomt
+        public ActionResult Edit([Bind(Include = "Id,Ondernemingsnr,NaamBedrijf, StraatNr, Postcode, Plaats")] Klant klant) // de props Gebruikers, Departementen, CreatedBy en EditedBy worden zo excluded en kunnen niet geset worden zonder constructor die voorwaarden kan stelden aan bvb Gebruiker
         {
             if (ModelState.IsValid)
             {
-                db.Entry(klant).State = EntityState.Modified;
-                db.SaveChanges();
+                unitOfWork.KlantRepository.context.Entry(klant).State = EntityState.Modified;
+                //db.Entry(klant).State = EntityState.Modified;
+                unitOfWork.Save();
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(klant);
@@ -96,7 +120,8 @@ namespace Asp_Mvc_2015_2016.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Klant klant = db.Klanten.Find(id);
+            Klant klant = unitOfWork.KlantRepository.GetById(id);
+            //Klant klant = db.Klanten.Find(id);
             if (klant == null)
             {
                 return HttpNotFound();
@@ -109,9 +134,12 @@ namespace Asp_Mvc_2015_2016.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Klant klant = db.Klanten.Find(id);
-            db.Klanten.Remove(klant);
-            db.SaveChanges();
+            //Klant klant = db.Klanten.Find(id);
+            Klant klant = unitOfWork.KlantRepository.GetById(id);
+            //db.Klanten.Remove(klant);
+            unitOfWork.KlantRepository.Delete(id);
+            //db.SaveChanges();
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +147,8 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -132,6 +132,9 @@
   <data name="CreateNew" xml:space="preserve">
     <value>Create new</value>
   </data>
+  <data name="Customers" xml:space="preserve">
+    <value>Customers</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
