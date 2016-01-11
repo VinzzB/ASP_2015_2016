@@ -12,6 +12,7 @@ namespace Asp_Mvc_2015_2016.DAL
         public FactuurRepository(FacturatieDBContext context)
             : base(context)
         {
+
             
         }
     }

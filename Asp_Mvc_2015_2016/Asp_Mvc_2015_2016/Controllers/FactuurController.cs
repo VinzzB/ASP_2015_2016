@@ -1,144 +1,150 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Data.Entity;
-//using System.Linq;
-//using System.Net;
-//using System.Web;
-//using System.Web.Mvc;
-//using Asp_Mvc_2015_2016.Models;
-//using Asp_Mvc_2015_2016.ViewModels;
-//using Asp_Mvc_2015_2016.DAL;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using Asp_Mvc_2015_2016.Models;
+using Asp_Mvc_2015_2016.ViewModels;
+using Asp_Mvc_2015_2016.DAL;
 
-//namespace Asp_Mvc_2015_2016.Controllers
-//{
-//    public class FactuurController : BaseController
-//    {
-//        //private FacturatieDBContext db = new FacturatieDBContext();
-//        private IUnitOfWork unitOfWork;
+namespace Asp_Mvc_2015_2016.Controllers
+{
+    public class FactuurController : BaseController
+    {
+        //private FacturatieDBContext db = new FacturatieDBContext();
+        private IUnitOfWork unitOfWork;
 
-//        public FactuurController(IUnitOfWork uow)
-//        {
-//            unitOfWork = uow;
-//        }
+        public FactuurController(IUnitOfWork uow)
+        {
+            unitOfWork = uow;
+        }
 
-//        // GET: Factuur
-//        public ActionResult Index()
-//        {
-//            return View(db.Facturen.ToList());
-//        }
+        // GET: Factuur
+        public ActionResult Index()
+        {
+            return View(unitOfWork.FactuurRepository.GetAll());
+        }
 
-//        // GET: Factuur/Details/5
-//        public ActionResult Details(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-//            }
-//            Factuur factuur = db.Facturen.Find(id);
-//            if (factuur == null)
-//            {
-//                return HttpNotFound();
-//            }
-//            return View(factuur);
-//        }
+        // GET: Factuur/Details/5
+        public ActionResult Details(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
+            if (factuur == null)
+            {
+                return HttpNotFound();
+            }
+            return View(factuur);
+        }
 
-//        // GET: Factuur/Create
-//        public ActionResult Create()
-//        {
-//            return View();
-//        }
+        // GET: Factuur/Create
+        public ActionResult Create()
+        {
+            CreateFactuurViewModel vm = new CreateFactuurViewModel() { AvailableKlanten = unitOfWork.KlantRepository.GetAll().ToList().ConvertAll(k => new SelectListItem() { 
+                Value = k.Id.ToString(),
+                Text = k.NaamBedrijf
+            }) };
 
-//        // POST: Factuur/Create
-//        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-//        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        //public ActionResult Create([Bind(Include = "Id,FactuurJaar,FactuurNr,FactuurDatum,Totaal")] Factuur factuur)
-//            public ActionResult Create(CreateFactuurViewModel vm)
-//        {
-//            if (ModelState.IsValid)
-//            {
-//                db.Facturen.Add(factuur);
-//                db.SaveChanges();
-//                return RedirectToAction("Index");
-//            }
-//            return View(vm);
-//        }
-//        //{
-//        //    if (ModelState.IsValid)
-//        //    {
-//        //        db.Facturen.Add(factuur);
-//        //        db.SaveChanges();
-//        //        return RedirectToAction("Index");
-//        //    }
+            return View(vm);
+        }
 
-//        //    return View(factuur);
-//        //}
+        // POST: Factuur/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,FactuurJaar,FactuurNr,FactuurDatum,Totaal")] Factuur factuur)
+            public ActionResult Create(CreateFactuurViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                unitOfWork.FactuurRepository.Add(vm.factuur);
+                unitOfWork.Save();
+                return RedirectToAction("Index");
+            }
+            return View(vm);
+        }
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Facturen.Add(factuur);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-//        // GET: Factuur/Edit/5
-//        public ActionResult Edit(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-//            }
-//            Factuur factuur = db.Facturen.Find(id);
-//            if (factuur == null)
-//            {
-//                return HttpNotFound();
-//            }
-//            return View(factuur);
-//        }
+        //    return View(factuur);
+        //}
 
-//        // POST: Factuur/Edit/5
-//        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-//        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        public ActionResult Edit([Bind(Include = "Id,FactuurJaar,FactuurNr,FactuurDatum,Totaal")] Factuur factuur)
-//        {
-//            if (ModelState.IsValid)
-//            {
-//                db.Entry(factuur).State = EntityState.Modified;
-//                db.SaveChanges();
-//                return RedirectToAction("Index");
-//            }
-//            return View(factuur);
-//        }
+        // GET: Factuur/Edit/5
+        public ActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
+            if (factuur == null)
+            {
+                return HttpNotFound();
+            }
+            return View(factuur);
+        }
 
-//        // GET: Factuur/Delete/5
-//        public ActionResult Delete(int? id)
-//        {
-//            if (id == null)
-//            {
-//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-//            }
-//            Factuur factuur = db.Facturen.Find(id);
-//            if (factuur == null)
-//            {
-//                return HttpNotFound();
-//            }
-//            return View(factuur);
-//        }
+        // POST: Factuur/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,FactuurJaar,FactuurNr,FactuurDatum,Totaal")] Factuur factuur)
+        {
+            if (ModelState.IsValid)
+            {
+                //db.Entry(factuur).State = EntityState.Modified;
+                unitOfWork.FactuurRepository.context.Entry(factuur).State = EntityState.Modified;
+                unitOfWork.Save();
+                return RedirectToAction("Index");
+            }
+            return View(factuur);
+        }
 
-//        // POST: Factuur/Delete/5
-//        [HttpPost, ActionName("Delete")]
-//        [ValidateAntiForgeryToken]
-//        public ActionResult DeleteConfirmed(int id)
-//        {
-//            Factuur factuur = db.Facturen.Find(id);
-//            db.Facturen.Remove(factuur);
-//            db.SaveChanges();
-//            return RedirectToAction("Index");
-//        }
+        // GET: Factuur/Delete/5
+        public ActionResult Delete(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
+            if (factuur == null)
+            {
+                return HttpNotFound();
+            }
+            return View(factuur);
+        }
 
-//        protected override void Dispose(bool disposing)
-//        {
-//            if (disposing)
-//            {
-//                db.Dispose();
-//            }
-//            base.Dispose(disposing);
-//        }
-//    }
-//}
+        // POST: Factuur/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
+            unitOfWork.FactuurRepository.Delete(id); 
+            unitOfWork.Save();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                unitOfWork.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}
