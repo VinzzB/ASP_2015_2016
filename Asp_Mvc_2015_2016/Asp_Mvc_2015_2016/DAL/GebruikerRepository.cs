@@ -16,7 +16,7 @@ namespace Asp_Mvc_2015_2016.DAL
 
         private UserManager<Gebruiker> _userManager;
         private SignInManager<Gebruiker, String> _signInManager;
-        public override void Dispose()
+        public void Dispose()
         {
             if (_userManager != null)
             {
