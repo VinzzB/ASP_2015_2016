@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Asp_Mvc_2015_2016.Models;
 using Asp_Mvc_2015_2016.ViewModels;
+using Asp_Mvc_2015_2016.DAL;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
