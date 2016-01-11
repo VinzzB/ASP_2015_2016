@@ -112,10 +112,15 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (ModelState.IsValid)
             {
+                //ZIE DAT ER EEN HIDDEN FIELD 'ID' AANWEZIG IS!
+                Klant k = unitOfWork.KlantRepository.GetById(viewModel.klant.Id);
+                //laatste param is verwijzing naar 'viewModel.klant'
+                TryUpdateModel(k, "klant"); 
+
                 //unitOfWork.KlantRepository.context.Entry(viewModel).State = EntityState.Modified;
-                unitOfWork.KlantRepository.Update(viewModel.klant);
+               // unitOfWork.KlantRepository.Update(viewModel.klant);
                 //db.Entry(klant).State = EntityState.Modified;
-                SetDepartments(viewModel.klant, viewModel.SelectedDepartments);
+                SetDepartments(k, viewModel.SelectedDepartments);
                 unitOfWork.Save();
                 //db.SaveChanges();
                 return RedirectToAction("Index");
@@ -144,7 +149,7 @@ namespace Asp_Mvc_2015_2016.Controllers
                     DepartementKlant dk = new DepartementKlant() { Departement = dep, Klant = klant };
                     dep.Klanten.Add(dk);
                     //gebr.Departementen.Add(dg);
-                    unitOfWork.KlantRepository.Update(klant);
+                   // unitOfWork.KlantRepository.Update(klant);
                 }
             }
         }

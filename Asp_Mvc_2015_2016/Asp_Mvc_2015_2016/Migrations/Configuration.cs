@@ -1,6 +1,7 @@
 namespace Asp_Mvc_2015_2016.Migrations
 {
     using Asp_Mvc_2015_2016.Models;
+    using Asp_Mvc_2015_2016.Models.DAL;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
@@ -9,7 +10,7 @@ namespace Asp_Mvc_2015_2016.Migrations
     using System.Data.Entity.Validation;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Asp_Mvc_2015_2016.Models.FacturatieDBContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<FacturatieDBContext>
     {
         private readonly static String AdminRoleName = "Systeem Administrator";
         private readonly static String DepAdminRoleName = "Departement Administrator";
@@ -22,7 +23,7 @@ namespace Asp_Mvc_2015_2016.Migrations
         }
         
 
-        protected override void Seed(Asp_Mvc_2015_2016.Models.FacturatieDBContext context)
+        protected override void Seed(FacturatieDBContext context)
         {
 
             try

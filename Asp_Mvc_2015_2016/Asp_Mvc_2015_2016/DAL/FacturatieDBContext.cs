@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
-namespace Asp_Mvc_2015_2016.Models
+namespace Asp_Mvc_2015_2016.Models.DAL
 {
     //VB: inherit van IdentityDbContext<Gebruiker>
     // comment existing entities (Gebruikers, Rol) --> IdentityUser, IdentityRole

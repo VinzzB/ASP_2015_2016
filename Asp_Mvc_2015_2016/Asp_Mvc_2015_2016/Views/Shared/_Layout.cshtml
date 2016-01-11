@@ -25,12 +25,12 @@
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="@(ViewContext.RouteData.Values["controller"].ToString()=="Home" ? "active": "")">
+                    @*<li class="@(ViewContext.RouteData.Values["controller"].ToString()=="Home" ? "active": "")">
                         <a href="@Url.Action("Index", "Home")">
                             <span class="glyphicon glyphicon-home"></span>
                             Home
                         </a>
-                    </li>
+                    </li>*@
                     
                     @if (User.IsInRole("Systeem Administrator"))
                     {
@@ -63,7 +63,28 @@
                         </li>
                     }
 
-                </ul>
+                    <li class="dropdown @(ViewContext.RouteData.Values["controller"].ToString() == "FactuurDetails" ? "active" : "")">
+                        <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
+                            Uurregistraties
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li id="NietGefactureerd" class="@(ViewContext.RouteData.Values["action"].ToString() == "UnbilledList" ? "active" : "")">
+                                @Html.ActionLink("Niet gefactureerde uur registraties", "UnbilledList", "FactuurDetails")
+                                @*<a href="#">Niet gefactureerde uur registraties</a>*@
+                            </li>
+                            <li id="Gefactureerd" class="@(ViewContext.RouteData.Values["action"].ToString() == "BilledList" ? "active" : "")">
+                                @Html.ActionLink("Gefactureerde uur registraties", "BilledList", new { controller = "FactuurDetails", ListType = "Billed" })
+                                @*<a href="#">Gefactureerd uur registraties</a>*@
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    </ul>
+
+
+
                 @Html.Partial("_LoginPartial")
                 @Html.Partial("_CulturePartial")
             </div>

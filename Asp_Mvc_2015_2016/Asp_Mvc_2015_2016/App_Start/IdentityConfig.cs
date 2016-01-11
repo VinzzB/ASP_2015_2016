@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Asp_Mvc_2015_2016.Models;
+using Asp_Mvc_2015_2016.Models.DAL;
 
 namespace Asp_Mvc_2015_2016
 {

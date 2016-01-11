@@ -1,0 +1,91 @@
+@using Asp_Mvc_2015_2016.ViewModels
+@model UurRegistratieViewModel
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+@Html.HiddenFor(m => m.UurRegistratie.FactuurDetailId)
+@Html.HiddenFor(m => m.UurRegistratie.Id)
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UurRegistratie.FactuurDetail.Klant.NaamBedrijf)
+</div>
+<div class="editor-field">
+    @Html.DisplayTextFor(model => model.UurRegistratie.FactuurDetail.Klant.NaamBedrijf)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UurRegistratie.FactuurDetail.Titel)
+</div>
+<div class="editor-field">
+    @Html.DisplayTextFor(model => model.UurRegistratie.FactuurDetail.Titel)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UurRegistratie.FactuurDetail.Omschrijving)
+</div>
+<div class="editor-field">
+    @Html.DisplayTextFor(model => model.UurRegistratie.FactuurDetail.Omschrijving)
+</div>
+
+@*@{
+    Html.Html5DateRenderingMode = Html5DateRenderingMode.CurrentCulture;   
+}*@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UurRegistratie.StartDatum)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.UurRegistratie.StartDatum)
+    @Html.ValidationMessageFor(model => model.UurRegistratie.StartDatum)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UurRegistratie.EindDatum)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.UurRegistratie.EindDatum)
+    @Html.ValidationMessageFor(model => model.UurRegistratie.EindDatum)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UurRegistratie.TeFactureren)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.UurRegistratie.TeFactureren)
+    @Html.ValidationMessageFor(model => model.UurRegistratie.TeFactureren)
+</div>
+
+<div class="editor-label">
+    Type Werk
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.UurRegistratie.TypeWerkId, Model.AvailableTypeWerk)
+    @Html.ValidationMessageFor(model => model.UurRegistratie.TypeWerkId)
+</div>
+
+
+
+
+
+@*<div class="editor-label">
+    CreatedBy
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.CreatedById, ((IEnumerable<Asp_Mvc_2015_2016.Models.Gebruiker>)ViewBag.PossibleCreatedBies).Select(option => new SelectListItem {
+        Text = Html.DisplayTextFor(_ => option).ToString(), 
+        Value = option.Id.ToString(),
+        Selected = (Model != null) && (option.Id == Model.CreatedById)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.CreatedById)
+</div>
+<div class="editor-label">
+    EditedBy
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.EditedById, ((IEnumerable<Asp_Mvc_2015_2016.Models.Gebruiker>)ViewBag.PossibleEditedBies).Select(option => new SelectListItem {
+        Text = Html.DisplayTextFor(_ => option).ToString(), 
+        Value = option.Id.ToString(),
+        Selected = (Model != null) && (option.Id == Model.EditedById)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.EditedById)
+</div>*@

@@ -1,0 +1,42 @@
+@using Asp_Mvc_2015_2016.ViewModels
+@model FactuurDetailsViewModel
+
+@Html.HiddenFor(m => m.FactuurDetails.Id)
+@* This partial view defines form fields that will appear when creating and editing entities *@
+<div class="editor-label">
+    @Html.LabelFor(model => model.FactuurDetails.Titel)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.FactuurDetails.Titel)
+    @Html.ValidationMessageFor(model => model.FactuurDetails.Titel)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.FactuurDetails.Omschrijving)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.FactuurDetails.Omschrijving)
+    @Html.ValidationMessageFor(model => model.FactuurDetails.Omschrijving)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.FactuurDetails.lijnwaarde)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.FactuurDetails.lijnwaarde)
+    @Html.ValidationMessageFor(model => model.FactuurDetails.lijnwaarde)
+</div>
+
+<div class="editor-label">
+    Klant
+</div>
+<div class="editor-field">
+    @{
+        if (Model.FactuurDetails.GefactureerdeUren.Count > 0) {
+            @Html.DisplayTextFor(m => m.FactuurDetails.Klant.NaamBedrijf)
+        } else {
+            @Html.DropDownListFor(model => model.FactuurDetails.KlantId, Model.AvailableKlanten)
+            @Html.ValidationMessageFor(model => model.FactuurDetails.KlantId)
+        }
+}
+</div>

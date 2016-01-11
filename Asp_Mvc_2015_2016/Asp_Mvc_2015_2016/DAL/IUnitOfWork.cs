@@ -10,6 +10,9 @@ namespace Asp_Mvc_2015_2016.DAL
         GebruikerRepository GebruikerRepository { get; }
         GenericRepository<DepartementGebruiker> GebruikerDepartementRepository { get; }
         GenericRepository<DepartementKlant> DepartementKlantRepository { get; }
+        UurRegistratieRepository UurRegistratieRepository { get; }
+        FactuurDetailsRepository FactuurDetailsRepository { get; }
+        GenericRepository<TypeWerk> TypeWerkRepository { get; }
         void Save();
         void Dispose();
         
