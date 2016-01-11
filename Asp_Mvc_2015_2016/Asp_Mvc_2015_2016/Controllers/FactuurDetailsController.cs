@@ -9,8 +9,8 @@ using Asp_Mvc_2015_2016.DAL.Services;
 using Asp_Mvc_2015_2016.ViewModels;
 
 namespace Asp_Mvc_2015_2016.Controllers
-{   
-    public class FactuurDetailsController : Controller
+{
+    public class FactuurDetailsController : BaseController
     {
         private IUnitOfWork uow;
         private IUurRegistratieService service;

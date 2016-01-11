@@ -11,8 +11,8 @@ using Asp_Mvc_2015_2016.DAL.Services;
 using Asp_Mvc_2015_2016.ViewModels;
 
 namespace Asp_Mvc_2015_2016.Controllers
-{   
-    public class UurRegistratiesController : Controller
+{
+    public class UurRegistratiesController : BaseController
     {
         private IUnitOfWork uow;
         private IUurRegistratieService service;
