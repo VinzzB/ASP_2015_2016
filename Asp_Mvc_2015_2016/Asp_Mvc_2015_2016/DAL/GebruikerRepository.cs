@@ -16,7 +16,7 @@ namespace Asp_Mvc_2015_2016.DAL
 
         private UserManager<Gebruiker> _userManager;
         private SignInManager<Gebruiker, String> _signInManager;
-        public void Dispose()
+        public override void Dispose()
         {
             if (_userManager != null)
             {
@@ -27,7 +27,7 @@ namespace Asp_Mvc_2015_2016.DAL
             {
                 _signInManager.Dispose();
                 _signInManager = null;
-            }
+            }            
         }
         public GebruikerRepository(FacturatieDBContext context)
             : base(context)

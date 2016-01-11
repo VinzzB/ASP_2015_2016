@@ -78,7 +78,7 @@ namespace Asp_Mvc_2015_2016.DAL
             }
         }
         //...
-        private bool disposed = false;
+     //   private bool disposed = false;
 
         public UnitOfWork() {/* EMPTY CTOR */ }
         public UnitOfWork(FacturatieDBContext context)
