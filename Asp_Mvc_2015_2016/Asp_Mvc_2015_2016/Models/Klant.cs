@@ -8,23 +8,24 @@ using System.Web.Mvc;
 
 namespace Asp_Mvc_2015_2016.Models
 {
+    
+    //[Bind(Include = "Id,Ondernemingsnr,NaamBedrijf, StraatNr, Postcode, Plaats")] // de props Gebruikers, Departementen, CreatedBy en EditedBy worden zo excluded en kunnen niet geset worden zonder constructor die voorwaarden kan stelden aan bvb Gebruiker
     [Table("Klanten")]
-    [Bind(Include = "Id,Ondernemingsnr,NaamBedrijf, StraatNr, Postcode, Plaats")]
     public class Klant  : _BaseInfo
     {
         
         //[Unique(ErrorMessage = "This already exist !!")]
         //[Index("OndernNrIndex", IsUnique = true)]
-        [Display(Name="Ondernemingsnummer")]
+        [Display(Name="CompanyNumber", ResourceType = typeof(Resources.CultureResource))]
         public string Ondernemingsnr { get; set; }
-        [Display(Name = "Naam bedrijf")]
+        [Display(Name = "CompanyName", ResourceType = typeof(Resources.CultureResource))]
         public string NaamBedrijf { get; set; }
         //public virtual Adres Adres { get; set; } //adres apart? = extra (partial) view
-        [Display(Name = "Straat en Nummer")]
+        [Display(Name = "StreetNbr", ResourceType = typeof(Resources.CultureResource))]
         public string StraatNr { get; set; }
-        [Display(Name = "Postcode")]
+        [Display(Name = "Zip", ResourceType = typeof(Resources.CultureResource))]
         public string Postcode { get; set; }
-        [Display(Name = "Plaats")]
+        [Display(Name = "Place", ResourceType = typeof(Resources.CultureResource))]
         public string Plaats { get; set; }
 
         // gebruiker en klant: many to many relatie

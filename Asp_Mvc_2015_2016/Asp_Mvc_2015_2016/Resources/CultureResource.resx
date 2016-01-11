@@ -129,8 +129,17 @@
   <data name="Close" xml:space="preserve">
     <value>Sluiten</value>
   </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Bedrijfsnaam</value>
+  </data>
+  <data name="CompanyNumber" xml:space="preserve">
+    <value>Ondernemingsnummer</value>
+  </data>
   <data name="CreateNew" xml:space="preserve">
     <value>Nieuw</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Klant</value>
   </data>
   <data name="Customers" xml:space="preserve">
     <value>Klanten</value>
@@ -204,6 +213,9 @@
   <data name="Phone" xml:space="preserve">
     <value>Telefoon</value>
   </data>
+  <data name="Place" xml:space="preserve">
+    <value>Plaats</value>
+  </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Onthoud mij?</value>
   </data>
@@ -216,6 +228,9 @@
   <data name="Save" xml:space="preserve">
     <value>Opslaan</value>
   </data>
+  <data name="StreetNbr" xml:space="preserve">
+    <value>Straat en nummer</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>Gebruiker</value>
   </data>
@@ -227,5 +242,8 @@
   </data>
   <data name="ValidationLengthError" xml:space="preserve">
     <value>Het veld '{0}' moet minstens {2} karakters bevatten.</value>
+  </data>
+  <data name="Zip" xml:space="preserve">
+    <value>Postcode</value>
   </data>
 </root>
