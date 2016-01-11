@@ -15,6 +15,11 @@
 .dl-horizontal dt {
     white-space: normal;
 }
+/* Align checkbox to the left (not the middle)*/
+input[type=checkbox] {
+    width: auto;
+    min-width: 20px;    
+}
 
 /* Set width on the form input elements since they're 100% wide by default */
 

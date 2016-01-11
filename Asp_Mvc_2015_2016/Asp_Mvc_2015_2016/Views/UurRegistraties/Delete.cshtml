@@ -1,0 +1,44 @@
+@model Asp_Mvc_2015_2016.Models.UurRegistratie
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>UurRegistratie</legend>
+
+    <div class="display-label">factuurDetails</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.factuurDetails).ToString()</div>
+
+    <div class="display-label">StartDatum</div>
+    <div class="display-field">@String.Format("{0:g}", Model.StartDatum)</div>
+
+    <div class="display-label">EindDatum</div>
+    <div class="display-field">@String.Format("{0:g}", Model.EindDatum)</div>
+
+    <div class="display-label">TypeWerk</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.TypeWerk).ToString()</div>
+
+    <div class="display-label">TeFactureren</div>
+    <div class="display-field">@Model.TeFactureren</div>
+
+    <div class="display-label">Factuur</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.Factuur).ToString()</div>
+
+    <div class="display-label">CreatedBy</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.CreatedBy).ToString()</div>
+
+    <div class="display-label">EditedBy</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.EditedBy).ToString()</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+

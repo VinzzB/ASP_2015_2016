@@ -1,0 +1,78 @@
+@model IEnumerable<Asp_Mvc_2015_2016.Models.FactuurDetails>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            factuurDetails
+        </th>
+        <th>
+            StartDatum
+        </th>
+        <th>
+            EindDatum
+        </th>
+        <th>
+            TypeWerk
+        </th>
+        <th>
+            TeFactureren
+        </th>
+        <th>
+            Factuur
+        </th>
+        <th>
+            CreatedBy
+        </th>
+        <th>
+            EditedBy
+        </th>
+    </tr>
+
+@foreach (var item in Model.GefactureerdeUren)
+{
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.factuurDetails).ToString()
+        </td>
+        <td>
+			@String.Format("{0:g}", item.StartDatum)
+        </td>
+        <td>
+			@String.Format("{0:g}", item.EindDatum)
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.TypeWerk).ToString()
+        </td>
+        <td>
+			@item.TeFactureren
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.Factuur).ToString()
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.CreatedBy).ToString()
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.EditedBy).ToString()
+        </td>
+    </tr>
+}
+
+</table>
+
+

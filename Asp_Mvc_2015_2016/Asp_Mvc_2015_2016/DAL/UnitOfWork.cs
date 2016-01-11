@@ -1,4 +1,5 @@
 ﻿using Asp_Mvc_2015_2016.Models;
+//using Asp_Mvc_2015_2016.Models.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,36 @@ namespace Asp_Mvc_2015_2016.DAL
         private RolesRepository rolesRepository;
         private GenericRepository<DepartementGebruiker> gebruikerDepartementRepository;
         private GenericRepository<DepartementKlant> departementKlantRepository;
+        private UurRegistratieRepository uurRegistratieRepository;
+        private FactuurDetailsRepository factuurDetailsRepository;
+        private GenericRepository<TypeWerk> typeWerkRepository;
+
+        public GenericRepository<TypeWerk> TypeWerkRepository
+        {
+            get {
+                if (this.typeWerkRepository == null)
+                    this.typeWerkRepository = new GenericRepository<TypeWerk>(context);
+                return typeWerkRepository; 
+            }
+        }
+
+        public FactuurDetailsRepository FactuurDetailsRepository
+        {
+            get {
+                if (this.factuurDetailsRepository == null)
+                    this.factuurDetailsRepository = new FactuurDetailsRepository(context);
+                return factuurDetailsRepository;
+            }            
+        }
+
+        public UurRegistratieRepository UurRegistratieRepository
+        {
+            get {
+                if (this.uurRegistratieRepository == null)
+                    uurRegistratieRepository = new UurRegistratieRepository(context);
+                return uurRegistratieRepository; 
+            }
+        }
 
         public GenericRepository<DepartementKlant> DepartementKlantRepository
         {
@@ -49,7 +80,7 @@ namespace Asp_Mvc_2015_2016.DAL
             }
         }
         //...
-        private bool disposed = false;
+     //   private bool disposed = false;
 
         public UnitOfWork() {/* EMPTY CTOR */ }
         public UnitOfWork(FacturatieDBContext context)
@@ -94,13 +125,13 @@ namespace Asp_Mvc_2015_2016.DAL
             }
         }
 
-        public DAL.GebruikerRepository GebruikerRepository
+        public GebruikerRepository GebruikerRepository
         {
             get
             {
                 if (this.gebruikerRepository == null)
                 {
-                    this.gebruikerRepository = new DAL.GebruikerRepository(context);
+                    this.gebruikerRepository = new GebruikerRepository(context);
                 }
                 return gebruikerRepository;
             }
@@ -115,13 +146,16 @@ namespace Asp_Mvc_2015_2016.DAL
 
         public void Dispose()
         {
-            if (!this.disposed)
+            if (context != null)
             {
                 context.Dispose();
+                context = null;
             }
-            this.disposed = true;
+            if (gebruikerRepository != null)
+            {
+                gebruikerRepository.Dispose();
+                gebruikerRepository = null;
+            }
         }
-
-
     }
 }

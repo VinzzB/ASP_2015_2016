@@ -1,0 +1,52 @@
+@using Asp_Mvc_2015_2016.ViewModels
+@model FactuurDetailsViewModel
+
+@Html.HiddenFor(m => m.FactuurDetails.Id)
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="form-group">
+    @Html.LabelFor(model => model.FactuurDetails.KlantId, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @{
+            if (Model.FactuurDetails.GefactureerdeUren.Count > 0)
+            {
+                <p class="form-control-static">
+                    @Html.DisplayTextFor(m => m.FactuurDetails.Klant.NaamBedrijf)
+                </p>
+                @Html.ValidationMessageFor(model => model.FactuurDetails.KlantId,
+                     "Klant kan niet meer gewijzigd worden. Er zijn reeds facturen opgemaakt die gebruik maken van deze gegevens.",
+                     new { @class = "text-danger" })
+            }
+            else
+            {
+                @Html.DropDownListFor(model => model.FactuurDetails.KlantId, Model.AvailableKlanten, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FactuurDetails.KlantId, "", new { @class = "text-danger" })
+            }
+        }
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.FactuurDetails.Titel, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.FactuurDetails.Titel, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.FactuurDetails.Titel, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.FactuurDetails.Omschrijving, new { @class = "control-label col-md-2" })
+
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.FactuurDetails.Omschrijving, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.FactuurDetails.Omschrijving, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    @Html.LabelFor(model => model.FactuurDetails.lijnwaarde, new { @class = "control-label col-md-2" })
+
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.FactuurDetails.lijnwaarde, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.FactuurDetails.lijnwaarde, "", new { @class = "text-danger" })
+    </div>
+</div>

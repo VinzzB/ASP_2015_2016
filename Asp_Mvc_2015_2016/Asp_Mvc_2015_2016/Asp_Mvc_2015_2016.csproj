@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Linq.Dynamic, Version=1.0.5840.25917, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.6\lib\net40\System.Linq.Dynamic.dll</HintPath>
@@ -189,11 +190,14 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DepartementController.cs" />
     <Compile Include="Controllers\FactuurController.cs" />
+    <Compile Include="Controllers\FactuurDetailsController.cs" />
     <Compile Include="Controllers\GebruikersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KlantController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UurRegistratiesController.cs" />
     <Compile Include="DAL\DepartementRepository.cs" />
+    <Compile Include="DAL\FactuurDetailsRepository.cs" />
     <Compile Include="DAL\FactuurRepository.cs" />
     <Compile Include="DAL\GebruikerRepository.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
@@ -202,15 +206,14 @@
     <Compile Include="DAL\RolesRepository.cs" />
     <Compile Include="DAL\Services\GebruikerService.cs" />
     <Compile Include="DAL\Services\IGebruikerService.cs" />
+    <Compile Include="DAL\Services\IUurRegistratieService.cs" />
+    <Compile Include="DAL\Services\UurRegistratieService.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\UurRegistratieRepository.cs" />
-    <Compile Include="Migrations\201601100929466_VB.cs" />
-    <Compile Include="Migrations\201601100929466_VB.Designer.cs">
-      <DependentUpon>201601100929466_VB.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\CreateFactuurViewModel.cs" />
     <Compile Include="ViewModels\EditKlantViewModels.cs" />
+    <Compile Include="ViewModels\FactuurDetailsViewModel.cs" />
     <Compile Include="ViewModels\NewGebruiker.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -244,6 +247,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\GebruikersIndexViewModel.cs" />
     <Compile Include="ViewModels\GenericUserFormViewModel.cs" />
+    <Compile Include="ViewModels\UurRegistratieViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -376,6 +380,20 @@
     <Content Include="Views\Gebruikers\_UserDepartmentsTable.cshtml" />
     <Content Include="Views\Gebruikers\_UserKlantenTable.cshtml" />
     <Content Include="Views\Departement\_GetDepartementForKlant.cshtml" />
+    <Content Include="Views\UurRegistraties\Create.cshtml" />
+    <Content Include="Views\UurRegistraties\Edit.cshtml" />
+    <Content Include="Views\UurRegistraties\Delete.cshtml" />
+    <Content Include="Views\UurRegistraties\Details.cshtml" />
+    <Content Include="Views\UurRegistraties\Index.cshtml" />
+    <Content Include="Views\UurRegistraties\_CreateOrEdit.cshtml" />
+    <Content Include="Views\FactuurDetails\Create.cshtml" />
+    <Content Include="Views\FactuurDetails\Edit.cshtml" />
+    <Content Include="Views\FactuurDetails\Delete.cshtml" />
+    <Content Include="Views\FactuurDetails\Details.cshtml" />
+    <Content Include="Views\FactuurDetails\Index.cshtml" />
+    <Content Include="Views\FactuurDetails\_CreateOrEdit.cshtml" />
+    <Content Include="Views\FactuurDetails\BilledList.cshtml" />
+    <Content Include="Views\FactuurDetails\UnbilledList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -390,9 +408,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201601100929466_VB.resx">
-      <DependentUpon>201601100929466_VB.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\CultureResource.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CultureResource.en.Designer.cs</LastGenOutput>

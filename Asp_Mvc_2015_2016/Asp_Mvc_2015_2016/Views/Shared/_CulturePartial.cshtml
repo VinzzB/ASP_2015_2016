@@ -16,7 +16,10 @@
 <!-- A bootstrap dropsown in navbar. Aligned Right -->
 @using (Html.BeginForm("SetCulture",
                         ViewContext.RouteData.Values["controller"].ToString(),
-                        new { returnaction = ViewContext.RouteData.Values["action"] },
+                        new { 
+                            returnaction = ViewContext.RouteData.Values["action"],
+                            returnId = ViewContext.RouteData.Values.ContainsKey("id") ? ViewContext.RouteData.Values["id"] : null
+                        },
                         FormMethod.Post, new { id = "cultureForm" }))
 {
     <input type="hidden" name="culture" value="@culture" id="culturevalue" />
