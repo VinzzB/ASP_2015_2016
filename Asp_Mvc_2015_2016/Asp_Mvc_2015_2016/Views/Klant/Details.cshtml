@@ -1,14 +1,5 @@
 ﻿@model Asp_Mvc_2015_2016.Models.Klant
 
-<script>
-    $(function () {
-        $("#dept").accordion();
-    });
-</script>
-
-@{
-    ViewBag.Title = "Details";
-}
 
 <h2>Details</h2>
 
@@ -62,11 +53,8 @@
 
 
 <div id="dept">
-    @foreach (var d in Model.Departementen)
-    {
-        <h3>@d.Departement.Code</h3>
+  
        @Html.Action("_GetDepartementForKlant", "Departement", new { kId = Model.Id })
-    }
     
 </div id="dept">
 

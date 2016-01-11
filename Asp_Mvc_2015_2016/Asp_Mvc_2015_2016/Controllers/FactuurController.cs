@@ -7,12 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Asp_Mvc_2015_2016.Models;
+using Asp_Mvc_2015_2016.ViewModels;
 
 namespace Asp_Mvc_2015_2016.Controllers
 {
     public class FactuurController : BaseController
     {
-        private FacturatieDBContext db = new FacturatieDBContext();
+        //private FacturatieDBContext db = new FacturatieDBContext();
+        private IUnitOfWork unitOfWork;
+
+        public FactuurController(IUnitOfWork uow)
+        {
+            unitOfWork = uow;
+        }
 
         // GET: Factuur
         public ActionResult Index()
@@ -46,7 +53,8 @@ namespace Asp_Mvc_2015_2016.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FactuurJaar,FactuurNr,FactuurDatum,Totaal")] Factuur factuur)
+        //public ActionResult Create([Bind(Include = "Id,FactuurJaar,FactuurNr,FactuurDatum,Totaal")] Factuur factuur)
+            public ActionResult Create(CreateFactuurViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -54,9 +62,18 @@ namespace Asp_Mvc_2015_2016.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(factuur);
+            return View(vm);
         }
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Facturen.Add(factuur);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(factuur);
+        //}
 
         // GET: Factuur/Edit/5
         public ActionResult Edit(int? id)
