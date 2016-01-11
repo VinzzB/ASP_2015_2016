@@ -70,7 +70,7 @@ namespace Asp_Mvc_2015_2016.Controllers
             {
                 uow.FactuurDetailsRepository.Add(viewModel.FactuurDetails);
                 uow.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = viewModel.FactuurDetails.Id });
             }
             return View();
         }

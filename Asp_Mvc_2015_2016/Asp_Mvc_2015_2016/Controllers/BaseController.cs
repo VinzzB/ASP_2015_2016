@@ -31,13 +31,13 @@ namespace Asp_Mvc_2015_2016.Controllers
 
          [AllowAnonymous]
         [HttpPost]
-        public ActionResult SetCulture(string culture, string returnaction)
+        public ActionResult SetCulture(string culture, string returnaction, string returnId)
         {
             //get cookie from request. if cookie is null (??) then create new cookie and init props.
             HttpCookie cookie = Request.Cookies["culture"] ?? new HttpCookie("culture") { Expires = DateTime.Now.AddYears(1) };
             cookie.Value = culture;         //set cookie value.
             Response.Cookies.Add(cookie);   //add cookie to http response and redirect to action
-            return  RedirectToAction(returnaction);
+            return RedirectToAction(returnaction, new { id = returnId });
         }
     }
 }

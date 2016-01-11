@@ -14,8 +14,10 @@
 
     <dt>@Html.DisplayNameFor(m => m.Klant)</dt>
     <dd>
-        @Html.DisplayTextFor(_ => Model.Klant.NaamBedrijf)
-        (BTW-BE: @Html.DisplayTextFor(_ => Model.Klant.Ondernemingsnr))
+        @Html.ActionLink(
+            String.Format("{0} (BTW-BE: {1})", Model.Klant.NaamBedrijf, Model.Klant.Ondernemingsnr),
+            "Details",
+            new { controller = "Klant", id = Model.KlantId })
     </dd>
 
     <dt>@Html.DisplayNameFor(m => m.Klant.Plaats)</dt>
@@ -37,6 +39,9 @@
     <dt>@Html.DisplayNameFor(m => m.NietGefactureerdeUren)</dt>
     <dd>@(Model.NietGefactureerdeUren == null ? "None" : Model.NietGefactureerdeUren.Count.ToString())</dd>
 </dl>
+
+
+
 
 <p class="pull-right">@Html.ActionLink("Uren toevoegen", "Create", new { controller = "UurRegistraties", DetailId = Model.Id })</p>
 <h4>Niet Gefactureerde Uurregistraties</h4>
