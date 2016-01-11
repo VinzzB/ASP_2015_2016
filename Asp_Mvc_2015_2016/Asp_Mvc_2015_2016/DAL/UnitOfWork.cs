@@ -1,5 +1,4 @@
 ﻿using Asp_Mvc_2015_2016.Models;
-//using Asp_Mvc_2015_2016.Models.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace Asp_Mvc_2015_2016.DAL
         private FacturatieDBContext context; // = new FacturatieDBContext();
         private GenericRepository<Departement> departementRepository;
         private GenericRepository<Klant> klantRepository;
-        private GenericRepository<FactuurRepository> factuurRepository;
+        private GenericRepository<Factuur> factuurRepository;
         //private GenericRepository<Gebruiker> gebruikerRepository;
         private GebruikerRepository gebruikerRepository;
         private RolesRepository rolesRepository;
@@ -21,7 +20,6 @@ namespace Asp_Mvc_2015_2016.DAL
         private UurRegistratieRepository uurRegistratieRepository;
         private FactuurDetailsRepository factuurDetailsRepository;
         private GenericRepository<TypeWerk> typeWerkRepository;
-        private GenericRepository<Factuur> factuurRepository;
 
         public GenericRepository<Factuur> FactuurRepository
         {
@@ -110,19 +108,6 @@ namespace Asp_Mvc_2015_2016.DAL
                 return departementRepository;
             }
         }
-
-        public GenericRepository<Factuur> FactuurRepository
-        {
-            get
-            {
-                if (this.factuurRepository == null)
-                {
-                    this.factuurRepository = new GenericRepository<Factuur>(context);
-                }
-                return factuurRepository;
-            }
-        }
-
 
         public GenericRepository<Klant> KlantRepository
         {
