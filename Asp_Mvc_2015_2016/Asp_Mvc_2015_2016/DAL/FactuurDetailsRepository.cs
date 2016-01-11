@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 //using Asp_Mvc_2015_2016.Models.DAL;
-
+using Microsoft.AspNet.Identity;
 namespace Asp_Mvc_2015_2016.DAL
 {
     public class FactuurDetailsRepository : GenericRepository<FactuurDetails>
@@ -12,5 +12,6 @@ namespace Asp_Mvc_2015_2016.DAL
         public FactuurDetailsRepository(FacturatieDBContext context)
             : base(context)
         { }
+
     }
 }
