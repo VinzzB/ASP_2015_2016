@@ -211,8 +211,6 @@
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\UurRegistratieRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AspMvc20152016Context.cs" />
-    <Compile Include="Models\FactuurDetailsRepository.cs" />
     <Compile Include="ViewModels\CreateFactuur.cs" />
     <Compile Include="ViewModels\EditKlantViewModels.cs" />
     <Compile Include="ViewModels\FactuurDetailsViewModel.cs" />
