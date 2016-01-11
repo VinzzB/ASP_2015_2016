@@ -79,11 +79,6 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: Klant/Edit/5
         public ActionResult Edit(int id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Klant klant = db.Klanten.Find(id);
             Gebruiker gebruiker = unitOfWork.GebruikerRepository.GetById(HttpContext.User.Identity.GetUserId());
             Klant klant = unitOfWork.KlantRepository.GetById(id);
             if (klant == null)

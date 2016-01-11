@@ -15,6 +15,8 @@ namespace Asp_Mvc_2015_2016.Models
         public DateTime FactuurDatum { get; set; }
         public int Totaal { get; set; }
 
+        //public virtual ICollection<FactuurDetails> factuurdetails { get; set; }
+
         /* Virtuals from FK in base class */
         public virtual Gebruiker CreatedBy { get; set; }
         public virtual Gebruiker EditedBy { get; set; }

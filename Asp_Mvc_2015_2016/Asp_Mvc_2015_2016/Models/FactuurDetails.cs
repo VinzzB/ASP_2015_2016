@@ -24,6 +24,9 @@ namespace Asp_Mvc_2015_2016.Models
         //netto lijnwaarde?
         public int lijnwaarde { get; set; }
 
+        //public int FactuurId { get; set; }
+        //public virtual Factuur Factuur { get; set; }
+
         /* Virtuals from FK in base class */
         public virtual Gebruiker CreatedBy { get; set; }
         public virtual Gebruiker EditedBy { get; set; }

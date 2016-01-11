@@ -30,10 +30,10 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: Factuur/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
             if (factuur == null)
             {
@@ -69,24 +69,11 @@ namespace Asp_Mvc_2015_2016.Controllers
             }
             return View(vm);
         }
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Facturen.Add(factuur);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(factuur);
-        //}
+        
 
         // GET: Factuur/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
             if (factuur == null)
             {
@@ -115,10 +102,10 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: Factuur/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
             if (factuur == null)
             {
