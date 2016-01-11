@@ -1,51 +1,29 @@
 @model IEnumerable<Asp_Mvc_2015_2016.Models.FactuurDetails>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Niet Gefactureerde Factuur Details";
 }
 
-<h2>Niet Gefactureerde Factuur Details</h2>
-
+<h2>@ViewBag.Title</h2>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New", "Create")*@
+    @Ajax.ActionLink(CultureResource.CreateNew,
+                     "Load_User_Form",
+                     new { type = "new" },
+                     new AjaxOptions
+                     {
+                         LoadingElementId = "ModalAjaxLoading",
+                         LoadingElementDuration = 250,
+                         HttpMethod = "POST",
+                         OnSuccess = "fs.modalSuccess",
+                         OnBegin = "fs.modalBegin"
+                     }, new { data_title = "Factuur Details: " + CultureResource.CreateNew })
+
 </p>
-<table class="table table-striped table-hover table-condensed">
-    <tr>
-        <th>Titel</th>
-        <th>Omschrijving</th>
-        <th>Klant</th>
-        <th>lijnwaarde</th>
-        <th># <abbr title="Niet Gefactureerde Uurregistraties">N.G.U.</abbr></th>
-        <th>Totaal <abbr title="Niet Gefactureerd">N.G.</abbr></th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Titel</td>
-            <td>@item.Omschrijving</td>
-            <td>@Html.ActionLink(item.Klant.NaamBedrijf,"Details",new{ controller = "Klant", id = item.KlantId})</td>
-            <td>@item.lijnwaarde</td>
-            <td>@item.NietGefactureerdeUren.Count</td>
-            <td>@String.Format("{0:#.##} €", item.NietGefactureerdeUren.Sum(p => p.Total))</td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-                @{
-                    if (item.GefactureerdeUren.Count == 0)
-                    {
-                        Write(" | ");
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    }
-                }        
-                | @Html.ActionLink("Uren toevoegen", "Create", new { controller = "UurRegistraties", DetailId = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>
+<div id="UnbilledList">
+    @Html.Partial("_UnbilledList", Model)
+</div>
 <div>
     Jump to: @Html.ActionLink("Billed services list", "BilledList")
 </div>
-
+@Html.Partial("_ModalDialog")

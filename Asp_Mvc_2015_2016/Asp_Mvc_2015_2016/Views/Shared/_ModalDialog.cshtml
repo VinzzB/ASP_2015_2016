@@ -1,0 +1,23 @@
+﻿
+@* VB: Added MODAL template hidden in html... (KAN OOK IN _layout.cshtml gespecifieerd worden zodat het op meerdere pagina's gebruikt kan worden!) *@
+<div id="ModalDialog" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" hidden="hidden">
+    <div class="modal-dialog">
+        <!--use modal-lg here and uncomment in css. -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"></h4>
+                <div id="ModalAjaxLoading"><h4>LOADING DATA...</h4></div>
+                <div class="col-md-12">
+                    <div id="ResultMessage" class="alert alert-dismissible" hidden="hidden">
+                        <button type="button" class="close" onclick="$(this).parent('div#ResultMessage').fadeOut()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span id="message"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body"></div>
+            @*<div id="UserCreateOrUpdateForm" class="modal-body"></div>*@
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -3,7 +3,7 @@
 @using Asp_Mvc_2015_2016.Models
 @model GenericUserFormViewModel<NewGebruiker>
 
-@using (Ajax.BeginForm("User_Create", new AjaxOptions() { UpdateTargetId = "Gebruikerslijst", OnFailure = "NewUserFailed", OnSuccess = "NewUserSuccess" }))
+@using (Ajax.BeginForm("User_Create", new AjaxOptions() { UpdateTargetId = "Gebruikerslijst", OnFailure = "fs.modalSaveFailed", OnSuccess = "fs.modalSaveSuccess" }))
 {
     @Html.AntiForgeryToken()
 
@@ -98,7 +98,7 @@
     <div class="clearfix"></div>
     <div class="col-md-12">
         <div id="UserResultMessage" class="alert alert-dismissible" hidden="hidden">
-            <button type="button" class="close" onclick="$(this).parent('div#UserResultMessage').fadeOut()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" onclick="$(this).parent('div#ResultMessage').fadeOut()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <span id="message"></span>
         </div>
     </div>
