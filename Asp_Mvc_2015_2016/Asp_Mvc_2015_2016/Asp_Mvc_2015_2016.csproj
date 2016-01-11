@@ -211,7 +211,7 @@
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="DAL\UurRegistratieRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="ViewModels\CreateFactuur.cs" />
+    <Compile Include="ViewModels\CreateFactuurViewModel.cs" />
     <Compile Include="ViewModels\EditKlantViewModels.cs" />
     <Compile Include="ViewModels\FactuurDetailsViewModel.cs" />
     <Compile Include="ViewModels\NewGebruiker.cs" />

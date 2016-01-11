@@ -6,6 +6,8 @@ namespace Asp_Mvc_2015_2016.DAL
     {
         GenericRepository<Asp_Mvc_2015_2016.Models.Departement> DepartementRepository { get; }
         GenericRepository<Asp_Mvc_2015_2016.Models.Klant> KlantRepository { get; }
+        GenericRepository<Asp_Mvc_2015_2016.Models.Factuur> FactuurRepository { get; }
+        //GenericRepository<Asp_Mvc_2015_2016.Models.FactuurDetails> FactuurDetailsRepository { get; }
         RolesRepository RolesRepository { get; }
         GebruikerRepository GebruikerRepository { get; }
         GenericRepository<DepartementGebruiker> GebruikerDepartementRepository { get; }
