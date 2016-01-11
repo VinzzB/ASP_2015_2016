@@ -20,6 +20,17 @@ namespace Asp_Mvc_2015_2016.DAL
         private UurRegistratieRepository uurRegistratieRepository;
         private FactuurDetailsRepository factuurDetailsRepository;
         private GenericRepository<TypeWerk> typeWerkRepository;
+        private GenericRepository<Factuur> factuurRepository;
+
+        public GenericRepository<Factuur> FactuurRepository
+        {
+            get {
+                if (this.factuurRepository == null)
+                    this.factuurRepository = new GenericRepository<Factuur>(context);
+                return factuurRepository; 
+            }
+        }
+
 
         public GenericRepository<TypeWerk> TypeWerkRepository
         {

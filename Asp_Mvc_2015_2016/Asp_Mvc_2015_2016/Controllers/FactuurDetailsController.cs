@@ -7,7 +7,7 @@ using Asp_Mvc_2015_2016.Models;
 using Asp_Mvc_2015_2016.DAL;
 using Asp_Mvc_2015_2016.DAL.Services;
 using Asp_Mvc_2015_2016.ViewModels;
-
+using Microsoft.AspNet.Identity;
 namespace Asp_Mvc_2015_2016.Controllers
 {
     public class FactuurDetailsController : BaseController
@@ -49,11 +49,20 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: /FactuurDetails/Create
 
         public ActionResult Create()
-        {            
+        {
+            Gebruiker u = uow.GebruikerRepository.GetById(User.Identity.GetUserId());
+            string uid = User.Identity.GetUserId();
+            var klanten = (from depGeb in uow.GebruikerDepartementRepository.DbSet
+                     join dep in uow.DepartementRepository.DbSet on depGeb.DepartementId equals dep.Id
+                     join klantdep in uow.DepartementKlantRepository.DbSet on dep.Id equals klantdep.DepartementId
+                     where depGeb.GebruikerId == uid select klantdep.Klant)
+                     .GroupBy(k => k).Select(g => g.FirstOrDefault());
+            //var klanten = u.Departementen.Select(p => p.Departement).Select(d => d.Klanten).;            
+            
             return View(new ViewModels.FactuurDetailsViewModel() 
-            { 
+            {                 
                 FactuurDetails = new FactuurDetails(), 
-                AvailableKlanten = uow.KlantRepository.GetAll().ConvertAll(p => new SelectListItem() 
+                AvailableKlanten = klanten.ToList().ConvertAll(p => new SelectListItem() 
                 { 
                     Value = p.Id.ToString(), 
                     Text = p.NaamBedrijf 

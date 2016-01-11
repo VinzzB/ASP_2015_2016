@@ -13,6 +13,7 @@ namespace Asp_Mvc_2015_2016.DAL
         UurRegistratieRepository UurRegistratieRepository { get; }
         FactuurDetailsRepository FactuurDetailsRepository { get; }
         GenericRepository<TypeWerk> TypeWerkRepository { get; }
+        GenericRepository<Factuur> FactuurRepository { get; }
         void Save();
         void Dispose();
         
