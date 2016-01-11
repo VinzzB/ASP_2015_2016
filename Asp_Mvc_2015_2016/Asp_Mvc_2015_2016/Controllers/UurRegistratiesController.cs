@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Asp_Mvc_2015_2016.Models;
-using Asp_Mvc_2015_2016.Models.DAL;
+//using Asp_Mvc_2015_2016.Models.DAL;
 using Asp_Mvc_2015_2016.DAL;
 using Asp_Mvc_2015_2016.DAL.Services;
 using Asp_Mvc_2015_2016.ViewModels;
@@ -53,7 +53,9 @@ namespace Asp_Mvc_2015_2016.Controllers
                 uow.Save();
                 return RedirectToAction("details", new { controller = "FactuurDetails", id = viewModel.UurRegistratie.FactuurDetailId });
             }
-            
+            //Viewmodel terug opvullen met metadata als er fouten in het formulier staan.
+            viewModel.UurRegistratie.FactuurDetail = uow.FactuurDetailsRepository.GetById(viewModel.UurRegistratie.FactuurDetailId);
+            viewModel.AvailableTypeWerk = uow.TypeWerkRepository.GetAll().ConvertAll(p => new SelectListItem() { Value = p.Id.ToString(), Text = p.WerkType });
             return View(viewModel);
         }
 

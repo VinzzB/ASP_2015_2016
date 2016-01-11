@@ -1,5 +1,5 @@
 ﻿using Asp_Mvc_2015_2016.Models;
-using Asp_Mvc_2015_2016.Models.DAL;
+//using Asp_Mvc_2015_2016.Models.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -131,13 +131,16 @@ namespace Asp_Mvc_2015_2016.DAL
 
         public void Dispose()
         {
-            if (!this.disposed)
+            if (context != null)
             {
                 context.Dispose();
+                context = null;
             }
-            this.disposed = true;
+            if (gebruikerRepository != null)
+            {
+                gebruikerRepository.Dispose();
+                gebruikerRepository = null;
+            }
         }
-
-
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Asp_Mvc_2015_2016.Models;
+using Asp_Mvc_2015_2016.DAL;
+//using Asp_Mvc_2015_2016.Models.DAL;
 
 namespace Asp_Mvc_2015_2016
 {
@@ -16,9 +18,9 @@ namespace Asp_Mvc_2015_2016
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
             //REMOVED FROM OWIN!!!!
-            //app.CreatePerOwinContext(FacturatieDBContext.Create);
-            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            //app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext(FacturatieDBContext.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider

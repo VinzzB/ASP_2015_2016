@@ -72,7 +72,12 @@ namespace Asp_Mvc_2015_2016.Controllers
                 uow.Save();
                 return RedirectToAction("Details", new { id = viewModel.FactuurDetails.Id });
             }
-            return View();
+            viewModel.AvailableKlanten = uow.KlantRepository.GetAll().ConvertAll(p => new SelectListItem()
+                {
+                    Value = p.Id.ToString(),
+                    Text = p.NaamBedrijf
+                });
+            return View(viewModel);
         }
         
         //

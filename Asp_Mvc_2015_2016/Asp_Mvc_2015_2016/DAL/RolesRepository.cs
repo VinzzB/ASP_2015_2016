@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Asp_Mvc_2015_2016.Models;
-using Asp_Mvc_2015_2016.Models.DAL;
+//using Asp_Mvc_2015_2016.Models.DAL;
 
 namespace Asp_Mvc_2015_2016.DAL
 {

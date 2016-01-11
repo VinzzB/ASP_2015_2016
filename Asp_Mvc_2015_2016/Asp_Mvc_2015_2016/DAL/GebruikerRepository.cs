@@ -1,5 +1,5 @@
 ﻿using Asp_Mvc_2015_2016.Models;
-using Asp_Mvc_2015_2016.Models.DAL;
+//using Asp_Mvc_2015_2016.Models.DAL;
 using Asp_Mvc_2015_2016.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -11,11 +11,24 @@ using System.Web;
 
 namespace Asp_Mvc_2015_2016.DAL
 {
-    public class GebruikerRepository : GenericRepository<Gebruiker,String>
+    public class GebruikerRepository : GenericRepository<Gebruiker, String>, IDisposable
     {
 
         private UserManager<Gebruiker> _userManager;
         private SignInManager<Gebruiker, String> _signInManager;
+        public void Dispose()
+        {
+            if (_userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }
+            if (_signInManager != null)
+            {
+                _signInManager.Dispose();
+                _signInManager = null;
+            }
+        }
         public GebruikerRepository(FacturatieDBContext context)
             : base(context)
         {  }

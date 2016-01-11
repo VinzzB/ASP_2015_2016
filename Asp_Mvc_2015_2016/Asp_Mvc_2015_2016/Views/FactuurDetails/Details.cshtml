@@ -62,8 +62,8 @@
         {
             <tr>
                 <td>@Html.DisplayTextFor(_ => item.FactuurDetail.Titel)</td>
-                <td>@String.Format("{0:g}", item.StartDatum)</td>
-                <td>@String.Format("{0:g}", item.EindDatum)</td>
+                <td>@Html.DisplayFor(_ => item.StartDatum)</td>
+                <td>@Html.DisplayFor(_ => item.EindDatum)</td>
                 <td>@Html.DisplayTextFor(_ => item.TypeWerk.WerkType)</td>
                 <td>@String.Format("{0:#.##}", item.Total) €</td>
                 <td>@(item.TeFactureren ? "Yes" : "No")</td>
@@ -95,8 +95,8 @@
         {
             <tr>
                 <td>@Html.DisplayTextFor(_ => item.FactuurDetail.Titel)</td>
-                <td>@String.Format("{0:g}", item.StartDatum)</td>
-                <td>@String.Format("{0:g}", item.EindDatum)</td>
+                <td>@Html.DisplayFor(_ => item.StartDatum)</td>
+                <td>@Html.DisplayFor(_ => item.EindDatum)</td>
                 <td>@Html.DisplayTextFor(_ => item.TypeWerk.WerkType)</td>
                 <td>@String.Format("{0:#.##}", item.Total) €</td>
                 <td>@Html.ActionLink(item.Factuur.FactuurNr,"Details", new { controller = "Factuur", id = item.FactuurId })</td>

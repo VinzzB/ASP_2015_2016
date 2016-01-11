@@ -13,10 +13,13 @@ namespace Asp_Mvc_2015_2016.Models
         [Required]
         public int FactuurDetailId { get; set; }
         public virtual FactuurDetails FactuurDetail { get; set; }
-        //detailgegevens
+        //detailgegevens        
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime StartDatum { get; set; }
+
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime EindDatum { get; set; }
         [Required]
         public int TypeWerkId { get; set; }
