@@ -41,16 +41,11 @@
                 }        
                 | @Html.ActionLink("Uren toevoegen", "Create", new { controller = "UurRegistraties", DetailId = item.Id })
             </td>
-
-
-
-
-
-
-
         </tr>
     }
 
 </table>
-
+<div>
+    Jump to: @Html.ActionLink("Billed services list", "BilledList")
+</div>
 

@@ -44,5 +44,5 @@
             Write(" | ");
         }
     }
-    @*@Html.ActionLink("Back to List", "Index")*@
+    @Html.ActionLink("Back to Invoice details", "Details", new {controller = "FactuurDetails", id = Model.UurRegistratie.FactuurDetailId })
 </p>
