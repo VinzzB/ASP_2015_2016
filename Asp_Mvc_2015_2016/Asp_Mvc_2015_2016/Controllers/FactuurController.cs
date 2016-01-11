@@ -24,17 +24,17 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: Factuur
         public ActionResult Index()
         {
-            return View(db.Facturen.ToList());
+            return View(unitOfWork.FactuurRepository.GetAll());
         }
 
         // GET: Factuur/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Factuur factuur = db.Facturen.Find(id);
+            Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
             if (factuur == null)
             {
                 return HttpNotFound();
@@ -45,7 +45,12 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: Factuur/Create
         public ActionResult Create()
         {
-            return View();
+            CreateFactuurViewModel vm = new CreateFactuurViewModel() { AvailableKlanten = unitOfWork.KlantRepository.GetAll().ToList().ConvertAll(k => new SelectListItem() { 
+                Value = k.Id.ToString(),
+                Text = k.NaamBedrijf
+            }) };
+
+            return View(vm);
         }
 
         // POST: Factuur/Create
@@ -58,8 +63,8 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Facturen.Add(factuur);
-                db.SaveChanges();
+                unitOfWork.FactuurRepository.Add(vm.factuur);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(vm);
@@ -76,13 +81,13 @@ namespace Asp_Mvc_2015_2016.Controllers
         //}
 
         // GET: Factuur/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Factuur factuur = db.Facturen.Find(id);
+            Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
             if (factuur == null)
             {
                 return HttpNotFound();
@@ -99,21 +104,22 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(factuur).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(factuur).State = EntityState.Modified;
+                unitOfWork.FactuurRepository.context.Entry(factuur).State = EntityState.Modified;
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(factuur);
         }
 
         // GET: Factuur/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Factuur factuur = db.Facturen.Find(id);
+            Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
             if (factuur == null)
             {
                 return HttpNotFound();
@@ -126,9 +132,9 @@ namespace Asp_Mvc_2015_2016.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Factuur factuur = db.Facturen.Find(id);
-            db.Facturen.Remove(factuur);
-            db.SaveChanges();
+            Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
+            unitOfWork.FactuurRepository.Delete(id); 
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -136,7 +142,7 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

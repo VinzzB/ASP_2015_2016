@@ -11,11 +11,12 @@ namespace Asp_Mvc_2015_2016.ViewModels
     public class CreateFactuurViewModel
     {
         [Required]
-        DateTime FactuurVan { get; set; }
+        public DateTime FactuurVan { get; set; }
         [Required]
-        DateTime FactuurTot { get; set; }
+        public DateTime FactuurTot { get; set; }
         [Required]
-        Klant klant { get; set; }
+        public Factuur factuur { get; set; }
+        public List<FactuurDetails> factuurDetails { get; set; }
         public List<SelectListItem> AvailableKlanten { get; set; }
         public String SelectedKlant { get; set; }
         
