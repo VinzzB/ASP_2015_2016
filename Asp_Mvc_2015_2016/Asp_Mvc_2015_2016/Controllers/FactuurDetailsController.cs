@@ -49,24 +49,11 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: /FactuurDetails/Create
 
         public ActionResult Create()
-        {
-            Gebruiker u = uow.GebruikerRepository.GetById(User.Identity.GetUserId());
-            string uid = User.Identity.GetUserId();
-            var klanten = (from depGeb in uow.GebruikerDepartementRepository.DbSet
-                     join dep in uow.DepartementRepository.DbSet on depGeb.DepartementId equals dep.Id
-                     join klantdep in uow.DepartementKlantRepository.DbSet on dep.Id equals klantdep.DepartementId
-                     where depGeb.GebruikerId == uid select klantdep.Klant)
-                     .GroupBy(k => k).Select(g => g.FirstOrDefault());
-            //var klanten = u.Departementen.Select(p => p.Departement).Select(d => d.Klanten).;            
-            
+        {           
             return View(new ViewModels.FactuurDetailsViewModel() 
             {                 
                 FactuurDetails = new FactuurDetails(), 
-                AvailableKlanten = klanten.ToList().ConvertAll(p => new SelectListItem() 
-                { 
-                    Value = p.Id.ToString(), 
-                    Text = p.NaamBedrijf 
-                }) 
+                AvailableKlanten = service.GetGebruikerKlanten()
             });
         } 
 
@@ -81,11 +68,7 @@ namespace Asp_Mvc_2015_2016.Controllers
                 uow.Save();
                 return RedirectToAction("Details", new { id = viewModel.FactuurDetails.Id });
             }
-            viewModel.AvailableKlanten = uow.KlantRepository.GetAll().ConvertAll(p => new SelectListItem()
-                {
-                    Value = p.Id.ToString(),
-                    Text = p.NaamBedrijf
-                });
+            viewModel.AvailableKlanten = service.GetGebruikerKlanten();
             return View(viewModel);
         }
         
@@ -97,26 +80,24 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(new FactuurDetailsViewModel()
             {
                 FactuurDetails = fd,
-                AvailableKlanten = uow.KlantRepository.GetAll().ConvertAll(p => new SelectListItem() { 
-                    Value = p.Id.ToString(),
-                    Text = p.NaamBedrijf
-                })
+                AvailableKlanten = service.GetGebruikerKlanten()
             });
         }
 
         //
         // POST: /FactuurDetails/Edit/5
         [HttpPost]
-        public ActionResult Edit(FactuurDetailsViewModel modelview)
+        public ActionResult Edit(FactuurDetailsViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var fd = uow.FactuurDetailsRepository.GetById(modelview.FactuurDetails.Id);
+                var fd = uow.FactuurDetailsRepository.GetById(viewModel.FactuurDetails.Id);
                 TryUpdateModel(fd, "FactuurDetails");
                 uow.Save();
                 return RedirectToAction("Details", new { id = fd.Id });
-            }            
-            return View(modelview);
+            }
+            viewModel.AvailableKlanten = service.GetGebruikerKlanten();
+            return View(viewModel);
         }
 
         //

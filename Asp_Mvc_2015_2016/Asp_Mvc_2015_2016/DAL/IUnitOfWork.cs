@@ -5,7 +5,7 @@ namespace Asp_Mvc_2015_2016.DAL
     public interface IUnitOfWork
     {
         GenericRepository<Departement> DepartementRepository { get; }
-        GenericRepository<Klant> KlantRepository { get; }
+        KlantRepository KlantRepository { get; }
         GenericRepository<Factuur> FactuurRepository { get; }
         //GenericRepository<Asp_Mvc_2015_2016.Models.FactuurDetails> FactuurDetailsRepository { get; }
         RolesRepository RolesRepository { get; }

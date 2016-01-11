@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-
+using Microsoft.AspNet.Identity;
 namespace Asp_Mvc_2015_2016.Models
 {
     [Table("FactuurDetails")]
@@ -32,9 +32,28 @@ namespace Asp_Mvc_2015_2016.Models
         public List<UurRegistratie> GefactureerdeUren {
             get {
                 if (uurRegistratie != null)
-                    return (from u in uurRegistratie where u.Factuur != null select u).ToList();
+                    return filterByRole(from u in uurRegistratie where u.Factuur != null select u);
                 return new List<UurRegistratie>();
             }
+        }
+        private List<UurRegistratie> filterByRole(IEnumerable<UurRegistratie> listToFilter) {
+            string uid = HttpContext.Current.User.Identity.GetUserId();
+            if (HttpContext.Current.User.IsInRole("Systeem Administrator")) {
+                return listToFilter.ToList();
+            }
+            else if (HttpContext.Current.User.IsInRole("Departement Administrator"))
+            {                
+                return listToFilter.Where(p =>  //filter uurregistraties waarbij:
+                    p.CreatedBy.Departementen.Any(d => //in alle departementen van createdBy user
+                        d.Departement.Gebruikers.Any(u =>  //in de lijst met gebruikers van departement
+                            u.GebruikerId == uid))).ToList(); //heeft huidige gebruiker?
+            }
+            else if (HttpContext.Current.User.IsInRole("Gebruiker"))
+            {
+                return listToFilter.Where(p => p.CreatedById == HttpContext.Current.User.Identity.GetUserId()).ToList();
+            }
+
+            return new List<UurRegistratie>();
         }
 
         [NotMapped]
@@ -43,7 +62,7 @@ namespace Asp_Mvc_2015_2016.Models
             get
             {
                 if(uurRegistratie != null)
-                    return (from u in uurRegistratie where u.Factuur == null select u).ToList();
+                    return filterByRole(from u in uurRegistratie where u.Factuur == null select u);
                 return new List<UurRegistratie>();
             }
         }
