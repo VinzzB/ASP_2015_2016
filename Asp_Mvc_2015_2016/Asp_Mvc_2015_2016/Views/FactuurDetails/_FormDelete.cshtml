@@ -1,0 +1,43 @@
+﻿@using Asp_Mvc_2015_2016.ViewModels
+@model FactuurDetailsViewModel
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>FactuurDetails</legend>
+
+    <div class="display-label">Omschrijving</div>
+    <div class="display-field">@Model.FactuurDetails.Omschrijving</div>
+
+    <div class="display-label">Titel</div>
+    <div class="display-field">@Model.FactuurDetails.Titel</div>
+
+    <div class="display-label">Klant</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.FactuurDetails.Klant).ToString()</div>
+
+    <div class="display-label">uurRegistratie</div>
+    <div class="display-field">@(Model.FactuurDetails.uurRegistratie == null ? "None" : Model.FactuurDetails.uurRegistratie.Count.ToString())</div>
+
+    <div class="display-label">lijnwaarde</div>
+    <div class="display-field">@Model.FactuurDetails.lijnwaarde</div>
+
+    <div class="display-label">CreatedBy</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.FactuurDetails.CreatedBy).ToString()</div>
+
+    <div class="display-label">EditedBy</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.FactuurDetails.EditedBy).ToString()</div>
+
+    <div class="display-label">GefactureerdeUren</div>
+    <div class="display-field">@(Model.FactuurDetails.GefactureerdeUren == null ? "None" : Model.FactuurDetails.GefactureerdeUren.Count.ToString())</div>
+
+    <div class="display-label">NietGefactureerdeUren</div>
+    <div class="display-field">@(Model.FactuurDetails.NietGefactureerdeUren == null ? "None" : Model.FactuurDetails.NietGefactureerdeUren.Count.ToString())</div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Delete" />
+        @*@Html.ActionLink("Back to List", "Index")*@
+    </p>
+}
+
+

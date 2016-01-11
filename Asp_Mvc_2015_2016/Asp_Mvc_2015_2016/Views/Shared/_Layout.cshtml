@@ -63,7 +63,9 @@
                             @Html.ActionLink("Factuur", "Index", "Factuur")
                         </li>
                     }
-
+                    
+                    @if (User.Identity.IsAuthenticated)
+                    { 
                     <li class="dropdown @(ViewContext.RouteData.Values["controller"].ToString() == "FactuurDetails" ? "active" : "")">
                         <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
                             Uurregistraties
@@ -80,7 +82,7 @@
                             </li>
                         </ul>
                     </li>
-
+                    }
 
                     </ul>
 

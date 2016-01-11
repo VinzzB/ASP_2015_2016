@@ -15,32 +15,18 @@
                      new { type = "new" },
                      new AjaxOptions
                      {
-                         LoadingElementId = "FormAjaxLoading",
+                         LoadingElementId = "ModalAjaxLoading",
                          LoadingElementDuration = 250,
                          HttpMethod = "POST",
-                         OnSuccess = "loadUserFormSuccess",
-                         OnBegin = "openModal"
+                         OnSuccess = "fs.modalSuccess",
+                         OnBegin = "fs.modalBegin"
                      }, new { data_title=CultureResource.User + ": " + CultureResource.CreateNew})
 </p>
 
 <div id="Gebruikerslijst">
     @Html.Partial("_UsersListControl", Model.Users)
 </div>
-
-@* VB: Added MODAL template hidden in html... (KAN OOK IN _layout.cshtml gespecifieerd worden zodat het op meerdere pagina's gebruikt kan worden!) *@
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" hidden="hidden">
-    <div class="modal-dialog"> <!--use modal-lg here and uncomment in css. -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
-                <h4 class="modal-title"></h4>
-                <div id="FormAjaxLoading"><h4>LOADING DATA...</h4></div>                
-            </div>
-            <div id="UserCreateOrUpdateForm" class="modal-body"></div>
-            @*<div id="UserResultMessage" class="modal-footer"></div>*@
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+@Html.Partial("_ModalDialog")
 @section scripts
 {
     <script>
@@ -50,65 +36,6 @@
         VB: TODO: CODE VERPLAATSEN NAAR main.js FILE ZODAT HERGEBRUIK VAN MODAL MOGELIJK IS OP ANDERE PAGINA'S.
         */
 
-        /* add a failed message. Errors response returned from the server are always in Json! the errormessage is stored under 'error' */
-        function NewUserFailed(xhr) {
-            $("#UserResultMessage").fadeOut()
-                                    .removeClass("alert-success")
-                                    .addClass("alert-danger")
-                                    .fadeIn();
-            $("span#message", "#UserResultMessage").html(createGlyph("remove") + xhr.responseJSON.error);
-        }
-        /* Add a success message */
-        function NewUserSuccess(data) {
-            $("#UserResultMessage").fadeOut()
-                                    .removeClass("alert-danger")
-                                    .addClass("alert-success")
-                                    .fadeIn('slow', function () {
-                                        //hide the modal on success only! (after showing 'saved' msg.)
-                                        $("#myModal").modal('hide');
-                                    });
-            $("span#message", "#UserResultMessage").html(createGlyph("ok") + " Opslaan Voltooid!");
-        }
 
-        /* Load Edit or Add form in a bootstrap modal window */
-        function loadUserFormSuccess(data) {
-            //var title = $(this).data("title"); //get title from data-title attribute.
-            setModalData(data);
-        }
-        /* Create Bootstrap Glyph icons in Js. */
-        function createGlyph(name, elType) {
-            elType = elType || "span";
-            if (name)
-                return '<' + elType + ' class="glyphicon glyphicon-' + name + '" aria-hidden="true"></' + elType + '>';
-            return "";
-        }
-        //Open an empty modal with wait text...
-        function openModal() {
-            var $m = $("#myModal"); //Our (hidden) Modal.
-            $(".modal-body", $m).html("");//clear the body in the modal window
-            $(".modal-title", $m).html($(this).data("title")||""); //Set title. (or default = "")
-            $("#UserResultMessage", $m).html(""); //clear messages.
-            $m.modal("show"); //show modal (as loading screen)
-        }
-
-        //set the (retrieved ajax) data in the modal.
-        function setModalData(html) {
-            var $m = $("#myModal"); //Our (hidden) Modal.
-            var $b = $(".modal-body", $m); //the body in the modal
-            //var f = $(".modal-footer", m) //the footer in the modal
-            //add html and transform the screen.
-            //chained: add html -> hide it(!) -> Now slide in from top to bottom.
-            $b.html(html).hide().slideDown();
-            //if (title) {
-            //    $(".modal-title", $m).html(title).hide().slideDown(); //set the title of the modal
-            //}
-            //hook focus events so we can hide messages on (re-)focus on an input
-            $("input", $b).on("focus", function () {
-                $("#UserResultMessage").fadeOut(); //fade out alert messages.
-            })
-            //register all forms in modal for unobtrusive validation. (parse new html)
-            //This is not done automatically when forms are called through Ajax..
-            $.validator.unobtrusive.parse("#myModal");             
-        }
     </script>
 }

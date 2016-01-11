@@ -34,7 +34,7 @@ namespace Asp_Mvc_2015_2016.DAL.Services
         {
             var res = uow.FactuurDetailsRepository.DbSet
                 .Include("uurRegistratie")
-                .Where(p => p.uurRegistratie.Any(ur => ur.FactuurId == null));
+                .Where(p =>  p.uurRegistratie.Count == 0 || p.uurRegistratie.Any(ur => ur.FactuurId == null));
             return filterByRole(res);
         }
 

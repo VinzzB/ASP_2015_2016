@@ -33,11 +33,11 @@
                                      new AjaxOptions
                                      {
                                          LoadingElementDuration = 250,
-                                         LoadingElementId = "FormAjaxLoading",
+                                         LoadingElementId = "ModalAjaxLoading",
                                          HttpMethod = "POST",
-                                         OnSuccess = "loadUserFormSuccess",
-                                         OnBegin = "openModal"
-                                     }, new { data_title = CultureResource.User + ": " + CultureResource.Edit })
+                                         OnSuccess = "fs.modalSuccess",
+                                         OnBegin = "fs.modalBegin"
+                                     }, new { data_title = CultureResource.User + " " + CultureResource.Edit + ": " + item.User.UserName })
                     |
                     <a data-title="dghsdlkghsdklsds"></a>
 
@@ -47,11 +47,11 @@
                                      new AjaxOptions()
                                      {
                                          LoadingElementDuration = 250,
-                                         LoadingElementId = "FormAjaxLoading",
+                                         LoadingElementId = "ModalAjaxLoading",
                                          HttpMethod = "POST",
-                                         OnSuccess = "loadUserFormSuccess",
-                                         OnBegin = "openModal"
-                                     }, new { data_title = CultureResource.User + ": " + CultureResource.Details })
+                                         OnSuccess = "fs.modalSuccess",
+                                         OnBegin = "fs.modalBegin"
+                                     }, new { data_title = CultureResource.User + " " + CultureResource.Details + ": " + item.User.UserName })
 
                     @*Append delete link if not admin user *@
                     @if (item.User.UserName != "admin")
@@ -63,11 +63,11 @@
                                          new AjaxOptions()
                                          {
                                              LoadingElementDuration = 250,
-                                             LoadingElementId = "FormAjaxLoading",
+                                             LoadingElementId = "ModalAjaxLoading",
                                              HttpMethod = "POST",
-                                             OnSuccess = "loadUserFormSuccess",
-                                             OnBegin = "openModal"
-                                         }, new { data_title = CultureResource.User + ": " + CultureResource.Delete })
+                                             OnSuccess = "fs.modalSuccess",
+                                             OnBegin = "fs.modalBegin"
+                                         }, new { data_title = CultureResource.User + " " + CultureResource.Delete + ": " + item.User.UserName })
                     }
                 </td>
             </tr>

@@ -39,9 +39,9 @@
                                      new AjaxOptions
                                      {
                                          LoadingElementDuration = 250,
-                                         LoadingElementId = "FormAjaxLoading",
+                                         LoadingElementId = "ModalAjaxLoading",
                                          HttpMethod = "POST",
-                                         OnSuccess = "loadUserFormSuccess",
+                                         OnSuccess = "fs.modalSuccess",
                                      }, new { data_title = CultureResource.User + ": " + CultureResource.Edit })
     @if(Model.User.UserName!="admin"){      
     Write(" | ");
@@ -51,9 +51,9 @@
                                      new AjaxOptions
                                      {
                                          LoadingElementDuration = 250,
-                                         LoadingElementId = "FormAjaxLoading",
+                                         LoadingElementId = "ModalAjaxLoading",
                                          HttpMethod = "POST",
-                                         OnSuccess = "loadUserFormSuccess",
+                                         OnSuccess = "fs.modalSuccess",
                                      }, new { data_title = CultureResource.User + ": " + CultureResource.Delete })
     }
     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">@CultureResource.Close</button>

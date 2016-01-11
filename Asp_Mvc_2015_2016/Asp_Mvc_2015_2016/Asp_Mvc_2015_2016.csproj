@@ -394,6 +394,10 @@
     <Content Include="Views\FactuurDetails\_CreateOrEdit.cshtml" />
     <Content Include="Views\FactuurDetails\BilledList.cshtml" />
     <Content Include="Views\FactuurDetails\UnbilledList.cshtml" />
+    <Content Include="Views\Shared\_ModalDialog.cshtml" />
+    <Content Include="Views\FactuurDetails\_FormCreate.cshtml" />
+    <Content Include="Views\FactuurDetails\_UnbilledList.cshtml" />
+    <Content Include="Views\FactuurDetails\_FormDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
