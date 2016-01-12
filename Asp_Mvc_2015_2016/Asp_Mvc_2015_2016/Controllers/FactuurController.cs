@@ -69,6 +69,16 @@ namespace Asp_Mvc_2015_2016.Controllers
             }
             return View(vm);
         }
+
+        
+        [ChildActionOnly]
+        public PartialViewResult _GetTeFacturerenForKlant(int kId)
+        {
+            ViewBag.KlantID = kId;
+            Klant k = unitOfWork.KlantRepository.GetById(kId);
+            List<UurRegistratie> teFactureren = unitOfWork.UurRegistratieRepository.DbSet.Where(p => p.FactuurDetail.KlantId == kId && p.TeFactureren && p.FactuurId == null).ToList();  
+            return PartialView("_GetTeFacturerenForKlant", teFactureren);
+        }
         
 
         // GET: Factuur/Edit/5

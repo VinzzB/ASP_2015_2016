@@ -76,6 +76,8 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(klant);
         }
 
+
+
         // GET: Klant/Edit/5
         public ActionResult Edit(int id)
         {
