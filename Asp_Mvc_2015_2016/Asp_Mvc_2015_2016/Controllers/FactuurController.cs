@@ -79,11 +79,12 @@ namespace Asp_Mvc_2015_2016.Controllers
 
         
      
-        public PartialViewResult _GetTeFacturerenForKlant(int kId)
+        public PartialViewResult _GetTeFacturerenForKlant(string kId)
         {
             //ViewBag.KlantID = kId;
-            Klant k = unitOfWork.KlantRepository.GetById(kId);
-            List<UurRegistratie> teFactureren = unitOfWork.UurRegistratieRepository.DbSet.Where(p => p.FactuurDetail.KlantId == kId && p.TeFactureren && p.FactuurId == null).ToList();  
+            int klantId = int.Parse(kId);
+            Klant k = unitOfWork.KlantRepository.GetById(klantId);
+            List<UurRegistratie> teFactureren = unitOfWork.UurRegistratieRepository.DbSet.Where(p => p.FactuurDetail.KlantId == klantId && p.TeFactureren && p.FactuurId == null).ToList();  
             return PartialView("_GetTeFacturerenForKlant", teFactureren);
         }
         
