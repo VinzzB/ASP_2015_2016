@@ -126,6 +126,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Choose customer" xml:space="preserve">
+    <value>Choose customer</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -170,6 +173,15 @@
   </data>
   <data name="HelloUser" xml:space="preserve">
     <value>Hello {0}!</value>
+  </data>
+  <data name="InvoiceDate" xml:space="preserve">
+    <value>Invoice date</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Invoice number</value>
+  </data>
+  <data name="InvoiceYear" xml:space="preserve">
+    <value>Invoice year</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -230,6 +242,9 @@
   </data>
   <data name="StreetNbr" xml:space="preserve">
     <value>Street and number</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>User</value>

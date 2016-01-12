@@ -126,6 +126,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Annuleren</value>
   </data>
+  <data name="Choose customer" xml:space="preserve">
+    <value>Kies klant</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Sluiten</value>
   </data>
@@ -170,6 +173,15 @@
   </data>
   <data name="HelloUser" xml:space="preserve">
     <value>Hallo {0}!</value>
+  </data>
+  <data name="InvoiceDate" xml:space="preserve">
+    <value>Factuurdatum</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Factuurnummer</value>
+  </data>
+  <data name="InvoiceYear" xml:space="preserve">
+    <value>Factuurjaar</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Taal</value>
@@ -230,6 +242,9 @@
   </data>
   <data name="StreetNbr" xml:space="preserve">
     <value>Straat en nummer</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totaal</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>Gebruiker</value>

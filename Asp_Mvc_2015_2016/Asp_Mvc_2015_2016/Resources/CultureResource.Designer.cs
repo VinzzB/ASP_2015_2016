@@ -88,6 +88,15 @@ namespace Asp_Mvc_2015_2016.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kies klant.
+        /// </summary>
+        public static string Choose_customer {
+            get {
+                return ResourceManager.GetString("Choose customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sluiten.
         /// </summary>
         public static string Close {
@@ -219,6 +228,33 @@ namespace Asp_Mvc_2015_2016.Resources {
         public static string HelloUser {
             get {
                 return ResourceManager.GetString("HelloUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Factuurdatum.
+        /// </summary>
+        public static string InvoiceDate {
+            get {
+                return ResourceManager.GetString("InvoiceDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Factuurnummer.
+        /// </summary>
+        public static string InvoiceNumber {
+            get {
+                return ResourceManager.GetString("InvoiceNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Factuurjaar.
+        /// </summary>
+        public static string InvoiceYear {
+            get {
+                return ResourceManager.GetString("InvoiceYear", resourceCulture);
             }
         }
         
@@ -399,6 +435,15 @@ namespace Asp_Mvc_2015_2016.Resources {
         public static string StreetNbr {
             get {
                 return ResourceManager.GetString("StreetNbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Totaal.
+        /// </summary>
+        public static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
             }
         }
         

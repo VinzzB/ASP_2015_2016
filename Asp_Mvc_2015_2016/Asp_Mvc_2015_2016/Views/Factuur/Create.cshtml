@@ -51,9 +51,7 @@
         <div class="clearfix"></div>
         <div class="col-md-12">
             <div class="form-group">
-                @Html.LabelFor(model => model.SelectedKlant, htmlAttributes: new { @class = "control-label" })
-                @Html.ListBoxFor(m => m.SelectedKlant, Model.AvailableKlanten, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SelectedKlant, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.SelectedKlant, Model.AvailableKlanten, @CultureResource.Choose_customer)
             </div>
         </div>
 
