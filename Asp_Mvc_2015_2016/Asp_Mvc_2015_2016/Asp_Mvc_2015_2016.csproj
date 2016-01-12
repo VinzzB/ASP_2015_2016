@@ -352,11 +352,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Gebruikers\Index.cshtml" />
-    <Content Include="Views\Adres\Create.cshtml" />
-    <Content Include="Views\Adres\Delete.cshtml" />
-    <Content Include="Views\Adres\Details.cshtml" />
-    <Content Include="Views\Adres\Edit.cshtml" />
-    <Content Include="Views\Adres\Index.cshtml" />
     <Content Include="Views\Departement\Create.cshtml" />
     <Content Include="Views\Departement\Delete.cshtml" />
     <Content Include="Views\Departement\Details.cshtml" />
