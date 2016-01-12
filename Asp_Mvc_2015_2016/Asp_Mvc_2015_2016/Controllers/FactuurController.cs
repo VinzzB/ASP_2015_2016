@@ -45,13 +45,20 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: Factuur/Create
         public ActionResult Create()
         {
-            CreateFactuurViewModel vm = new CreateFactuurViewModel() { AvailableKlanten = unitOfWork.KlantRepository.GetAll().ToList().ConvertAll(k => new SelectListItem() { 
-                Value = k.Id.ToString(),
-                Text = k.NaamBedrijf
-            }) };
+            CreateFactuurViewModel vm = new CreateFactuurViewModel()
+            {                
+                AvailableKlanten = unitOfWork.KlantRepository.GetAll().ToList().ConvertAll(k => new SelectListItem()
+                {
+                    Value = k.Id.ToString(),
+                    Text = k.NaamBedrijf
+                })
+            };
 
             return View(vm);
         }
+
+
+        //checken of klant is aangeduid: kan selectedklant mag niet null zijn**********************************************
 
         // POST: Factuur/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -71,10 +78,10 @@ namespace Asp_Mvc_2015_2016.Controllers
         }
 
         
-        [ChildActionOnly]
+     
         public PartialViewResult _GetTeFacturerenForKlant(int kId)
         {
-            ViewBag.KlantID = kId;
+            //ViewBag.KlantID = kId;
             Klant k = unitOfWork.KlantRepository.GetById(kId);
             List<UurRegistratie> teFactureren = unitOfWork.UurRegistratieRepository.DbSet.Where(p => p.FactuurDetail.KlantId == kId && p.TeFactureren && p.FactuurId == null).ToList();  
             return PartialView("_GetTeFacturerenForKlant", teFactureren);
