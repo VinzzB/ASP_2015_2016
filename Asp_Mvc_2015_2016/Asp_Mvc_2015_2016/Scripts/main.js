@@ -37,8 +37,7 @@ fs.modalSaveSuccess = function (data) {
                     window.location.href = data.redirect;
                 }
             });
-        });
-    
+        });    
 }
 
 /* Load Edit or Add form in a bootstrap modal window */

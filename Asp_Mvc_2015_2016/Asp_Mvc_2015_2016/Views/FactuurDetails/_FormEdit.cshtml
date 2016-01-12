@@ -1,0 +1,24 @@
+﻿@using Asp_Mvc_2015_2016.ViewModels
+@model FactuurDetailsViewModel
+
+@using (Ajax.BeginForm("Edit", new { returnPage = ViewBag.returnPage }, new AjaxOptions() { UpdateTargetId = "UnbilledList", OnFailure = "fs.modalSaveFailed", OnSuccess = "fs.modalSaveSuccess" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <fieldset>
+            <legend>Factuur Details</legend>
+
+            @Html.Partial("_CreateOrEdit", Model)
+
+            <p>
+                <input type="submit" value="Save" class="btn btn-default pull-right" />
+            </p>
+        </fieldset>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to invoice details", "Details", new { id = Model.FactuurDetails.Id })
+</div>

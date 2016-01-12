@@ -8,8 +8,8 @@
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
     @Ajax.ActionLink(CultureResource.CreateNew,
-                     "Load_User_Form",
-                     new { type = "new" },
+                     "Load_Form",
+                     new { type = "FormCreate" },
                      new AjaxOptions
                      {
                          LoadingElementId = "ModalAjaxLoading",

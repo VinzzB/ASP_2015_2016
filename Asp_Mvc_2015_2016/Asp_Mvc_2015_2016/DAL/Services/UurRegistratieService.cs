@@ -17,6 +17,15 @@ namespace Asp_Mvc_2015_2016.DAL.Services
             this.uow = uow;
         }
 
+        //public List<UurRegistratie> getUnbilledInvoices(int klantId) {
+        //    return uow.UurRegistratieRepository.DbSet.Where(p => p.FactuurDetail.KlantId == klantId && p.TeFactureren && p.FactuurId == null).ToList();
+        //}
+
+        //public List<FactuurDetails> getUnbilledInvoiceDetails(int klantId) {
+        //    var res = uow.FactuurDetailsRepository.DbSet.Where(p => p.uurRegistratie.Any(u => u.TeFactureren && u.FactuurId == null) && p.KlantId == klantId).ToList();
+        //}
+
+
         public List<SelectListItem> GetGebruikerKlanten() {
             return uow.KlantRepository.GetKlanten(HttpContext.Current.User.Identity.GetUserId())
                 .ToList().ConvertAll(p => new SelectListItem() { Value = p.Id.ToString(), Text = p.NaamBedrijf }); 

@@ -101,73 +101,60 @@ namespace Asp_Mvc_2015_2016.Controllers
         //
         // POST: /FactuurDetails/Edit/5
         [HttpPost]
-        public ActionResult Edit(FactuurDetailsViewModel viewModel)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(FactuurDetailsViewModel viewModel, string returnPage)
         {
             if (ModelState.IsValid)
             {
                 var fd = uow.FactuurDetailsRepository.GetById(viewModel.FactuurDetails.Id);
                 TryUpdateModel(fd, "FactuurDetails");
                 uow.Save();
-                return RedirectToAction("Details", new { id = fd.Id });
+                if (returnPage == "UnbilledList") {
+                    return PartialView("_UnbilledList", service.NietGefactureerdeFactuurDetails());
+                } else {
+                    return RedirectToAction("Details", new { id = fd.Id });
+                }                
             }
             viewModel.AvailableKlanten = service.GetGebruikerKlanten();
             return View(viewModel);
         }
 
-        //
-        // GET: /FactuurDetails/Delete/5
-        public ActionResult Delete(int id)
-        {
-            var fd = uow.FactuurDetailsRepository.GetById(id);
-            return View(new FactuurDetailsViewModel() { 
-                FactuurDetails = fd
-            });
-        }
+        ////
+        //// GET: /FactuurDetails/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    var fd = uow.FactuurDetailsRepository.GetById(id);
+        //    return View(new FactuurDetailsViewModel() { 
+        //        FactuurDetails = fd
+        //    });
+        //}
 
         //
         // POST: /FactuurDetails/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             uow.FactuurDetailsRepository.Delete(id);
-            uow.Save();            
-            return RedirectToAction("UnbilledList");
+            uow.Save();
+            return PartialView("_UnbilledList", service.NietGefactureerdeFactuurDetails());
+            //return RedirectToAction("UnbilledList");
         }
 
 
-        public ActionResult Load_User_Form(String id, String type)
-        { // type can be 'new' or 'edit'
-            //public async Task<ActionResult> Load_User_Form(String id, String type) { // type can be 'new' or 'edit'
+        public ActionResult Load_Form(int? id, String type, string returnPage)
+        {
+            ViewBag.returnPage = returnPage;
             if (ModelState.IsValid)
             {
-                FactuurDetails u = null;
-                if (id != null)
-                    u = uow.FactuurDetailsRepository.GetById(int.Parse(id)); // .getUserById(id); // await db.Users.FirstOrDefaultAsync(p => p.Id == id); //get user async.
-                //System.Threading.Thread.Sleep(500); //--> for debugging!!! (mimics a slow server response, for debugging wait messages in the browser)                
-                if (u != null || type == "new") //has a user OR is type new. (type 'new' does not need a user)
-                {
-                    switch (type)
+                    return PartialView("_" + type, new FactuurDetailsViewModel()
                     {
-                        case "edit":
-                            //return PartialView("_FormEditUser",
-                            //    new GenericUserFormViewModel<Gebruiker>(u,
-                            //        service.GetUserRole(u.Id),
-                            //        service.getRoles(),
-                            //        service.getDepartments(), u.Departementen.Select(p => p.Departement).ToList()));
-                        case "new":
-                            return PartialView("_FormCreate", new FactuurDetailsViewModel() { FactuurDetails = new FactuurDetails(), AvailableKlanten = service.GetGebruikerKlanten() });                                
-                        case "del":
-                          //  return PartialView("_UserRemove", new GenericUserFormViewModel<Gebruiker>(u, service.GetUserRole(u.Id)));
-                        //default: ///details
-                         //   return PartialView("_UserDetails", new GenericUserFormViewModel<Gebruiker>(u, service.GetUserRole(u.Id)));
-                            break;
-                    }
-                }
+                        FactuurDetails = uow.FactuurDetailsRepository.AllIncluding(p => p.uurRegistratie).SingleOrDefault(f => f.Id == id) ?? new FactuurDetails(),
+                        AvailableKlanten = service.GetGebruikerKlanten()
+                    });
             }
             return new HttpStatusCodeResult(300, "Fout bij ophalen van gegevens...");// new PartialViewResult();
         }
-
-
 
         protected override void Dispose(bool disposing)
         {

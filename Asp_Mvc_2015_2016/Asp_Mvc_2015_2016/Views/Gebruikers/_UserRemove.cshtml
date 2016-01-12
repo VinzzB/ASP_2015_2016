@@ -43,8 +43,8 @@ else
                                   {
                                       HttpMethod = "POST",
                                       UpdateTargetId = "Gebruikerslijst",
-                                      OnFailure = "fs.modalFailed",
-                                      OnSuccess = "fS.modalSuccess"
+                                      OnFailure = "fs.modalSaveFailed",
+                                      OnSuccess = "fs.modalSaveSuccess"
                                   }))
             {
                 @Html.AntiForgeryToken()
