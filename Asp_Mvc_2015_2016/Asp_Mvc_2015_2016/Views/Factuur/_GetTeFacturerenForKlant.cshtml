@@ -1,0 +1,46 @@
+﻿@using Asp_Mvc_2015_2016.Resources
+@using Asp_Mvc_2015_2016.Models
+@using Asp_Mvc_2015_2016.ViewModels
+@using System.Collections.Generic
+@model IEnumerable<UurRegistratie>
+
+
+
+<h4>Te factureren uurregistraties</h4>
+
+<div id="dep">
+    <table id="" style="border: 1px solid black; background-color:silver">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDatum);
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.EindDatum);
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.TypeWerk);
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Total);
+            </th>
+        </tr>
+
+        @foreach (var uurReg in Model)
+        {
+            <tr>
+                <td>
+                    @uurReg.StartDatum
+                </td>
+                <td>
+                    @uurReg.EindDatum
+                </td>
+                <td>
+                    @uurReg.TypeWerk
+                </td>
+                <td>
+                    @uurReg.Total
+                </td>
+            </tr>
+        }
+    </table>
+</div>

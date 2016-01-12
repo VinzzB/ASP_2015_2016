@@ -16,6 +16,7 @@ namespace Asp_Mvc_2015_2016.ViewModels
         public DateTime FactuurTot { get; set; }
         [Required]
         public Factuur factuur { get; set; }
+        public UurRegistratie uurregistratie { get; set; }
         public List<FactuurDetails> factuurDetails { get; set; }
         public List<SelectListItem> AvailableKlanten { get; set; }
         public String SelectedKlant { get; set; }
