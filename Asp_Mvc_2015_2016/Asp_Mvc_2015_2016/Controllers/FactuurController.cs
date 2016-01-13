@@ -74,6 +74,7 @@ namespace Asp_Mvc_2015_2016.Controllers
                 TryUpdateModel(f, "factuur");
                 unitOfWork.FactuurRepository.Add(f); //(vm.factuur);
                 unitOfWork.Save();
+                TempData["Message"] = f.FactuurNr; 
                 return RedirectToAction("Index");
             }
             return View(vm);
