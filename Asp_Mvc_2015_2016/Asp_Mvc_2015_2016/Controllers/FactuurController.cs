@@ -86,6 +86,8 @@ namespace Asp_Mvc_2015_2016.Controllers
                         && (p.CreatedOn >= vm.FactuurVan && p.CreatedOn <= vm.FactuurTot)).ToList();
                 if (teFactureren.Count() > 0)
                 {
+                    //set total
+                    vm.Factuur.Totaal = teFactureren.Sum(p => p.Total);
                     //add to db (so we have an Id assigned to factuur)
                     unitOfWork.FactuurRepository.Add(vm.Factuur); //(vm.factuur);
                     vm.Factuur.Uurregistraties = new List<UurRegistratie>();

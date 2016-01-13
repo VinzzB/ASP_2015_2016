@@ -31,7 +31,7 @@ namespace Asp_Mvc_2015_2016.Models
         public DateTime FactuurDatum { get; set; }
         
         [Display(Name = "Total", ResourceType = typeof(Resources.CultureResource))]
-        public int Totaal { get; set; }
+        public Decimal Totaal { get; set; }
 
         [InverseProperty("Factuur")]
         public virtual ICollection<UurRegistratie> Uurregistraties { get; set; }
