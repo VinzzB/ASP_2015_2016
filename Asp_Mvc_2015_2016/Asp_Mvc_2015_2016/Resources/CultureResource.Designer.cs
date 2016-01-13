@@ -232,6 +232,15 @@ namespace Asp_Mvc_2015_2016.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Factuur.
+        /// </summary>
+        public static string Invoice {
+            get {
+                return ResourceManager.GetString("Invoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Factuurdatum.
         /// </summary>
         public static string InvoiceDate {
