@@ -56,16 +56,15 @@
                 @Html.ValidationMessageFor(model => model.SelectedKlant, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div id="test"></div>
-
-        @Ajax.ActionLink("Show TeFactureren", "_GetTeFacturerenForKlant", new { kId = Model.SelectedKlant }, new AjaxOptions()
+        
+        @*@Ajax.ActionLink("Show TeFactureren", "_GetTeFacturerenForKlant", new { kId = Model.SelectedKlant }, new AjaxOptions()
             {
                 HttpMethod = "GET",
                 UpdateTargetId = "teFacturerenTabel",
                 InsertionMode = InsertionMode.Replace
-            })
+            })*@
 
+        <br />
         <div id="teFacturerenTabel"></div>
 
         <div class="form-group">
@@ -93,7 +92,7 @@
                         data: { kId: selectedValue },
                         dataType: 'html',
                         success: function(response){
-                            $("#test").html(response);
+                            $("#teFacturerenTabel").html(response);
                         }
                        })
                     }}

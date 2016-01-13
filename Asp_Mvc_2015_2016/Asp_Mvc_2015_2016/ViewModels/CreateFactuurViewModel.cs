@@ -10,9 +10,8 @@ namespace Asp_Mvc_2015_2016.ViewModels
 {
     public class CreateFactuurViewModel
     {
-        [Required]
         public DateTime FactuurVan { get; set; }
-        [Required]
+     
         public DateTime FactuurTot { get; set; }
         [Required]
         public Factuur factuur { get; set; }

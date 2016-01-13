@@ -57,8 +57,9 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(vm);
         }
 
-
+        //******************************************
         //checken of klant is aangeduid: kan selectedklant mag niet null zijn**********************************************
+        //***********************************************
 
         // POST: Factuur/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -70,7 +71,12 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                unitOfWork.FactuurRepository.Add(vm.factuur);
+                //updatemodel factuur
+                Factuur f = new Factuur() { 
+                    Klant = unitOfWork.KlantRepository.GetById(int.Parse(vm.SelectedKlant))
+                };
+                TryUpdateModel(f, "factuur");
+                unitOfWork.FactuurRepository.Add(f); //(vm.factuur);
                 unitOfWork.Save();
                 return RedirectToAction("Index");
             }
