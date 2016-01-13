@@ -156,31 +156,31 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(factuur);
         }
 
-        // GET: Factuur/Delete/5
-        public ActionResult Delete(int id)
-        {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
-            if (factuur == null)
-            {
-                return HttpNotFound();
-            }
-            return View(factuur);
-        }
+        //// GET: Factuur/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    //if (id == null)
+        //    //{
+        //    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    //}
+        //    Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
+        //    if (factuur == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(factuur);
+        //}
 
-        // POST: Factuur/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
-            unitOfWork.FactuurRepository.Delete(id); 
-            unitOfWork.Save();
-            return RedirectToAction("Index");
-        }
+        //// POST: Factuur/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
+        //    unitOfWork.FactuurRepository.Delete(id); 
+        //    unitOfWork.Save();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
