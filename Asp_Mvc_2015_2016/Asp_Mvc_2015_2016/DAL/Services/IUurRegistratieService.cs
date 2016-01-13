@@ -9,5 +9,6 @@ namespace Asp_Mvc_2015_2016.DAL.Services
         List<SelectListItem> GetGebruikerKlanten();
         List<FactuurDetails> GefactureerdeFactuurDetails();
         List<FactuurDetails> NietGefactureerdeFactuurDetails();
+        FactuurDetails GetFactuurDetail(int id);
     }
 }

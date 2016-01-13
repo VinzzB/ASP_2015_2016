@@ -1,17 +1,13 @@
-﻿@using Asp_Mvc_2015_2016.ViewModels
-@model FactuurDetailsViewModel
+﻿
+@model Asp_Mvc_2015_2016.ViewModels.UurRegistratieViewModel
 
-@using (Ajax.BeginForm("Edit", new { returnPage = ViewBag.returnPage }, 
-    new AjaxOptions() {
-        UpdateTargetId = ViewBag.returnPage == "UnbilledList" ? "UnbilledList" : "DetailsElement", 
-        OnFailure = "fs.modalSaveFailed", 
-        OnSuccess = "fs.modalSaveSuccess" }))
+
+@using (Ajax.BeginForm("Edit", new { returnPage = "UnbilledDetailList" }, new AjaxOptions() { UpdateTargetId = "UnbilledList", OnFailure = "fs.modalSaveFailed", OnSuccess = "fs.modalSaveSuccess" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
-
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.Partial("_CreateOrEdit", Model)
+        @Html.Partial("_CreateOrEdit", Model)
         <div class="clearfix"></div>
         <div class="col-md-12">
             <div class="form-group">
@@ -22,7 +18,7 @@
         <div class="clearfix"></div>
     </div>
 }
+@*<div>
+        @Html.ActionLink("Back to invoice details", "Details", new { controller = "FactuurDetails", id = Model.UurRegistratie.FactuurDetailId })
+    </div>*@
 
-<div>
-    @Html.ActionLink("Back to invoice details", "Details", new { id = Model.FactuurDetails.Id })
-</div>

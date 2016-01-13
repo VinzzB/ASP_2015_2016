@@ -1,0 +1,58 @@
+﻿@using Asp_Mvc_2015_2016.ViewModels
+@model UurRegistratieViewModel
+@if (Model.UurRegistratie.Factuur != null)
+{
+    <p class="text-danger">Deze registratie kan niet meer verwijderd worden! De prestaties werden opgeleverd en gefactureerd.</p>
+}
+<dl class="dl-horizontal">
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.FactuurDetail.Klant.NaamBedrijf)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.FactuurDetail.Klant.NaamBedrijf)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.FactuurDetail.Titel)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.FactuurDetail.Titel)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.FactuurDetail.Omschrijving)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.FactuurDetail.Omschrijving)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.StartDatum)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.StartDatum)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.EindDatum)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.EindDatum)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.TypeWerk.WerkType)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.TypeWerk.WerkType)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.Total)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.Total)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.TeFactureren)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.TeFactureren)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.Factuur)</dt>
+    <dd>@(Model.UurRegistratie.Factuur != null ? "Yes" : "No")</dd>
+</dl>
+
+<div class="col-md-12">
+    @if (Model.UurRegistratie.Factuur == null)
+    {
+        using (Ajax.BeginForm("Delete",
+                              new { id = Model.UurRegistratie.Id },
+                              new AjaxOptions()
+                              {
+                                  HttpMethod = "POST",
+                                  UpdateTargetId = "UnbilledList",
+                                  OnFailure = "fs.modalSaveFailed",
+                                  OnSuccess = "fs.modalSaveSuccess"
+                              }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="@CultureResource.Delete" class="btn btn-danger pull-right" />
+            </div>
+        }
+    }
+    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">@CultureResource.Close</button>
+</div>
+<div class="clearfix"></div>

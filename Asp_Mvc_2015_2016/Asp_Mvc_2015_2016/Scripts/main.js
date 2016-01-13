@@ -1,7 +1,25 @@
 ﻿var fs = {};
 
+//$.validator.addMethod('date', function (value, element) {
+//    alert("");
+//    var d = new Date();
+//    return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+//});
+
+$.validator.addMethod('date', function (value, element) {
+    //var d = new Date();
+   // alert("test")
+    //alert(d.toLocaleString());
+    //alert(new Date(d.toLocaleTimeString(value)));
+    
+    return this.optional(element) || (value|""=="");
+}, "Geef datum en tijd op.");
+
+
 $(function () {
     fs.initCultureForm("cultureForm");
+
+  //  $('input[type=datetime]').datepicker();
 });
 
 fs.initCultureForm = function (formname) {
@@ -16,7 +34,8 @@ fs.initCultureForm = function (formname) {
 }
 
 /* add a failed message. Errors response returned from the server are always in Json! the errormessage is stored under 'error' */
-fs.modalSaveFailed = function (xhr) {
+fs.modalSaveFailed = function (xhr) {    
+   // alert(JSON.stringify(xhr));
     $("#ResultMessage").fadeOut()
                             .removeClass("alert-success")
                             .addClass("alert-danger")
@@ -68,7 +87,11 @@ fs.setModalData = function(html) {
     //var f = $(".modal-footer", m) //the footer in the modal
     //add html and transform the screen.
     //chained: add html -> hide it(!) -> Now slide in from top to bottom.
+   // var $html = $(html)    
     $b.html(html).hide().slideDown();
+
+   // $('input[type=datetime]', $b).datepicker();
+
     //if (title) {
     //    $(".modal-title", $m).html(title).hide().slideDown(); //set the title of the modal
     //}

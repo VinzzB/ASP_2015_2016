@@ -1,0 +1,32 @@
+﻿@model Asp_Mvc_2015_2016.Models.FactuurDetails
+<dl class="dl-horizontal">
+    <dt>@Html.DisplayNameFor(m => m.Titel)</dt>
+    <dd>@Model.Titel</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.Klant)</dt>
+    <dd>
+        @Html.ActionLink(
+            String.Format("{0} (BTW-BE: {1})", Model.Klant.NaamBedrijf, Model.Klant.Ondernemingsnr),
+            "Details",
+            new { controller = "Klant", id = Model.KlantId })
+    </dd>
+
+    <dt>@Html.DisplayNameFor(m => m.Klant.Plaats)</dt>
+    <dd>
+        @Html.DisplayTextFor(_ => Model.Klant.StraatNr),
+        (@Html.DisplayTextFor(_ => Model.Klant.Postcode))
+        @Html.DisplayTextFor(_ => Model.Klant.Plaats)
+    </dd>
+
+    <dt>@Html.DisplayNameFor(m => m.Omschrijving)</dt>
+    <dd>@Model.Omschrijving</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.lijnwaarde)</dt>
+    <dd>@Model.lijnwaarde</dd>
+
+    @*<dt>@Html.DisplayNameFor(m => m.GefactureerdeUren)</dt>
+        <dd>@(Model.GefactureerdeUren == null ? "None" : Model.GefactureerdeUren.Count.ToString())</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.NietGefactureerdeUren)</dt>
+        <dd>@(Model.NietGefactureerdeUren == null ? "None" : Model.NietGefactureerdeUren.Count.ToString())</dd>*@
+</dl>

@@ -292,6 +292,10 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -395,6 +399,12 @@
     <Content Include="Views\FactuurDetails\_FormDelete.cshtml" />
     <Content Include="Views\Factuur\_GetTeFacturerenForKlant.cshtml" />
     <Content Include="Views\FactuurDetails\_FormEdit.cshtml" />
+    <Content Include="Views\UurRegistraties\_FormCreate.cshtml" />
+    <Content Include="Views\UurRegistraties\_UnbilledList.cshtml" />
+    <Content Include="Views\UurRegistraties\_FormEdit.cshtml" />
+    <Content Include="Views\UurRegistraties\_FormDetails.cshtml" />
+    <Content Include="Views\FactuurDetails\_DetailsElement.cshtml" />
+    <Content Include="Views\UurRegistraties\_FormDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

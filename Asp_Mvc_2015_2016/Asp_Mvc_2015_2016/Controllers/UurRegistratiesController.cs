@@ -45,18 +45,36 @@ namespace Asp_Mvc_2015_2016.Controllers
         ////
         //// POST: /UurRegistraties/Create
         [HttpPost]
-        public ActionResult Create(UurRegistratieViewModel viewModel)
+        public ActionResult Create(UurRegistratieViewModel viewModel, string returnPage)
         {
-            if (ModelState.IsValid)
-            {
-                uow.UurRegistratieRepository.Add(viewModel.UurRegistratie);
-                uow.Save();
-                return RedirectToAction("details", new { controller = "FactuurDetails", id = viewModel.UurRegistratie.FactuurDetailId });
-            }
+            try 
+	        {	        		
+                if (ModelState.IsValid)
+                {
+                    uow.UurRegistratieRepository.Add(viewModel.UurRegistratie);
+                    uow.Save();
+                    //get data from db including all the hours in the details.
+                    viewModel.UurRegistratie = uow.UurRegistratieRepository
+                        .AllIncluding(p => p.FactuurDetail.uurRegistratie, p => p.TypeWerk)
+                        .SingleOrDefault(u => u.Id == viewModel.UurRegistratie.Id);
+                    return getPartialResults(returnPage, viewModel.UurRegistratie.FactuurDetailId);
+                    //return RedirectToAction("details", new { controller = "FactuurDetails", id = viewModel.UurRegistratie.FactuurDetailId });
+                }
+	        }
+	        catch (Exception ex)
+	        {
+                Response.StatusCode = 300;
+                return Json(new { error = ex.Message }, "application/json", JsonRequestBehavior.AllowGet);		        
+	        }
+
             //Viewmodel terug opvullen met metadata als er fouten in het formulier staan.
-            viewModel.UurRegistratie.FactuurDetail = uow.FactuurDetailsRepository.GetById(viewModel.UurRegistratie.FactuurDetailId);
-            viewModel.AvailableTypeWerk = uow.TypeWerkRepository.GetAll().ConvertAll(p => new SelectListItem() { Value = p.Id.ToString(), Text = p.WerkType });
-            return View(viewModel);
+            //viewModel.UurRegistratie.FactuurDetail = uow.FactuurDetailsRepository.GetById(viewModel.UurRegistratie.FactuurDetailId);
+            //viewModel.AvailableTypeWerk = uow.TypeWerkRepository.GetAll().ConvertAll(p => new SelectListItem() { Value = p.Id.ToString(), Text = p.WerkType });
+            //return new HttpStatusCodeResult(300, "Fout bij ophalen van gegevens...");
+            Response.StatusCode = 300;
+            return Json(new { error = "Fout bij het opslaan van gegevens." }, "application/json", JsonRequestBehavior.AllowGet);
+            //return new PartialViewResult();
+            //return View(viewModel);
         }
 
         //
@@ -93,23 +111,37 @@ namespace Asp_Mvc_2015_2016.Controllers
         ////
         //// POST: /UurRegistraties/Edit/5
         [HttpPost]
-        public ActionResult Edit(UurRegistratieViewModel viewmodel)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(UurRegistratieViewModel viewmodel, string returnPage)
         {
             if (ModelState.IsValid)
             {
-                var ur = uow.UurRegistratieRepository.GetById(viewmodel.UurRegistratie.Id);
+                var ur = uow.UurRegistratieRepository.AllIncluding(p => p.FactuurDetail.uurRegistratie).SingleOrDefault(u => u.Id == viewmodel.UurRegistratie.Id);
                 TryUpdateModel(ur, "UurRegistratie");
                 uow.Save();
-                return RedirectToAction("Details", new { controller = "FactuurDetails", id = ur.FactuurDetailId });
+                return getPartialResults(returnPage, ur.FactuurDetailId);
             }            
             return View(viewmodel);
+        }
+
+        private ActionResult getPartialResults(string returnPage, int factuurDetailId) // UurRegistratie ur)
+        { 
+                switch (returnPage)
+                {
+                    case "UnbilledList":
+                        return PartialView("~/Views/FactuurDetails/_UnbilledList.cshtml", service.NietGefactureerdeFactuurDetails());
+                    case "UnbilledDetailList":
+                        return PartialView("_UnbilledList", service.GetFactuurDetail(factuurDetailId));
+                    default:
+                        return RedirectToAction("Details", new { controller = "FactuurDetails", id = factuurDetailId });
+                }                         
         }
 
         ////
         //// GET: /UurRegistraties/Delete/5
         public ActionResult Delete(int id)
         {
-            UurRegistratie uurregistratie = uow.UurRegistratieRepository.GetById(id);
+            UurRegistratie uurregistratie =  uow.UurRegistratieRepository.GetById(id);
             return View(uurregistratie);
         }
 
@@ -119,11 +151,41 @@ namespace Asp_Mvc_2015_2016.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             UurRegistratie uurregistratie = uow.UurRegistratieRepository.GetById(id);
-            if (uurregistratie.Factuur == null) {
+           // int fd_uid = uurregistratie.FactuurDetailId;
+            //FactuurDetails fd = uow.FactuurDetailsRepository.GetById(uurregistratie.FactuurDetailId); // uow.FactuurDetailsRepository.AllIncluding(p => p.uurRegistratie).SingleOrDefault(p => p.dfdId == id);
+            //if (uurregistratie.Factuur == null) {
                 uow.UurRegistratieRepository.Delete(id);
                 uow.Save();
+            //}
+                return getPartialResults("UnbilledDetailList",uurregistratie.FactuurDetailId);// RedirectToAction("UnbilledList", new { controller = "FactuurDetails" });
+        }
+
+        public ActionResult Load_Form(int? detailId, int? id, String type, string returnPage)
+        {
+            ViewBag.returnPage = returnPage;
+
+            FactuurDetails fd = uow.FactuurDetailsRepository.GetById(detailId??-1);
+            //return View(new UurRegistratieViewModel()
+            //{
+            //    UurRegistratie = new UurRegistratie() { FactuurDetailId = DetailId, FactuurDetail = fd },
+            //    AvailableTypeWerk = uow.TypeWerkRepository.GetAll().ConvertAll(p => new SelectListItem() { Value = p.Id.ToString(), Text = p.WerkType })
+            //});
+
+            if (ModelState.IsValid)
+            {
+                return PartialView("_" + type, new UurRegistratieViewModel()
+                {
+                    UurRegistratie = uow.UurRegistratieRepository.DbSet.SingleOrDefault(f => f.Id == id) ?? new UurRegistratie() { FactuurDetailId = detailId??-1, FactuurDetail = fd },
+                    AvailableTypeWerk = uow.TypeWerkRepository.GetAll().ConvertAll(p => new SelectListItem()
+                    {
+                        Value = p.Id.ToString(),
+                        Text = p.WerkType
+                    })
+                });
             }
-            return RedirectToAction("UnbilledList", new { controller = "FactuurDetails"});
+            Response.StatusCode = 300;
+            return Json(new { error = "Fout bij ophalen van gegevens..." }, "application/json", JsonRequestBehavior.AllowGet);
+            //return new HttpStatusCodeResult(300, "Fout bij ophalen van gegevens...");// new PartialViewResult();
         }
 
         protected override void Dispose(bool disposing)

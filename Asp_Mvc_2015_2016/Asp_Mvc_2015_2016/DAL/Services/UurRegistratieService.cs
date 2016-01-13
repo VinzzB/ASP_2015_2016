@@ -25,6 +25,9 @@ namespace Asp_Mvc_2015_2016.DAL.Services
         //    var res = uow.FactuurDetailsRepository.DbSet.Where(p => p.uurRegistratie.Any(u => u.TeFactureren && u.FactuurId == null) && p.KlantId == klantId).ToList();
         //}
 
+        public FactuurDetails GetFactuurDetail(int id) {
+            return uow.FactuurDetailsRepository.AllIncluding(p => p.uurRegistratie).SingleOrDefault(p => p.Id == id);
+        }
 
         public List<SelectListItem> GetGebruikerKlanten() {
             return uow.KlantRepository.GetKlanten(HttpContext.Current.User.Identity.GetUserId())

@@ -22,7 +22,7 @@
             <td>
                 @Ajax.ActionLink(CultureResource.Edit,
                      "Load_Form",
-                  new { type = "FormEdit", id = item.Id, returnPage = "UnbilledList" },
+               new { type = "FormEdit", id = item.Id, returnPage = "UnbilledList", controller = "FactuurDetails" },
                      new AjaxOptions
                      {
                          LoadingElementId = "ModalAjaxLoading",
@@ -31,14 +31,14 @@
                          OnSuccess = "fs.modalSuccess",
                          OnBegin = "fs.modalBegin"
                      }, new { data_title = "Factuur Edit: " + item.Titel }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                @Html.ActionLink("Details", "Details", new { id = item.Id, controller = "FactuurDetails" })
                 @{
         if (item.GefactureerdeUren.Count == 0)
         {
-            Write(" | ");            
-                    @Ajax.ActionLink(CultureResource.Delete,
+            Write(" | ");
+            @Ajax.ActionLink(CultureResource.Delete,
                      "Load_Form",
-                     new { type = "FormDelete", id = item.Id },
+                          new { type = "FormDelete", id = item.Id, controller = "FactuurDetails" },
                      new AjaxOptions
                      {
                          LoadingElementId = "ModalAjaxLoading",
@@ -46,11 +46,24 @@
                          HttpMethod = "POST",
                          OnSuccess = "fs.modalSuccess",
                          OnBegin = "fs.modalBegin"
-                     }, new { data_title = "Factuur Delete: " + item.Titel });                
+                     }, new { data_title = "Factuur Delete: " + item.Titel });
                     @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
         }
                 }
-                | @Html.ActionLink("Uren toevoegen", "Create", new { controller = "UurRegistraties", DetailId = item.Id })
+                |
+                @Ajax.ActionLink("Uren Toevoegen",
+                     "Load_Form",
+               new { type = "FormCreate", detailId = item.Id, returnPage = "UnbilledList", controller = "UurRegistraties" },
+                     new AjaxOptions
+                     {
+                         LoadingElementId = "ModalAjaxLoading",
+                         LoadingElementDuration = 250,
+                         HttpMethod = "POST",
+                         OnSuccess = "fs.modalSuccess",
+                         OnBegin = "fs.modalBegin"
+                     }, new { data_title = "Uren toevoegen: " + item.Titel })
+
+                @*@Html.ActionLink("Uren toevoegen", "Create", new { controller = "UurRegistraties", DetailId = item.Id })*@
             </td>
         </tr>
     }

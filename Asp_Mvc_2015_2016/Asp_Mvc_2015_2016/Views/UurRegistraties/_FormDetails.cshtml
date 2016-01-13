@@ -1,0 +1,45 @@
+﻿
+@using Asp_Mvc_2015_2016.ViewModels
+@model UurRegistratieViewModel
+
+<h2>Details</h2>
+<dl class="dl-horizontal">
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.FactuurDetail.Klant.NaamBedrijf)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.FactuurDetail.Klant.NaamBedrijf)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.FactuurDetail.Titel)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.FactuurDetail.Titel)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.FactuurDetail.Omschrijving)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.FactuurDetail.Omschrijving)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.StartDatum)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.StartDatum)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.EindDatum)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.EindDatum)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.TypeWerk.WerkType)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.TypeWerk.WerkType)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.Total)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.Total)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.TeFactureren)</dt>
+    <dd>@Html.DisplayFor(m => m.UurRegistratie.TeFactureren)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.UurRegistratie.Factuur)</dt>
+    <dd>@(Model.UurRegistratie.Factuur != null ? "Yes" : "No")</dd>
+
+
+</dl>
+<p>
+    @{
+        if (Model.UurRegistratie.Factuur == null)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.UurRegistratie.Id })
+            Write(" | ");
+        }
+    }
+    @Html.ActionLink("Back to Invoice details", "Details", new { controller = "FactuurDetails", id = Model.UurRegistratie.FactuurDetailId })
+</p>

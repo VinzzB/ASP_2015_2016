@@ -3,80 +3,49 @@
 @{
     ViewBag.Title = "Factuur Details";
 }
+@Html.Partial("_ModalDialog")
 
+<h4>
+    Facturatie Details
+    <small>
+        @Ajax.ActionLink(CultureResource.Edit,
+                     "Load_Form",
+               new { type = "FormEdit", id = Model.Id, returnPage = "DetailPage", controller = "FactuurDetails" },
+                     new AjaxOptions
+                     {
+                         LoadingElementId = "ModalAjaxLoading",
+                         LoadingElementDuration = 250,
+                         HttpMethod = "POST",
+                         OnSuccess = "fs.modalSuccess",
+                         OnBegin = "fs.modalBegin"
+                     }, new { data_title = "Factuurdetails Edit: " + Model.Titel })
+        @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id })*@
+    </small>
+</h4>
 
-<h4>Facturatie Details</h4>
-<p class="pull-right">@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</p>
-<div class="clearfix"></div>
-<dl class="dl-horizontal">
-    <dt>@Html.DisplayNameFor(m => m.Titel)</dt>
-    <dd>@Model.Titel</dd>
+<div id="DetailsElement">
+    @Html.Partial("_DetailsElement", Model)
+</div>
 
-    <dt>@Html.DisplayNameFor(m => m.Klant)</dt>
-    <dd>
-        @Html.ActionLink(
-            String.Format("{0} (BTW-BE: {1})", Model.Klant.NaamBedrijf, Model.Klant.Ondernemingsnr),
-            "Details",
-            new { controller = "Klant", id = Model.KlantId })
-    </dd>
-
-    <dt>@Html.DisplayNameFor(m => m.Klant.Plaats)</dt>
-    <dd>
-        @Html.DisplayTextFor(_ => Model.Klant.StraatNr),
-        (@Html.DisplayTextFor(_ => Model.Klant.Postcode))
-        @Html.DisplayTextFor(_ => Model.Klant.Plaats)
-    </dd>
-
-    <dt>@Html.DisplayNameFor(m => m.Omschrijving)</dt>
-    <dd>@Model.Omschrijving</dd>
-
-    <dt>@Html.DisplayNameFor(m => m.lijnwaarde)</dt>
-    <dd>@Model.lijnwaarde</dd>
-
-    <dt>@Html.DisplayNameFor(m => m.GefactureerdeUren)</dt>
-    <dd>@(Model.GefactureerdeUren == null ? "None" : Model.GefactureerdeUren.Count.ToString())</dd>
-
-    <dt>@Html.DisplayNameFor(m => m.NietGefactureerdeUren)</dt>
-    <dd>@(Model.NietGefactureerdeUren == null ? "None" : Model.NietGefactureerdeUren.Count.ToString())</dd>
-</dl>
-
-
-
-
-<p class="pull-right">@Html.ActionLink("Uren toevoegen", "Create", new { controller = "UurRegistraties", DetailId = Model.Id })</p>
-<h4>Niet Gefactureerde Uurregistraties</h4>
-<table class="table table-striped table-hover ">
-    <tr>
-        <th>factuurDetails</th>
-        <th>StartDatum</th>
-        <th>EindDatum</th>
-        <th>TypeWerk</th>
-        <th>Totaal</th>
-        <th>TeFactureren</th>
-        <th>Gefactureerd?</th>
-        <th></th>
-    </tr>    
-    @if (Model.uurRegistratie != null)
-    {
-        foreach (var item in Model.NietGefactureerdeUren)
-        {
-            <tr>
-                <td>@Html.DisplayTextFor(_ => item.FactuurDetail.Titel)</td>
-                <td>@Html.DisplayFor(_ => item.StartDatum)</td>
-                <td>@Html.DisplayFor(_ => item.EindDatum)</td>
-                <td>@Html.DisplayTextFor(_ => item.TypeWerk.WerkType)</td>
-                <td>@String.Format("{0:#.##}", item.Total) €</td>
-                <td>@(item.TeFactureren ? "Yes" : "No")</td>
-                <td>@(item.FactuurId != null ? "Yes" : "No")</td>
-                <td>                    
-                    @Html.ActionLink("Edit", "Edit", new { controller = "UurRegistraties", id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { controller = "UurRegistraties", id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { controller = "UurRegistraties", id = item.Id })                                               
-                </td>
-            </tr>
-        }
-    }
-</table>
+<h4>
+    Niet Gefactureerde Uurregistraties
+    <small>
+        @Ajax.ActionLink("Uren Toevoegen",
+                     "Load_Form",
+               new { type = "FormCreate", detailId = Model.Id, returnPage = "UnbilledDetailList", controller = "UurRegistraties" },
+                     new AjaxOptions
+                     {
+                         LoadingElementId = "ModalAjaxLoading",
+                         LoadingElementDuration = 250,
+                         HttpMethod = "POST",
+                         OnSuccess = "fs.modalSuccess",
+                         OnBegin = "fs.modalBegin"
+                     }, new { data_title = "Uren toevoegen: " + Model.Titel })
+    </small>
+</h4>
+<div id="UnbilledList">
+    @Html.Partial("~/Views/UurRegistraties/_UnbilledList.cshtml", Model)
+</div>
 
 <h4>Gefactureerde Uurregistraties</h4>
 <table class="table table-striped table-hover ">
@@ -99,9 +68,9 @@
                 <td>@Html.DisplayFor(_ => item.EindDatum)</td>
                 <td>@Html.DisplayTextFor(_ => item.TypeWerk.WerkType)</td>
                 <td>@String.Format("{0:#.##}", item.Total) €</td>
-                <td>@Html.ActionLink(item.Factuur.FactuurNr,"Details", new { controller = "Factuur", id = item.FactuurId })</td>
-                <td>                                        
-                    @Html.ActionLink("Details", "Details", new { controller = "UurRegistraties", id = item.Id })                    
+                <td>@Html.ActionLink(item.Factuur.FactuurNr, "Details", new { controller = "Factuur", id = item.FactuurId })</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { controller = "UurRegistraties", id = item.Id })
                 </td>
 
             </tr>

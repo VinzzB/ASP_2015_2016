@@ -109,11 +109,21 @@ namespace Asp_Mvc_2015_2016.Controllers
                 var fd = uow.FactuurDetailsRepository.GetById(viewModel.FactuurDetails.Id);
                 TryUpdateModel(fd, "FactuurDetails");
                 uow.Save();
-                if (returnPage == "UnbilledList") {
-                    return PartialView("_UnbilledList", service.NietGefactureerdeFactuurDetails());
-                } else {
-                    return RedirectToAction("Details", new { id = fd.Id });
-                }                
+                switch (returnPage)
+                {
+                    case "UnbilledList":
+                        return PartialView("_UnbilledList", service.NietGefactureerdeFactuurDetails());
+                    case "DetailPage":
+                        return PartialView("_DetailsElement", fd);
+                    default:
+                         return RedirectToAction("Details", new { id = fd.Id });;
+                }
+
+                //if (returnPage == "UnbilledList") {
+                //    return PartialView("_UnbilledList", service.NietGefactureerdeFactuurDetails());
+                //} else {
+                //    return RedirectToAction("Details", new { id = fd.Id });
+                //}                
             }
             viewModel.AvailableKlanten = service.GetGebruikerKlanten();
             return View(viewModel);
