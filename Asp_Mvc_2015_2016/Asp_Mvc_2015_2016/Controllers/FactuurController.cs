@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using Asp_Mvc_2015_2016.Models;
 using Asp_Mvc_2015_2016.ViewModels;
 using Asp_Mvc_2015_2016.DAL;
-
+using Microsoft.AspNet.Identity;
 namespace Asp_Mvc_2015_2016.Controllers
 {
     public class FactuurController : BaseController
@@ -45,9 +45,11 @@ namespace Asp_Mvc_2015_2016.Controllers
         // GET: Factuur/Create
         public ActionResult Create()
         {
+            string uid = User.Identity.GetUserId();
             CreateFactuurViewModel vm = new CreateFactuurViewModel()
-            {                
-                AvailableKlanten = unitOfWork.KlantRepository.GetAll().ToList().ConvertAll(k => new SelectListItem()
+            {            
+                Factuur = new Factuur(),
+                AvailableKlanten = unitOfWork.KlantRepository.GetKlanten(uid).ToList().ConvertAll(k => new SelectListItem()
                 {
                     Value = k.Id.ToString(),
                     Text = k.NaamBedrijf
@@ -67,16 +69,45 @@ namespace Asp_Mvc_2015_2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                //updatemodel factuur
-                Factuur f = new Factuur() { 
-                    Klant = unitOfWork.KlantRepository.GetById(int.Parse(vm.SelectedKlant))
-                };
-                TryUpdateModel(f, "factuur");
-                unitOfWork.FactuurRepository.Add(f); //(vm.factuur);
-                unitOfWork.Save();
-                TempData["Message"] = f.FactuurNr; 
-                return RedirectToAction("Index");
+
+
+                // ->> is in Create view direct toegewezen aan factuur.klantId.
+                ////updatemodel factuur
+                //Factuur f = new Factuur() { 
+                //    Klant = unitOfWork.KlantRepository.GetById(int.Parse(vm.SelectedKlant))
+                //};
+                //TryUpdateModel(f, "factuur");
+
+                //get UurRegistraties...
+                List<UurRegistratie> teFactureren = unitOfWork.UurRegistratieRepository.DbSet.Where(
+                    p => p.FactuurDetail.KlantId == vm.Factuur.KlantId 
+                        && p.TeFactureren 
+                        && p.FactuurId == null
+                        && (p.CreatedOn >= vm.FactuurVan && p.CreatedOn <= vm.FactuurTot)).ToList();
+                if (teFactureren.Count() > 0)
+                {
+                    //add to db (so we have an Id assigned to factuur)
+                    unitOfWork.FactuurRepository.Add(vm.Factuur); //(vm.factuur);
+                    vm.Factuur.Uurregistraties = new List<UurRegistratie>();
+                    //now add the registraties to the factuur.                
+                    teFactureren.ForEach(p => vm.Factuur.Uurregistraties.Add(p));
+
+                    unitOfWork.Save();
+                    //TempData["Message"] = f.FactuurNr; 
+                    return RedirectToAction("Details", new { id = vm.Factuur.Id });
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Er zijn geen registraties om te factureren in deze periode voor de opgegeven klant.");                    
+                }
             }
+
+            string uid = User.Identity.GetUserId();
+            vm.AvailableKlanten = unitOfWork.KlantRepository.GetKlanten(uid).ToList().ConvertAll(k => new SelectListItem()
+                {
+                    Value = k.Id.ToString(),
+                    Text = k.NaamBedrijf
+                });
             return View(vm);
         }
 

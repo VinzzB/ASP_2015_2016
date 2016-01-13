@@ -18,52 +18,62 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             <h3>
-                @Html.LabelFor(model => model.factuur.FactuurJaar, htmlAttributes: new { @class = "label label-primary col-md-2" })
+                @Html.LabelFor(model => model.FactuurVan, htmlAttributes: new { @class = "label label-primary col-md-2" })
             </h3>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.factuur.FactuurJaar, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.factuur.FactuurJaar, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.FactuurVan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FactuurVan, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <h3>
-                @Html.LabelFor(model => model.factuur.FactuurNr, htmlAttributes: new { @class = "label label-primary col-md-2" })
+                @Html.LabelFor(model => model.FactuurTot, htmlAttributes: new { @class = "label label-primary col-md-2" })
                 </h3>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.factuur.FactuurNr, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.factuur.FactuurNr, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.FactuurTot, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FactuurTot, "", new { @class = "text-danger" })
                 </div>
-</div>
+        </div>
 
         <div class="form-group">
             <h3>
-                @Html.LabelFor(model => model.factuur.FactuurDatum, htmlAttributes: new { @class = "label label-primary col-md-2" })
-                </h3>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.factuur.FactuurDatum, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.factuur.FactuurDatum, "", new { @class = "text-danger" })
-                </div>
-</div>
+                @Html.LabelFor(model => model.Factuur.FactuurNr, htmlAttributes: new { @class = "label label-primary col-md-2" })
+            </h3>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Factuur.FactuurNr, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Factuur.FactuurNr, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <h3>
-                @Html.LabelFor(model => model.factuur.Totaal, htmlAttributes: new { @class = "label label-primary col-md-2" })
+                @Html.LabelFor(model => model.Factuur.FactuurDatum, htmlAttributes: new { @class = "label label-primary col-md-2" })
                 </h3>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.factuur.Totaal, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.factuur.Totaal, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Factuur.FactuurDatum, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Factuur.FactuurDatum, "", new { @class = "text-danger" })
+                </div>
+        </div>
+
+        <div class="form-group">
+            <h3>
+                @Html.LabelFor(model => model.Factuur.FactuurJaar, htmlAttributes: new { @class = "label label-primary col-md-2" })
+                </h3>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Factuur.FactuurJaar, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Factuur.FactuurJaar, "", new { @class = "text-danger" })
                 </div>
 </div>
 
         <div class="clearfix"></div>
         <div class="form-group">
             <h3>
-                @Html.LabelFor(model => model.AvailableKlanten, htmlAttributes: new { @class = "label label-primary col-md-2" })
+                @Html.LabelFor(model => model.Factuur.KlantId, htmlAttributes: new { @class = "label label-primary col-md-2" })
                 </h3>
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.SelectedKlant, Model.AvailableKlanten, @CultureResource.Choose_customer, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.SelectedKlant, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(model => model.Factuur.KlantId, Model.AvailableKlanten, @CultureResource.Choose_customer, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Factuur.KlantId, "", new { @class = "text-danger" })
                 </div>
 </div>
         
@@ -93,7 +103,7 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
-                $("#SelectedKlant").change(function () {
+        $("#Factuur_KlantId").change(function () {
                     var selectedValue = $(this).val();
                     if (selectedValue != "choose customer") {
                        $.ajax({
