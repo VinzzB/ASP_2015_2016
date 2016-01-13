@@ -17,8 +17,10 @@ namespace Asp_Mvc_2015_2016.ViewModels
         public Factuur factuur { get; set; }
         public UurRegistratie uurregistratie { get; set; }
         public List<FactuurDetails> factuurDetails { get; set; }
-         [Display(Name = "Choose_customer", ResourceType = typeof(Resources.CultureResource))]
+        [Display(Name = "Choose_customer", ResourceType = typeof(Resources.CultureResource))]
         public List<SelectListItem> AvailableKlanten { get; set; }
+        [Required]
+        [Display(Name = "Choose_customer", ResourceType = typeof(Resources.CultureResource))]
         public String SelectedKlant { get; set; }
         
     }
