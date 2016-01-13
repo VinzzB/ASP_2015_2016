@@ -7,6 +7,8 @@ namespace Asp_Mvc_2015_2016.DAL.Services
     public interface IUurRegistratieService
     {
         List<SelectListItem> GetGebruikerKlanten();
+        List<SelectListItem> AllAvailableTypenWerk();
+
         List<FactuurDetails> GefactureerdeFactuurDetails();
         List<FactuurDetails> NietGefactureerdeFactuurDetails();
         FactuurDetails GetFactuurDetail(int id);

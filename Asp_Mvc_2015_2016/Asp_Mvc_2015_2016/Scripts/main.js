@@ -1,17 +1,11 @@
 ﻿var fs = {};
 
-//$.validator.addMethod('date', function (value, element) {
-//    alert("");
-//    var d = new Date();
-//    return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
-//});
+//$.validator.addMethod('decimal', function (value, element) {
+//    alert("")
+//    return this.optional(element) || false; // (value|""=="") ; // /^[0-9,]+(\.\d{0,3})?$/.test(value);
+//}, "Please enter a correct number, format xxxx.xxx");
 
 $.validator.addMethod('date', function (value, element) {
-    //var d = new Date();
-   // alert("test")
-    //alert(d.toLocaleString());
-    //alert(new Date(d.toLocaleTimeString(value)));
-    
     return this.optional(element) || (value|""=="");
 }, "Geef datum en tijd op.");
 

@@ -36,7 +36,7 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(new UurRegistratieViewModel()
             {                
                 UurRegistratie = new UurRegistratie() { FactuurDetailId = DetailId, FactuurDetail = fd},
-                AvailableTypeWerk = uow.TypeWerkRepository.GetAll().ConvertAll(p => new SelectListItem() { Value = p.Id.ToString(), Text = p.WerkType })
+                AvailableTypeWerk = service.AllAvailableTypenWerk() // uow.TypeWerkRepository.DbSet.Where(p=>p.GeldigVanaf>=DateTime.Today ).ToList().ConvertAll(p => new SelectListItem() { Value = p.Id.ToString(), Text = p.WerkType })
             });
         }
 
@@ -85,11 +85,7 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(new UurRegistratieViewModel()
             {
                 UurRegistratie = uurregistratie,
-                AvailableTypeWerk = uow.TypeWerkRepository.GetAll().ConvertAll(p => new SelectListItem()
-                {
-                    Value = p.Id.ToString(),
-                    Text = p.WerkType
-                })
+                AvailableTypeWerk = service.AllAvailableTypenWerk()
             });
         }
         
@@ -101,10 +97,7 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(new UurRegistratieViewModel()
             {
                 UurRegistratie = uurregistratie,
-                AvailableTypeWerk = uow.TypeWerkRepository.GetAll().ConvertAll(p => new SelectListItem() { 
-                    Value = p.Id.ToString(),
-                    Text = p.WerkType
-                })
+                AvailableTypeWerk = service.AllAvailableTypenWerk()
             });
         }
 
@@ -176,11 +169,7 @@ namespace Asp_Mvc_2015_2016.Controllers
                 return PartialView("_" + type, new UurRegistratieViewModel()
                 {
                     UurRegistratie = uow.UurRegistratieRepository.DbSet.SingleOrDefault(f => f.Id == id) ?? new UurRegistratie() { FactuurDetailId = detailId??-1, FactuurDetail = fd },
-                    AvailableTypeWerk = uow.TypeWerkRepository.GetAll().ConvertAll(p => new SelectListItem()
-                    {
-                        Value = p.Id.ToString(),
-                        Text = p.WerkType
-                    })
+                    AvailableTypeWerk = service.AllAvailableTypenWerk()
                 });
             }
             Response.StatusCode = 300;

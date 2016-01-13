@@ -25,6 +25,17 @@ namespace Asp_Mvc_2015_2016.DAL.Services
         //    var res = uow.FactuurDetailsRepository.DbSet.Where(p => p.uurRegistratie.Any(u => u.TeFactureren && u.FactuurId == null) && p.KlantId == klantId).ToList();
         //}
 
+        public List<SelectListItem> AllAvailableTypenWerk() {
+            return uow.TypeWerkRepository.DbSet
+                .Where(p => p.GeldigVanaf >= DateTime.Today)
+                .ToList()
+                .ConvertAll(p => new SelectListItem()
+                {
+                    Value = p.Id.ToString(),
+                    Text = p.WerkType
+                });
+        }
+
         public FactuurDetails GetFactuurDetail(int id) {
             return uow.FactuurDetailsRepository.AllIncluding(p => p.uurRegistratie).SingleOrDefault(p => p.Id == id);
         }
