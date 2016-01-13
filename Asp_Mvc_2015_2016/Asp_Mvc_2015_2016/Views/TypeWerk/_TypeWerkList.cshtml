@@ -1,0 +1,61 @@
+﻿@using Asp_Mvc_2015_2016.Models
+@model IEnumerable<TypeWerk>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>WerkType</th>
+            <th>Geldig Vanaf</th>
+            <th>Tarief Per Uur</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayTextFor(_ => item.WerkType)</td>
+                <td>@Html.DisplayFor(_ => item.GeldigVanaf)</td>
+                <td>@Html.DisplayFor(_ => item.TariefPerUur) €</td>
+                <td>
+                    @Ajax.ActionLink(CultureResource.Edit,
+                   "Load_Form",
+                      new { type = "FormCreateOrEdit", id = item.Id, createOrEdit = "Edit", controller = "TypeWerk" },
+                     new AjaxOptions
+                     {
+                         LoadingElementId = "ModalAjaxLoading",
+                         LoadingElementDuration = 250,
+                         HttpMethod = "POST",
+                         OnSuccess = "fs.modalSuccess",
+                         OnBegin = "fs.modalBegin"
+                     }, new { data_title = "Type Werk Edit: " + item.WerkType }) |
+
+                    @*@Ajax.ActionLink(CultureResource.Details,
+                     "Load_Form",
+                      new { type = "FormDetails", id = item.Id, controller = "TypeWerk" },
+                     new AjaxOptions
+                     {
+                         LoadingElementId = "ModalAjaxLoading",
+                         LoadingElementDuration = 250,
+                         HttpMethod = "POST",
+                         OnSuccess = "fs.modalSuccess",
+                         OnBegin = "fs.modalBegin"
+                     }, new { data_title = "Type Werk Details: " + item.WerkType }) |*@
+
+                    @Ajax.ActionLink(CultureResource.Delete,
+                     "Load_Form",
+                      new { type = "FormDelete", id = item.Id, controller = "TypeWerk" },
+                     new AjaxOptions
+                     {
+                         LoadingElementId = "ModalAjaxLoading",
+                         LoadingElementDuration = 250,
+                         HttpMethod = "POST",
+                         OnSuccess = "fs.modalSuccess",
+                         OnBegin = "fs.modalBegin"
+                     }, new { data_title = "Type Werk Verwijderen: " + item.WerkType })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

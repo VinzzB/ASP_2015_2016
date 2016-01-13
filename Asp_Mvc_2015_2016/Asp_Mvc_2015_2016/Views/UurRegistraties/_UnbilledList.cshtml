@@ -1,29 +1,32 @@
 ﻿@model Asp_Mvc_2015_2016.Models.FactuurDetails
 <table class="table table-striped table-hover ">
-    <tr>
-        <th>factuurDetails</th>
-        <th>StartDatum</th>
-        <th>EindDatum</th>
-        <th>TypeWerk</th>
-        <th>Totaal</th>
-        <th>TeFactureren</th>
-        <th>Gefactureerd?</th>
-        <th></th>
-    </tr>
-    @if (Model.uurRegistratie != null)
-    {
-        foreach (var item in Model.NietGefactureerdeUren)
+    <thead>
+        <tr>
+            <th>factuurDetails</th>
+            <th>StartDatum</th>
+            <th>EindDatum</th>
+            <th>TypeWerk</th>
+            <th>Totaal</th>
+            <th>TeFactureren</th>
+            <th>Gefactureerd?</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.uurRegistratie != null)
         {
-            <tr>
-                <td>@Html.DisplayTextFor(_ => item.FactuurDetail.Titel)</td>
-                <td>@Html.DisplayFor(_ => item.StartDatum)</td>
-                <td>@Html.DisplayFor(_ => item.EindDatum)</td>
-                <td>@Html.DisplayTextFor(_ => item.TypeWerk.WerkType)</td>
-                <td>@String.Format("{0:#.##}", item.Total) €</td>
-                <td>@(item.TeFactureren ? "Yes" : "No")</td>
-                <td>@(item.FactuurId != null ? "Yes" : "No")</td>
-                <td>
-                    @Ajax.ActionLink(CultureResource.Edit,
+            foreach (var item in Model.NietGefactureerdeUren)
+            {
+                <tr>
+                    <td>@Html.DisplayTextFor(_ => item.FactuurDetail.Titel)</td>
+                    <td>@Html.DisplayFor(_ => item.StartDatum)</td>
+                    <td>@Html.DisplayFor(_ => item.EindDatum)</td>
+                    <td>@Html.DisplayTextFor(_ => item.TypeWerk.WerkType)</td>
+                    <td>@String.Format("{0:#.##}", item.Total) €</td>
+                    <td>@(item.TeFactureren ? "Yes" : "No")</td>
+                    <td>@(item.FactuurId != null ? "Yes" : "No")</td>
+                    <td>
+                        @Ajax.ActionLink(CultureResource.Edit,
                      "Load_Form",
                      new { type = "FormEdit", id = item.Id, returnPage = "UnbilledDetailList", controller = "UurRegistraties" },
                      new AjaxOptions
@@ -35,8 +38,8 @@
                          OnBegin = "fs.modalBegin"
                      }, new { data_title = "Uurregistratie Edit: " + item.FactuurDetail.Titel }) |
 
-                    @*@Html.ActionLink("Edit", "Edit", new { controller = "UurRegistraties", id = item.Id })*@
-                    @Ajax.ActionLink(CultureResource.Details,
+                        @*@Html.ActionLink("Edit", "Edit", new { controller = "UurRegistraties", id = item.Id })*@
+                        @Ajax.ActionLink(CultureResource.Details,
                      "Load_Form",
                      new { type = "FormDetails", id = item.Id, returnPage = "UnbilledDetailList", controller = "UurRegistraties" },
                      new AjaxOptions
@@ -46,10 +49,10 @@
                          HttpMethod = "POST",
                          OnSuccess = "fs.modalSuccess",
                          OnBegin = "fs.modalBegin"
-                     }, new { data_title = "Uurregistratie Edit: " + item.FactuurDetail.Titel }) |
+                     }, new { data_title = "Uurregistratie Details: " + item.FactuurDetail.Titel }) |
 
-                    @*@Html.ActionLink("Details", "Details", new { controller = "UurRegistraties", id = item.Id })*@ 
-                    @Ajax.ActionLink(CultureResource.Delete,
+                        @*@Html.ActionLink("Details", "Details", new { controller = "UurRegistraties", id = item.Id })*@
+                        @Ajax.ActionLink(CultureResource.Delete,
                      "Load_Form",
                      new { type = "FormDelete", id = item.Id, detailId = item.FactuurDetailId, returnPage = "UnbilledDetailList", controller = "UurRegistraties" },
                      new AjaxOptions
@@ -62,9 +65,10 @@
                      }, new { data_title = "Uurregistratie Verwijderen: " + item.FactuurDetail.Titel })
 
 
-                    @*@Html.ActionLink("Delete", "Delete", new { controller = "UurRegistraties", id = item.Id })*@
-                </td>
-            </tr>
+                        @*@Html.ActionLink("Delete", "Delete", new { controller = "UurRegistraties", id = item.Id })*@
+                    </td>
+                </tr>
+            }
         }
-    }
+    </tbody>
 </table>

@@ -195,6 +195,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KlantController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TypeWerkController.cs" />
     <Compile Include="Controllers\UurRegistratiesController.cs" />
     <Compile Include="DAL\DepartementRepository.cs" />
     <Compile Include="DAL\FactuurDetailsRepository.cs" />
@@ -405,6 +406,11 @@
     <Content Include="Views\UurRegistraties\_FormDetails.cshtml" />
     <Content Include="Views\FactuurDetails\_DetailsElement.cshtml" />
     <Content Include="Views\UurRegistraties\_FormDelete.cshtml" />
+    <Content Include="Views\TypeWerk\_TypeWerkList.cshtml" />
+    <Content Include="Views\TypeWerk\_FormCreateOrEdit.cshtml" />
+    <Content Include="Views\TypeWerk\_FormEdit.cshtml" />
+    <Content Include="Views\TypeWerk\_FormDelete.cshtml" />
+    <Content Include="Views\TypeWerk\_TypeWerkElement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

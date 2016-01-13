@@ -6,9 +6,9 @@
     ViewBag.Title = CultureResource.Users;
 }
 
-<h2>@CultureResource.Users</h2>
-
-<p>
+<h2>
+    @CultureResource.Users
+<small>
     @*@Html.ActionLink(@CultureResource.CreateNew, "Create")*@
     @Ajax.ActionLink(CultureResource.CreateNew,
                      "Load_User_Form",
@@ -20,22 +20,33 @@
                          HttpMethod = "POST",
                          OnSuccess = "fs.modalSuccess",
                          OnBegin = "fs.modalBegin"
-                     }, new { data_title=CultureResource.User + ": " + CultureResource.CreateNew})
-</p>
-
+                     }, new { data_title = CultureResource.User + ": " + CultureResource.CreateNew })
+</small>
+</h2>
 <div id="Gebruikerslijst">
     @Html.Partial("_UsersListControl", Model.Users)
 </div>
+
+<h2>
+    Typen Werk
+    <small>
+        @*@Html.ActionLink("Create New", "Create")*@
+        @Ajax.ActionLink(CultureResource.CreateNew,
+                     "Load_Form",
+                     new { type = "FormCreateOrEdit", controller = "TypeWerk" },
+                     new AjaxOptions
+                     {
+                         LoadingElementId = "ModalAjaxLoading",
+                         LoadingElementDuration = 250,
+                         HttpMethod = "POST",
+                         OnSuccess = "fs.modalSuccess",
+                         OnBegin = "fs.modalBegin"
+                     }, new { data_title = "Type Werk: " + CultureResource.CreateNew })
+
+    </small>
+</h2>
+<div id="TypeWerkList">
+    @Html.Partial("~/Views/TypeWerk/_TypeWerkList.cshtml", Model.AllWerkTypen)
+</div>
 @Html.Partial("_ModalDialog")
-@section scripts
-{
-    <script>
-        $(function () { /* ONLOAD: nothing yet... */ })
-
-        /*
-        VB: TODO: CODE VERPLAATSEN NAAR main.js FILE ZODAT HERGEBRUIK VAN MODAL MOGELIJK IS OP ANDERE PAGINA'S.
-        */
-
-
-    </script>
-}
+@section scripts { }

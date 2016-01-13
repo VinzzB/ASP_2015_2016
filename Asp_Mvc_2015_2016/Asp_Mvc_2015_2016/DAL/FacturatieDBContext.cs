@@ -37,6 +37,16 @@ namespace Asp_Mvc_2015_2016.DAL
             modelBuilder.Entity<IdentityUserLogin>().ToTable("GebruikersLogin");
             modelBuilder.Entity<IdentityUserClaim>().ToTable("GebruikersClaim");
             modelBuilder.Entity<IdentityRole>().ToTable("Rollen");
+
+            //Verhinder het verwijderen van typen werk als er al uurregistraties aan verbonden zijn.
+            modelBuilder.Entity<UurRegistratie>().HasRequired(p => p.TypeWerk).WithMany().HasForeignKey(f => f.TypeWerkId).WillCascadeOnDelete(false); //.WithOptional(p => p.Id)
+            //Verhinder het verwijderen van Uurregistraties als er al een factuur aan verbonden is.
+            //modelBuilder.Entity<Factuur>().HasRequired(e => e.Uurregistraties).WithMany().HasForeignKey(g => g.).WillCascadeOnDelete(false);
+           // modelBuilder.Entity<UurRegistratie>().HasOptional(p => p.Factuur).WithOptionalPrincipal().WillCascadeOnDelete(false);
+            //modelBuilder.Entity<UurRegistratie>().HasOptional(p => p.Factuur).WithMany().HasForeignKey(f => f.FactuurId).WillCascadeOnDelete(false);
+           // modelBuilder.Entity<UurRegistratie>().HasOptional(p => p.Factuur).WithOptionalDependent().WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Factuur>().HasRequired(p=> p.).Map<UurRegistratie>().HasMany().WithOptional(p => p.Factuur).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<UurRegistratie>().HasOptional(p => p.TypeWerk).WithOptionalDependent().WillCascadeOnDelete(false); //.WithOptional(p => p.Id)
         }
         //VB: Used by OWIN to initialize the DbContext in the UserManager
         public static FacturatieDBContext Create()

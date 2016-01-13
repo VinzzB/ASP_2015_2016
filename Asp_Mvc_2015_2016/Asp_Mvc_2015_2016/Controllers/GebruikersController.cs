@@ -38,7 +38,9 @@ namespace Asp_Mvc_2015_2016.Controllers
         //View is now with ajax calls. See ViewModel 'GebruikersIndexViewModel'
         public ActionResult Index()
         {
-            return View(new GebruikersIndexViewModel<NewGebruiker>(service.getUsers(), service.getRoles())); //model = ajax viewmodel! 
+            return View(new GebruikersIndexViewModel<NewGebruiker>(service.getUsers(), service.getRoles()) { 
+                AllWerkTypen = uow.TypeWerkRepository.GetAll() 
+            }); //model = ajax viewmodel! 
         }
 
         //VB: added for ajax calls on Create gebruiker -> updates user list

@@ -14,6 +14,7 @@ namespace Asp_Mvc_2015_2016.ViewModels
     {
         public List<GenericUserFormViewModel<Gebruiker>> Users { get; set; }
         public GenericUserFormViewModel<NewGebruiker> User { get; set; }
+        public List<TypeWerk> AllWerkTypen { get; set; }
      //   public GenericUserFormViewModel<Gebruiker> EditUser { get; set; }
         //public String FormPatialViewName { get; private set; }
 

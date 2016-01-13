@@ -20,6 +20,8 @@ namespace Asp_Mvc_2015_2016.Models
         [Display(Name = "Total", ResourceType = typeof(Resources.CultureResource))]
         public int Totaal { get; set; }
 
+        [InverseProperty("Factuur")]
+        public virtual ICollection<UurRegistratie> Uurregistraties { get; set; }
         //public virtual ICollection<FactuurDetails> factuurdetails { get; set; }
 
         /* Virtuals from FK in base class */
