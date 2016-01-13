@@ -46,7 +46,7 @@ namespace Asp_Mvc_2015_2016.Controllers
         public ActionResult Create()
         {
             CreateFactuurViewModel vm = new CreateFactuurViewModel()
-            {                     
+            {                
                 AvailableKlanten = unitOfWork.KlantRepository.GetAll().ToList().ConvertAll(k => new SelectListItem()
                 {
                     Value = k.Id.ToString(),
@@ -81,9 +81,9 @@ namespace Asp_Mvc_2015_2016.Controllers
      
         public PartialViewResult _GetTeFacturerenForKlant(int kId)
         {
-            //ViewBag.KlantID = kId;
+            //CreateFactuurViewModel vm = new CreateFactuurViewModel(){vm.SelectedKlant = }
             //int klantId = int.Parse(kId);
-            //Klant k = unitOfWork.KlantRepository.GetById(klantId);
+            Klant k = unitOfWork.KlantRepository.GetById(kId);
             List<UurRegistratie> teFactureren = unitOfWork.UurRegistratieRepository.DbSet.Where(p => p.FactuurDetail.KlantId == kId && p.TeFactureren && p.FactuurId == null).ToList();  
             return PartialView("_GetTeFacturerenForKlant", teFactureren);
         }
