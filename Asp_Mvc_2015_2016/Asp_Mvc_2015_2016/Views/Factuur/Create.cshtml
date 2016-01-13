@@ -57,6 +57,26 @@
                 </div>
             </div>
 
+        <script type="text/javascript">
+            $("#SelectedKlant").change(function () {
+                var selectedValue = $(this).val();
+                if (selectedValue != "choose customer") {
+                   $.ajax({
+                    url: '@Url.Action("Show TeFactureren", "_GetTeFacturerenForKlant")',
+                    type: 'GET',
+                    data: {"selectedValue": selectedValue},
+                    dataType: 'html',
+                    success: function(response){
+                    $("#test").text("test");
+                    }
+                   })
+                }}
+                
+            )
+        </script>
+
+        <div id="test"></div>
+
         @Ajax.ActionLink("Show TeFactureren", "_GetTeFacturerenForKlant", new { kId = Model.SelectedKlant }, new AjaxOptions() 
             {
                 HttpMethod = "GET",

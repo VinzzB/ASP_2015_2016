@@ -81,7 +81,7 @@ namespace Asp_Mvc_2015_2016.Controllers
      
         public PartialViewResult _GetTeFacturerenForKlant(string kId)
         {
-            //ViewBag.KlantID = kId;
+            //CreateFactuurViewModel vm = new CreateFactuurViewModel(){vm.SelectedKlant = }
             int klantId = int.Parse(kId);
             Klant k = unitOfWork.KlantRepository.GetById(klantId);
             List<UurRegistratie> teFactureren = unitOfWork.UurRegistratieRepository.DbSet.Where(p => p.FactuurDetail.KlantId == klantId && p.TeFactureren && p.FactuurId == null).ToList();  
