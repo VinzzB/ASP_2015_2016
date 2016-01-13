@@ -57,10 +57,6 @@ namespace Asp_Mvc_2015_2016.Controllers
             return View(vm);
         }
 
-        //******************************************
-        //checken of klant is aangeduid: kan selectedklant mag niet null zijn**********************************************
-        //***********************************************
-
         // POST: Factuur/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
