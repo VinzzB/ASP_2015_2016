@@ -12,28 +12,27 @@
         @:class = "active";
     }
 }
-
-<!-- A bootstrap dropsown in navbar. Aligned Right -->
 @using (Html.BeginForm("SetCulture",
                         ViewContext.RouteData.Values["controller"].ToString(),
-                        new { 
+                        new
+                        {
                             returnaction = ViewContext.RouteData.Values["action"],
                             returnId = ViewContext.RouteData.Values.ContainsKey("id") ? ViewContext.RouteData.Values["id"] : null
                         },
-                        FormMethod.Post, new { id = "cultureForm" }))
+                        FormMethod.Post, new { id = "cultureForm", @class = "nav navbar-nav navbar-right" }))
 {
-    <input type="hidden" name="culture" value="@culture" id="culturevalue" />
-    <ul class="nav navbar-nav navbar-right">
+<!-- A bootstrap dropsown in navbar. Aligned Right -->
+    <ul class="nav navbar-nav">
         <li class="dropdown">
-            <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
-                @CultureResource.Language (@cultureName)
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <li id="nl" @selected("nl", culture)><a href="#">Dutch</a></li>
-                <li id="en" @selected("en", culture)><a href="#">English</a></li>
-            </ul>
+                <input type="hidden" name="culture" value="@culture" id="culturevalue" />
+                <a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">
+                    @CultureResource.Language (@cultureName)
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li id="nl" @selected("nl", culture)><a href="#">Dutch</a></li>
+                    <li id="en" @selected("en", culture)><a href="#">English</a></li>
+                </ul>           
         </li>
-
     </ul>
 }
