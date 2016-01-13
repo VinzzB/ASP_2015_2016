@@ -1,0 +1,29 @@
+﻿@using Asp_Mvc_2015_2016.Models
+@model IEnumerable<UurRegistratie>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(_ => _.FactuurDetail.Titel)</th>
+            <th>@Html.DisplayNameFor(_ => _.FactuurDetail.Omschrijving)</th>
+            <th>@Html.DisplayNameFor(_ => _.StartDatum)</th>
+            <th>@Html.DisplayNameFor(_ => _.EindDatum)</th>
+            <th>@Html.DisplayNameFor(_ => _.TypeWerk)</th>
+            <th>@Html.DisplayNameFor(_ => _.Total)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (UurRegistratie u in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(_ => u.FactuurDetail.Titel)</td>
+                <td>@Html.DisplayFor(_ => u.FactuurDetail.Omschrijving)</td>
+                <td>@Html.DisplayFor(_ => u.StartDatum)</td>
+                <td>@Html.DisplayFor(_ => u.EindDatum)</td>
+                <td>@Html.DisplayFor(_ => u.TypeWerk.WerkType)</td>
+                <td>@Html.DisplayFor(_ => u.Total)</td>
+            </tr>
+        }
+    </tbody>
+</table>

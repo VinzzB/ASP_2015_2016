@@ -35,6 +35,9 @@ namespace Asp_Mvc_2015_2016.Controllers
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             //}
             Factuur factuur = unitOfWork.FactuurRepository.GetById(id);
+           // var byDetails = factuur.Uurregistraties.GroupBy(p => p.FactuurDetail).Select(s => new { detail = s.Key, uren = s });
+
+            
             if (factuur == null)
             {
                 return HttpNotFound();

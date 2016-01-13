@@ -213,6 +213,7 @@
     <Compile Include="DAL\UurRegistratieRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\CreateFactuurViewModel.cs" />
+    <Compile Include="ViewModels\DetailsFacturatieViewModel.cs" />
     <Compile Include="ViewModels\EditKlantViewModels.cs" />
     <Compile Include="ViewModels\FactuurDetailsViewModel.cs" />
     <Compile Include="ViewModels\NewGebruiker.cs" />
@@ -411,6 +412,7 @@
     <Content Include="Views\TypeWerk\_FormEdit.cshtml" />
     <Content Include="Views\TypeWerk\_FormDelete.cshtml" />
     <Content Include="Views\TypeWerk\_TypeWerkElement.cshtml" />
+    <Content Include="Views\Factuur\_UurRegistratieTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
